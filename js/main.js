@@ -112,6 +112,7 @@
     this.queryEl = options.queryEl;
     this.resultsEl = options.resultsEl;
     this.queries = options.queries;
+    this.onBlock = options.onBlock || function () {};
     this.onBreakdown = options.onBreakdown || function () {};
     this.onWhy = options.onWhy || function () {};
     this.idx = 0;
@@ -245,6 +246,7 @@
       first = false;
       var block = this.queries[this.idx % this.queries.length];
       this.idx++;
+      this.onBlock(block);
       this.onBreakdown(block.breakdown || [], block);
       this.onWhy(block.why || "", block);
       this.clearResults();
@@ -423,8 +425,19 @@
     demo.start();
   }
 
+  function syncMemoryTopHit(block) {
+    var top = block.results && block.results[0];
+    var n = document.getElementById("memoryTopName");
+    var p = document.getElementById("memoryTopPath");
+    var m = document.getElementById("memoryTopMatch");
+    if (!top) return;
+    if (n) n.textContent = top[0];
+    if (p) p.textContent = top[1];
+    if (m) m.textContent = top[2];
+  }
+
   function initMemoryDemo() {
-    var sec = document.getElementById("live-demo");
+    var sec = document.getElementById("how-it-works");
     var qEl = document.getElementById("memoryTypeQuery");
     var rEl = document.getElementById("memoryResults");
     var pillsEl = document.getElementById("memoryPills");
@@ -435,6 +448,9 @@
       queryEl: qEl,
       resultsEl: rEl,
       queries: DEMO_QUERIES,
+      onBlock: function (block) {
+        syncMemoryTopHit(block);
+      },
       onBreakdown: function (pills) {
         if (!pillsEl) return;
         pillsEl.innerHTML = "";
@@ -464,6 +480,7 @@
             pillsEl.appendChild(span);
           });
         }
+        syncMemoryTopHit(b0);
       }
       return;
     }
@@ -487,34 +504,17 @@
     io.observe(sec);
   }
 
-  function initChaosSection() {
-    var sec = document.getElementById("chaos-found");
-    if (!sec) return;
-    var io = new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            sec.classList.add("is-visible");
-            io.unobserve(sec);
-          }
-        });
-      },
-      { threshold: 0.22 }
-    );
-    io.observe(sec);
-  }
-
   function initLooksParallax() {
-    var wrap = document.querySelector(".looks-wrap");
-    if (!wrap || reduceMotion) return;
-    var front = wrap.querySelector(".looks-shot--front");
+    var stage = document.querySelector(".showcase-stage");
+    if (!stage || reduceMotion) return;
+    var front = stage.querySelector(".showcase-window--front");
     if (!front) return;
     function update() {
-      var r = wrap.getBoundingClientRect();
+      var r = stage.getBoundingClientRect();
       var vh = window.innerHeight;
       var p = (r.top + r.height / 2 - vh / 2) / vh;
-      var offset = Math.max(-16, Math.min(16, p * 12));
-      front.style.setProperty("--parallax", offset + "px");
+      var offset = Math.max(-12, Math.min(12, p * 10));
+      front.style.setProperty("--showcase-y", offset + "px");
     }
     window.addEventListener("scroll", update, { passive: true });
     update();
@@ -533,7 +533,6 @@
     initNavDrawer();
     initRevealObserver();
     splitHeroTitle();
-    initChaosSection();
     initLooksParallax();
     if (!reduceMotion) {
       setTimeout(initHeroDemo, 50);
