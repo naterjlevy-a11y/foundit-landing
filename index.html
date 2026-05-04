@@ -4,395 +4,24 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Found It! — AI File Search for Mac</title>
-  <meta name="description" content="Found It! helps you search your Mac files with natural language, so you can find documents, notes, PDFs, screenshots, and projects even when you forgot the filename." />
+  <meta name="description" content="Found It! helps you search your Mac files with natural language, so you can find PDFs, notes, screenshots, code, homework, receipts, and old documents even when you forgot the filename." />
   <link rel="canonical" href="https://found-it.me/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://found-it.me/" />
   <meta property="og:title" content="Found It! — AI File Search for Mac" />
-  <meta property="og:description" content="Search your Mac by meaning, not filenames. Local-first, natural language, built for macOS." />
+  <meta property="og:description" content="Search your Mac the way you remember it. Local-first AI file search for macOS." />
   <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://found-it.me/assets/app-search.png" />
-  <meta property="og:image:alt" content="Found It! search window on macOS" />
+  <meta property="og:image:alt" content="Found It! search interface on macOS" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://found-it.me/assets/app-search.png" />
   <meta name="twitter:title" content="Found It! — AI File Search for Mac" />
-  <meta name="twitter:description" content="Find the file you forgot how to describe. Local-first search across file contents on your Mac." />
+  <meta name="twitter:description" content="Find the file you forgot how to describe. Natural-language search across file contents on your Mac." />
   <link rel="icon" type="image/png" href="assets/logo-reference.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-  <style>
-    :root {
-      --accent: #2563EB;
-      --accent-dim: rgba(37, 99, 235, 0.12);
-      --bg: #000000;
-      --bg-2: #0a0a0a;
-      --bg-3: #111111;
-      --border: rgba(255, 255, 255, 0.08);
-      --text: #ffffff;
-      --text-2: rgba(255, 255, 255, 0.52);
-      --text-3: rgba(255, 255, 255, 0.28);
-      --mono: ui-monospace, "SF Mono", "Fira Code", monospace;
-      --radius: 12px;
-      --nav-h: 56px;
-    }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    html { --ptr-x: 0.5; --ptr-y: 0.5; }
-    #top, #problem, #demo, #how-it-works, #features, #privacy, #founder, #roadmap, #pricing, #faq, #download { scroll-margin-top: calc(var(--nav-h) + 12px); }
-    body {
-      font-family: Inter, system-ui, -apple-system, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      overflow-x: hidden;
-      line-height: 1.5;
-    }
-    a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-    a { color: inherit; text-decoration: none; }
-    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
-    .shell { width: 100%; max-width: 1120px; margin: 0 auto; padding-left: clamp(20px, 4vw, 40px); padding-right: clamp(20px, 4vw, 40px); }
-    section, header.nav, footer { position: relative; z-index: 2; }
-
-    #scroll-progress {
-      position: fixed; top: 0; left: 0; height: 2px; width: 0%; z-index: 10001;
-      background: var(--accent); pointer-events: none;
-    }
-
-    .skip-link {
-      position: absolute; left: -9999px; top: 8px; z-index: 10002;
-      padding: 8px 16px; background: #fff; color: #000; border-radius: 6px; font-weight: 600;
-    }
-    .skip-link:focus { left: 16px; }
-
-    /* Nav */
-    .nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
-      padding: 12px clamp(20px, 4vw, 40px);
-      border-bottom: 1px solid transparent;
-      transition: background 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
-    }
-    .nav.is-scrolled {
-      background: rgba(0, 0, 0, 0.82);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
-      border-bottom-color: var(--border);
-    }
-    .nav__inner { max-width: 1120px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-    .nav__brand { display: flex; align-items: center; gap: 10px; font-weight: 600; font-size: 15px; color: #fff; flex-shrink: 0; }
-    .nav__logo { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; color: var(--accent); flex-shrink: 0; }
-    .nav__logo .brand-mark { display: block; width: 100%; height: 100%; }
-    .nav__links {
-      display: flex; gap: clamp(8px, 2vw, 20px); flex-wrap: wrap; justify-content: center;
-      position: absolute; left: 50%; transform: translateX(-50%);
-      max-width: min(560px, 72vw);
-    }
-    .nav__links a {
-      font-size: 13px; font-weight: 500; color: var(--text-3);
-      padding: 6px 2px; border-bottom: 2px solid transparent; transition: color 0.2s, border-color 0.2s;
-    }
-    .nav__links a:hover { color: #fff; }
-    .nav__links a.is-active { color: #fff; border-bottom-color: var(--accent); }
-    .nav__right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-    .nav__icon {
-      width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center; color: var(--text-2);
-      transition: background 0.2s, border-color 0.2s, color 0.2s;
-    }
-    .nav__icon:hover { color: #fff; border-color: rgba(255,255,255,0.18); background: rgba(255,255,255,0.04); }
-    .nav__icon svg { width: 18px; height: 18px; display: block; }
-    .nav__cta {
-      padding: 8px 16px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.22);
-      font-size: 13px; font-weight: 600; color: #fff; white-space: nowrap;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .nav__cta:hover { border-color: rgba(255,255,255,0.45); background: rgba(255,255,255,0.06); }
-    .nav__toggle { display: none; width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 8px; background: var(--bg-2); color: #fff; }
-    @media (max-width: 1024px) {
-      .nav__links { display: none; }
-      .nav__toggle { display: inline-flex; align-items: center; justify-content: center; }
-    }
-    .nav-drawer {
-      display: none; position: fixed; top: 56px; left: 16px; right: 16px; padding: 16px;
-      background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; z-index: 999;
-      flex-direction: column; gap: 4px;
-    }
-    .nav-drawer.is-open { display: flex; }
-    .nav-drawer a { padding: 12px 8px; font-size: 14px; color: var(--text-2); border-bottom: 1px solid rgba(255,255,255,0.06); }
-    .nav-drawer a:last-of-type { border: none; }
-
-    /* Hero */
-    .hero {
-      min-height: min(100vh, 1100px);
-      position: relative; overflow: hidden; padding-bottom: clamp(48px, 8vw, 88px);
-    }
-    .hero__bg {
-      position: absolute; inset: 0; pointer-events: none; z-index: 0;
-      background:
-        radial-gradient(ellipse 70% 45% at 50% 12%, rgba(37, 99, 235, 0.09), transparent 55%),
-        radial-gradient(ellipse 50% 40% at 85% 55%, rgba(37, 99, 235, 0.06), transparent 50%),
-        radial-gradient(ellipse 55% 35% at 15% 70%, rgba(37, 99, 235, 0.05), transparent 45%);
-      transform: translate3d(calc((var(--ptr-x) - 0.5) * 24px), calc((var(--ptr-y) - 0.5) * 18px), 0);
-    }
-    .hero-grid {
-      position: relative; z-index: 2;
-      display: grid;
-      gap: clamp(32px, 5vw, 56px);
-      padding-top: calc(var(--nav-h) + clamp(32px, 8vh, 72px));
-      align-items: center;
-    }
-    @media (min-width: 1000px) {
-      .hero-grid { grid-template-columns: 1fr 1.05fr; }
-    }
-    .hero__eyebrow {
-      font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.08em;
-      text-transform: uppercase; color: var(--accent); margin-bottom: 14px;
-    }
-    .hero__title {
-      font-size: clamp(36px, 5vw, 56px); font-weight: 800; letter-spacing: -0.035em; line-height: 1.05; color: #fff;
-      max-width: 17ch;
-    }
-    .hero__sub { margin-top: 18px; font-size: clamp(16px, 1.9vw, 18px); color: var(--text-2); max-width: 38ch; line-height: 1.55; }
-    .hero__actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-    .btn-primary {
-      display: inline-flex; align-items: center; gap: 8px; padding: 12px 22px; border-radius: 10px;
-      background: #fff; color: #000; font-size: 15px; font-weight: 600;
-      transition: transform 0.15s ease, background 0.2s;
-    }
-    .btn-primary:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
-    .btn-secondary {
-      padding: 12px 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.18);
-      font-size: 15px; font-weight: 500; color: #fff; transition: border-color 0.2s, background 0.2s;
-    }
-    .btn-secondary:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.04); }
-    .trust-row { margin-top: 22px; display: flex; flex-wrap: wrap; gap: 8px; }
-    .trust-chip {
-      font-size: 11px; font-weight: 500; color: var(--text-3);
-      padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.08); background: rgba(255,255,255,0.02);
-    }
-
-    .hero-visual { position: relative; min-height: 320px; }
-    .hero-visual__float {
-      position: absolute; z-index: 3; font-size: 11px; font-family: var(--mono);
-      color: rgba(255,255,255,0.45); padding: 8px 12px; border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.1); background: rgba(10,10,14,0.85); backdrop-filter: blur(8px);
-      max-width: 200px; line-height: 1.35; pointer-events: none;
-      animation: floatSoft 7s ease-in-out infinite;
-    }
-    .hero-visual__float:nth-child(2) { animation-delay: -2s; }
-    .hero-visual__float:nth-child(3) { animation-delay: -4s; }
-    .hero-visual__float:nth-child(4) { animation-delay: -1s; }
-    .hero-visual__float:nth-child(5) { animation-delay: -3s; }
-    @keyframes floatSoft { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
-    .hero-visual__float--1 { top: 4%; left: -2%; }
-    .hero-visual__float--2 { top: 18%; right: -4%; }
-    .hero-visual__float--3 { bottom: 28%; left: -6%; }
-    .hero-visual__float--4 { bottom: 8%; right: 8%; }
-    .hero-visual__float--5 { top: 42%; left: 8%; }
-    .hero-shots {
-      position: relative; margin-top: 8%; perspective: 1200px;
-    }
-    .hero-shot {
-      border-radius: 14px; border: 1px solid rgba(255,255,255,0.1);
-      box-shadow:
-        0 0 0 1px rgba(255,255,255,0.04),
-        0 24px 80px rgba(0,0,0,0.65),
-        0 0 120px rgba(37, 99, 235, 0.08);
-      width: 100%; height: auto; display: block;
-      background: var(--bg-2);
-    }
-    .hero-shot--back {
-      position: relative; z-index: 1; max-width: 92%; margin-left: auto; transform: rotate(-2deg);
-    }
-    .hero-shot--front {
-      position: absolute; z-index: 2; left: -4%; bottom: -8%; max-width: 88%;
-      transform: rotate(2.5deg); transform-origin: center bottom;
-    }
-    @media (max-width: 999px) {
-      .hero-shot--back, .hero-shot--front { position: relative; left: auto; bottom: auto; transform: none; max-width: 100%; margin: 0 auto; }
-      .hero-shot--front { margin-top: -12%; }
-      .hero-visual__float { display: none; }
-    }
-
-    .section-divider {
-      height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent); margin: 0;
-    }
-
-    /* Sections generic */
-    .sec { padding: clamp(72px, 10vw, 112px) 0; }
-    .sec-head {
-      text-align: center; max-width: 640px; margin: 0 auto 40px;
-    }
-    .sec-kicker { font-family: var(--mono); font-size: 12px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
-    .sec-title { font-size: clamp(28px, 4vw, 40px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; color: #fff; }
-    .sec-desc { margin-top: 12px; font-size: 17px; color: var(--text-2); line-height: 1.55; }
-
-    /* Problem */
-    .problem-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 14px;
-    }
-    .p-card {
-      background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px 22px 24px;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-    .p-card:hover { border-color: rgba(255,255,255,0.14); transform: translateY(-2px); }
-    .p-card h3 { font-size: 17px; font-weight: 600; margin-bottom: 8px; color: #fff; }
-    .p-card p { font-size: 14px; color: var(--text-2); line-height: 1.55; }
-
-    /* Demo */
-    .demo-card {
-      max-width: 720px; margin: 0 auto;
-      background: linear-gradient(165deg, rgba(18,18,22,0.95), rgba(8,8,10,0.98));
-      border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 22px 22px 18px;
-      box-shadow: 0 32px 80px rgba(0,0,0,0.5), 0 0 0 1px rgba(37,99,235,0.08);
-    }
-    .demo-search {
-      display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.1); background: rgba(0,0,0,0.45); font-family: var(--mono); font-size: 14px; color: rgba(255,255,255,0.92);
-    }
-    .demo-search svg { width: 18px; height: 18px; opacity: 0.35; flex-shrink: 0; }
-    .demo-results { margin-top: 14px; display: flex; flex-direction: column; gap: 8px; }
-    .demo-row {
-      display: flex; align-items: center; gap: 12px; padding: 10px 12px; border-radius: 10px;
-      border: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.35);
-      font-size: 13px; opacity: 0; transform: translateY(6px); transition: opacity 0.35s ease, transform 0.35s ease;
-    }
-    .demo-row.is-on { opacity: 1; transform: translateY(0); }
-    .demo-row .name { font-weight: 600; color: #fff; flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .demo-row .path { font-size: 11px; color: var(--text-3); font-family: var(--mono); flex-shrink: 0; }
-
-    /* Belief strip */
-    .belief-sec { padding: 40px 0 56px; background: #050508; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    .belief-sec p { text-align: center; font-size: clamp(18px, 2.4vw, 22px); font-weight: 600; color: rgba(255,255,255,0.55); max-width: 36ch; margin: 0 auto; line-height: 1.45; }
-
-    /* Feature grid */
-    .feat-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 14px;
-    }
-    .feat-card {
-      background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px;
-      transition: border-color 0.2s;
-    }
-    .feat-card:hover { border-color: rgba(255,255,255,0.14); }
-    .feat-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; color: #fff; }
-    .feat-card p { font-size: 14px; color: var(--text-2); line-height: 1.55; }
-
-    /* Privacy compare */
-    .compare-wrap { overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg-2); }
-    .compare { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 520px; }
-    .compare th, .compare td { padding: 14px 18px; text-align: left; border-bottom: 1px solid rgba(255,255,255,0.06); color: var(--text-2); }
-    .compare th { font-weight: 600; color: #fff; background: rgba(255,255,255,0.03); }
-    .compare tr:last-child td { border-bottom: none; }
-    .compare .ok { color: #86efac; font-weight: 600; }
-    .compare .muted { color: var(--text-3); }
-    .privacy-note { margin-top: 16px; font-size: 13px; color: var(--text-3); font-family: var(--mono); line-height: 1.5; }
-
-    /* Founder */
-    .founder-card {
-      display: grid; gap: 24px; align-items: center;
-      grid-template-columns: 1fr; max-width: 720px; margin: 0 auto;
-      background: var(--bg-2); border: 1px solid var(--border); border-radius: 16px; padding: 28px;
-    }
-    @media (min-width: 700px) {
-      .founder-card { grid-template-columns: auto 1fr; }
-    }
-    .founder-avatar {
-      width: 88px; height: 88px; border-radius: 16px; background: var(--bg-3); border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: var(--accent);
-    }
-    .founder-card h3 { font-size: 22px; font-weight: 700; color: #fff; }
-    .founder-card .role { font-size: 14px; color: var(--text-3); margin-top: 4px; }
-    .founder-card .meta-line { font-size: 13px; color: var(--text-3); margin-top: 8px; letter-spacing: 0.01em; }
-    .founder-card .bio { margin-top: 14px; font-size: 15px; color: var(--text-2); line-height: 1.65; }
-    .founder-actions { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
-    .btn-outline {
-      display: inline-flex; align-items: center; justify-content: center; padding: 10px 16px; border-radius: 8px;
-      border: 1px solid rgba(255,255,255,0.16); font-size: 13px; font-weight: 600; color: #fff;
-      transition: border-color 0.2s, background 0.2s;
-    }
-    .btn-outline:hover { border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.05); }
-
-    /* Roadmap */
-    .road-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 12px; }
-    .road-card {
-      background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 18px 20px;
-    }
-    .road-tag { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: block; }
-    .road-card h3 { font-size: 15px; font-weight: 600; color: #fff; margin-bottom: 6px; }
-    .road-card p { font-size: 13px; color: var(--text-2); line-height: 1.5; }
-
-    /* How */
-    .how-grid {
-      display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr)); gap: 14px;
-    }
-    .how-card {
-      background: var(--bg-2); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px;
-      display: flex; flex-direction: column; min-height: 100%;
-    }
-    .how-card .lab { font-family: var(--mono); font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--accent); margin-bottom: 10px; }
-    .how-card h3 { font-size: 17px; font-weight: 600; color: #fff; margin-bottom: 8px; }
-    .how-card p { font-size: 14px; color: var(--text-2); line-height: 1.55; flex: 1; }
-
-    /* Pricing */
-    .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); gap: 16px; max-width: 840px; margin: 0 auto; }
-    .price-card {
-      background: var(--bg-2); border: 1px solid var(--border); border-radius: 16px; padding: 26px 24px 28px;
-      display: flex; flex-direction: column;
-    }
-    .price-card.featured { border-color: rgba(37, 99, 235, 0.35); box-shadow: 0 0 40px rgba(37, 99, 235, 0.08); }
-    .price-card h3 { font-size: 18px; font-weight: 700; color: #fff; }
-    .price-card .price { font-size: 36px; font-weight: 800; margin: 12px 0 4px; letter-spacing: -0.02em; }
-    .price-card .note { font-size: 13px; color: var(--text-3); margin-bottom: 18px; }
-    .price-card ul { list-style: none; font-size: 14px; color: var(--text-2); flex: 1; }
-    .price-card li { padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.05); display: flex; gap: 8px; align-items: flex-start; }
-    .price-card li:last-child { border: none; }
-    .price-card li::before { content: "\2713"; color: var(--accent); font-weight: 700; flex-shrink: 0; }
-    .pricing-foot { text-align: center; margin-top: 20px; font-size: 12px; color: var(--text-3); font-family: var(--mono); }
-
-    /* FAQ */
-    .faq-list { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 10px; }
-    details.faq-item {
-      background: var(--bg-2); border: 1px solid var(--border); border-radius: 10px; padding: 0 18px;
-    }
-    details.faq-item summary {
-      cursor: pointer; font-size: 15px; font-weight: 600; color: #fff; padding: 16px 0; list-style: none;
-      display: flex; justify-content: space-between; align-items: center; gap: 12px;
-    }
-    details.faq-item summary::-webkit-details-marker { display: none; }
-    details.faq-item summary::after { content: "+"; font-weight: 400; color: var(--text-3); font-size: 18px; }
-    details.faq-item[open] summary::after { content: "\2212"; }
-    details.faq-item .ans { font-size: 14px; color: var(--text-2); padding-bottom: 16px; line-height: 1.6; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 14px; }
-
-    /* CTA */
-    .cta-sec { padding: 100px 0 120px; text-align: center; }
-    .cta-sec h2 { font-size: clamp(30px, 4vw, 48px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; max-width: 16ch; margin: 0 auto; }
-    .cta-sec p { margin-top: 14px; font-size: 17px; color: var(--text-2); max-width: 42ch; margin-left: auto; margin-right: auto; }
-
-    /* Footer */
-    footer { padding: 48px 0 56px; border-top: 1px solid var(--border); background: #020202; }
-    .footer-grid {
-      display: grid; gap: 32px;
-      grid-template-columns: 1fr; align-items: start;
-    }
-    @media (min-width: 768px) {
-      .footer-grid { grid-template-columns: 1.2fr 2fr; }
-    }
-    .footer-brand { font-size: 15px; font-weight: 600; color: #fff; display: flex; align-items: center; gap: 10px; }
-    .footer-brand .nav__logo { width: 26px; height: 26px; }
-    .footer-tag { margin-top: 10px; font-size: 13px; color: var(--text-3); max-width: 280px; line-height: 1.5; }
-    .footer-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 24px; }
-    .footer-cols h4 { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-3); margin-bottom: 12px; }
-    .footer-cols a { display: block; font-size: 13px; color: var(--text-2); padding: 4px 0; transition: color 0.2s; }
-    .footer-cols a:hover { color: #fff; }
-    .footer-bottom { margin-top: 36px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); font-size: 12px; color: var(--text-3); display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; align-items: center; }
-
-    @media (prefers-reduced-motion: reduce) {
-      .hero__bg { transform: none !important; }
-      .hero-visual__float { animation: none !important; }
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -407,14 +36,15 @@
       <nav class="nav__links" aria-label="Primary">
         <a class="nav-link" href="#features" data-nav-target="features">Features</a>
         <a class="nav-link" href="#how-it-works" data-nav-target="how-it-works">How it works</a>
-        <a class="nav-link" href="#privacy" data-nav-target="privacy">Privacy</a>
-        <a class="nav-link" href="#founder" data-nav-target="founder">Founder</a>
         <a class="nav-link" href="#pricing" data-nav-target="pricing">Pricing</a>
+        <a class="nav-link" href="#founder" data-nav-target="founder">Founder</a>
+        <a class="nav-link" href="#download" data-nav-target="download">Download</a>
       </nav>
       <div class="nav__right">
         <a class="nav__icon" href="https://github.com/naterjlevy-a11y" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.094.39-1.988 1.032-2.684-.103-.253-.448-1.27.098-2.646 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844c.85.004 1.705.116 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.393.1 2.646.645.696 1.028 1.59 1.028 2.684 0 3.848-2.338 4.693-4.566 4.923.359.309.678.919.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg></a>
         <a class="nav__icon" href="https://www.linkedin.com/in/nate-levy-b803412a9/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg></a>
-        <a class="nav__cta" href="mailto:hello@founditapp.com?subject=Found%20It%21%20Beta">Join beta</a>
+        <a class="nav__cta nav__cta--ghost" href="#pricing">See Pro</a>
+        <a class="nav__cta" href="#download">Download for Mac</a>
         <button type="button" class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">☰</button>
       </div>
     </div>
@@ -422,57 +52,84 @@
   <div class="nav-drawer" id="navDrawer">
     <a class="nav-link" href="#features" data-nav-target="features">Features</a>
     <a class="nav-link" href="#how-it-works" data-nav-target="how-it-works">How it works</a>
-    <a class="nav-link" href="#privacy" data-nav-target="privacy">Privacy</a>
-    <a class="nav-link" href="#founder" data-nav-target="founder">Founder</a>
     <a class="nav-link" href="#pricing" data-nav-target="pricing">Pricing</a>
-    <a href="mailto:hello@founditapp.com?subject=Found%20It%21%20Beta">Join beta</a>
+    <a class="nav-link" href="#founder" data-nav-target="founder">Founder</a>
+    <a class="nav-link" href="#download" data-nav-target="download">Download</a>
+    <a href="#pricing">See Pro</a>
+    <a href="#download">Download for Mac</a>
   </div>
 
   <main id="main">
     <section class="hero" id="top" aria-labelledby="hero-heading">
       <div class="hero__bg" aria-hidden="true"></div>
+      <div class="hero__noise" aria-hidden="true"></div>
       <div class="shell hero-grid">
         <div>
-          <p class="hero__eyebrow">macOS · AI file search</p>
+          <p class="hero__eyebrow">macOS &middot; AI file search</p>
           <h1 class="hero__title" id="hero-heading">Find the file you forgot how to describe.</h1>
-          <p class="hero__sub">Found It! searches the contents of your Mac files with natural language, so you can find PDFs, notes, screenshots, projects, and old documents even when the filename is useless.</p>
+          <p class="hero__sub">Found It! searches your Mac with natural language, so you can find PDFs, notes, screenshots, code, homework, receipts, and old documents even when the filename is useless.</p>
           <div class="hero__actions">
-            <a class="btn-primary" href="mailto:hello@founditapp.com?subject=Found%20It%21%20Beta">Join the beta</a>
-            <a class="btn-secondary" href="#demo">See how it works</a>
+            <a class="btn-primary" href="#download">Download for Mac</a>
+            <a class="btn-secondary" href="#pricing">See Pro</a>
+            <a class="btn-secondary" href="#live-demo" style="border-style:dashed;opacity:0.9">Start free</a>
           </div>
           <div class="trust-row" role="list">
             <span class="trust-chip" role="listitem">Local-first indexing</span>
-            <span class="trust-chip" role="listitem">Natural-language search</span>
+            <span class="trust-chip" role="listitem">AI-powered search</span>
             <span class="trust-chip" role="listitem">Built for macOS</span>
             <span class="trust-chip" role="listitem">No file uploads by default</span>
           </div>
         </div>
-        <div class="hero-visual">
-          <span class="hero-visual__float hero-visual__float--1">&ldquo;tax documents 2024&rdquo;</span>
-          <span class="hero-visual__float hero-visual__float--2">&ldquo;physics notes about circuits&rdquo;</span>
-          <span class="hero-visual__float hero-visual__float--3">&ldquo;that project proposal from last week&rdquo;</span>
-          <span class="hero-visual__float hero-visual__float--4">&ldquo;screenshots with app designs&rdquo;</span>
-          <span class="hero-visual__float hero-visual__float--5">&ldquo;old resume PDF&rdquo;</span>
-          <!-- Swap in real UI captures: assets/app-storage.png + assets/app-search.png (replace placeholders if still logo copies) -->
-          <div class="hero-shots">
-            <img
-              class="hero-shot hero-shot--back"
-              src="assets/app-storage.png"
-              alt="Found It! storage overview: Docs, Images, Code, and other categories with disk usage."
-              width="1200"
-              height="750"
-              loading="eager"
-              decoding="async"
-            />
-            <img
-              class="hero-shot hero-shot--front"
-              src="assets/app-search.png"
-              alt="Found It! search window with natural language query and file results on a dark Mac-style UI."
-              width="1200"
-              height="750"
-              loading="eager"
-              decoding="async"
-            />
+        <div class="hero-visual" aria-label="Product preview animation">
+          <div class="hero-demo-stage">
+            <div class="hero-demo-glow" aria-hidden="true"></div>
+            <div class="hero-float-pills" aria-hidden="true">
+              <span class="hero-float-pill hero-float-pill--1">&ldquo;tax documents 2024&rdquo;</span>
+              <span class="hero-float-pill hero-float-pill--2">&ldquo;physics notes about circuits&rdquo;</span>
+              <span class="hero-float-pill hero-float-pill--3">&ldquo;that proposal from last week&rdquo;</span>
+              <span class="hero-float-pill hero-float-pill--4">&ldquo;screenshots with app designs&rdquo;</span>
+              <span class="hero-float-pill hero-float-pill--5">&ldquo;old resume PDF&rdquo;</span>
+            </div>
+            <div class="hero-mini-tiles" aria-hidden="true">
+              <span class="hero-mini-tile">PDF</span>
+              <span class="hero-mini-tile">DOCX</span>
+              <span class="hero-mini-tile">PNG</span>
+              <span class="hero-mini-tile">MD</span>
+              <span class="hero-mini-tile">ZIP</span>
+            </div>
+            <div class="hero-mac-window">
+              <div class="hero-mac-titlebar">
+                <span class="hero-mac-dot hero-mac-dot--r" aria-hidden="true"></span>
+                <span class="hero-mac-dot hero-mac-dot--y" aria-hidden="true"></span>
+                <span class="hero-mac-dot hero-mac-dot--g" aria-hidden="true"></span>
+                <span class="hero-mac-title">Found It!</span>
+              </div>
+              <div class="hero-mac-body">
+                <aside class="hero-mac-sidebar" aria-label="Sidebar">
+                  <div class="hero-nav-item is-active">Search</div>
+                  <div class="hero-nav-item">Discover</div>
+                  <div class="hero-nav-item">Archive</div>
+                  <div class="hero-nav-item">Settings</div>
+                </aside>
+                <div class="hero-mac-main">
+                  <p class="hero-main-label">Natural-language search</p>
+                  <div class="hero-search-row">
+                    <div class="hero-search-input" role="textbox" aria-live="polite" aria-label="Search query being typed">
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                      <span class="hero-type-target"><span id="heroTypeQuery"></span><span class="hero-caret" aria-hidden="true"></span></span>
+                    </div>
+                    <span class="hero-pro-chip">Pro Search</span>
+                  </div>
+                  <div class="hero-stats-row" aria-hidden="true">
+                    <span><strong>1,470</strong> files indexed</span>
+                    <span><strong>614</strong> docs</span>
+                    <span><strong>558</strong> images</span>
+                    <span><strong>295</strong> code</span>
+                  </div>
+                  <div class="hero-results" id="heroResults"></div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -482,56 +139,93 @@
 
     <section class="sec" id="problem">
       <div class="shell">
-        <div class="sec-head animate-in">
+        <div class="sec-head reveal-up">
           <p class="sec-kicker">The problem</p>
           <h2 class="sec-title">Your files aren&rsquo;t lost. Your search tool is just bad.</h2>
           <p class="sec-desc">Most people remember what a file was about, not what it was called. Found It! lets you search by meaning, context, and memory instead of exact filenames.</p>
         </div>
-        <div class="problem-grid stagger-group">
-          <article class="p-card">
-            <h3>Filename search breaks</h3>
-            <p><code style="font-size:12px;color:rgba(255,255,255,0.35)">report_final_REAL_v3.pdf</code> doesn&rsquo;t tell you what&rsquo;s inside.</p>
-          </article>
-          <article class="p-card">
-            <h3>Folders become junk drawers</h3>
-            <p>Downloads, Desktop, and Documents slowly turn into chaos.</p>
-          </article>
-          <article class="p-card">
-            <h3>Memory is fuzzy</h3>
-            <p>You remember &ldquo;tax thing from last year,&rdquo; not the exact file name.</p>
-          </article>
+        <div class="problem-grid stagger">
+          <article class="p-card"><h3>Filename search breaks</h3><p><code style="font-size:12px;color:rgba(255,255,255,0.35)">report_final_REAL_v3.pdf</code> doesn&rsquo;t tell you what&rsquo;s inside.</p></article>
+          <article class="p-card"><h3>Folders become junk drawers</h3><p>Downloads, Desktop, and Documents slowly turn into chaos.</p></article>
+          <article class="p-card"><h3>Memory is fuzzy</h3><p>You remember &ldquo;tax thing from last year,&rdquo; not the exact file name.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="command-strip reveal" id="command-strip">
+      <div class="shell command-strip__inner">
+        <div class="kbd-row" aria-label="Keyboard shortcut">
+          <kbd aria-hidden="true">⌘</kbd>
+          <kbd>K</kbd>
+          <span style="color:var(--text-3);font-size:13px;margin:0 6px">then</span>
+          <span style="color:var(--text-2);font-size:14px;font-weight:500">type what you remember</span>
+        </div>
+        <p>Open the right file without excavating Finder. Found It! is built for a fast keyboard-to-file workflow.</p>
+      </div>
+    </section>
+
+    <section class="sec" id="chaos-found">
+      <div class="shell">
+        <div class="sec-head reveal-up">
+          <p class="sec-kicker">From chaos to found</p>
+          <h2 class="sec-title">Filenames lie. Your memory doesn&rsquo;t.</h2>
+          <p class="sec-desc">Stop fighting random strings. Search the way you actually think.</p>
+        </div>
+        <div class="chaos-grid">
+          <div class="chaos-col chaos-before">
+            <h3>Before</h3>
+            <div class="chaos-item">report_final_REAL_v3.pdf</div>
+            <div class="chaos-item">IMG_4829.png</div>
+            <div class="chaos-item">homework_new_new.pdf</div>
+            <div class="chaos-item">untitled copy 2.docx</div>
+          </div>
+          <div class="chaos-col chaos-after">
+            <h3>After</h3>
+            <div class="chaos-item">&ldquo;tax documents 2024&rdquo;</div>
+            <div class="chaos-item">&ldquo;math homework from last week&rdquo;</div>
+            <div class="chaos-item">&ldquo;screenshots with app designs&rdquo;</div>
+            <div class="chaos-item">&ldquo;old resume PDF&rdquo;</div>
+          </div>
         </div>
       </div>
     </section>
 
     <div class="section-divider" aria-hidden="true"></div>
 
-    <section class="sec" id="demo">
+    <section class="sec" id="live-demo">
       <div class="shell">
-        <div class="sec-head animate-in">
-          <p class="sec-kicker">Product</p>
-          <h2 class="sec-title">Search like you think.</h2>
-          <p class="sec-desc">A lightweight preview of how queries feel in Found It! &mdash; illustrative only; your Mac runs the real thing locally.</p>
+        <div class="sec-head reveal-up">
+          <p class="sec-kicker">Live search</p>
+          <h2 class="sec-title">Search like your memory works.</h2>
+          <p class="sec-desc">You remember the idea, the class, the date, or the weird detail. Found It! turns that into a real search.</p>
         </div>
-        <div class="demo-card animate-in">
-          <div class="demo-search" role="img" aria-label="Preview search box">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <span id="demoQueryText" class="demo-query">find tax documents from 2024</span><span class="caret" aria-hidden="true" style="display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:2px;vertical-align:-2px;animation:caretBlink 1s step-end infinite"></span>
+        <div class="memory-demo-card reveal-up">
+          <div class="memory-search">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <span style="flex:1;min-width:0;font-family:var(--mono,monospace)"><span id="memoryTypeQuery"></span><span class="hero-caret" aria-hidden="true"></span></span>
           </div>
-          <style>@keyframes caretBlink { 50% { opacity: 0; } }</style>
-          <div class="demo-results" id="demoResults">
-            <div class="demo-row is-on"><span class="name">Tax_Return_2024.pdf</span><span class="path">~/Documents/Finance</span></div>
-            <div class="demo-row is-on"><span class="name">Physics_Notes_Ch4.pdf</span><span class="path">~/Documents/School</span></div>
-            <div class="demo-row is-on"><span class="name">app_icon_exploration.png</span><span class="path">~/Desktop/Design</span></div>
-            <div class="demo-row is-on"><span class="name">Resume_Draft.docx</span><span class="path">~/Documents/Career</span></div>
+          <div class="memory-pills" id="memoryPills"></div>
+          <div class="memory-why" id="memoryWhyBlock">
+            <h4>Why this matched</h4>
+            <p id="memoryWhyText">Watch a query resolve into ranked files with transparent match hints.</p>
           </div>
+          <div class="memory-results" id="memoryResults"></div>
         </div>
       </div>
     </section>
 
-    <section class="belief-sec animate-in" aria-label="Positioning">
+    <section class="sec" id="query-intelligence">
       <div class="shell">
-        <p>Built for people who lose files constantly &mdash; and refuse to waste another afternoon digging through Finder.</p>
+        <div class="sec-head reveal-up">
+          <p class="sec-kicker">Query intelligence</p>
+          <h2 class="sec-title">Not just keywords. Actual intent.</h2>
+        </div>
+        <div class="intel-grid stagger">
+          <article class="intel-card"><h3>Understands fuzzy memory</h3><p>Search for &ldquo;that project proposal from last week&rdquo; without knowing the filename.</p></article>
+          <article class="intel-card"><h3>Combines constraints</h3><p>Find files that match topic, type, and time window together.</p></article>
+          <article class="intel-card"><h3>Explains results</h3><p>See why a file surfaced, not only that it matched.</p></article>
+          <article class="intel-card"><h3>Gets better with Pro</h3><p>Pro unlocks deeper AI ranking for harder searches.</p></article>
+        </div>
       </div>
     </section>
 
@@ -539,27 +233,85 @@
 
     <section class="sec" id="how-it-works">
       <div class="shell">
-        <div class="sec-head animate-in">
+        <div class="sec-head reveal-up">
           <p class="sec-kicker">How it works</p>
           <h2 class="sec-title">Up and running in minutes.</h2>
         </div>
-        <div class="how-grid stagger-group">
-          <article class="how-card">
-            <p class="lab">01 &middot; Install</p>
-            <h3>Download Found It!</h3>
-            <p>Lives in your menu bar. Quiet, always one shortcut away.</p>
+        <div class="how-grid stagger">
+          <article class="how-card"><p class="lab">01 &middot; Install</p><h3>Get Found It!</h3><p>Download the Mac app and sign in. Stripe handles Pro when you upgrade.</p></article>
+          <article class="how-card"><p class="lab">02 &middot; Index</p><h3>Index once</h3><p>First launch builds a local index in the background while you keep working.</p></article>
+          <article class="how-card"><p class="lab">03 &middot; Search</p><h3>Ask in plain English</h3><p>Describe what you need &mdash; Found It! surfaces files by content and context.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="app-areas">
+      <div class="shell">
+        <div class="sec-head reveal-up">
+          <p class="sec-kicker">Inside the app</p>
+          <h2 class="sec-title">One app for finding, browsing, and cleaning up files.</h2>
+        </div>
+        <div class="app-areas-grid stagger">
+          <article class="app-area-card">
+            <h3>Search</h3>
+            <p>Natural-language queries with ranked results.</p>
+            <div class="app-area-preview" aria-hidden="true">
+              <div class="row"><span>Find tax PDFs from 2024</span><span style="opacity:.4">↵</span></div>
+              <div class="row"><span>Tax_Return_2024.pdf</span><span>Finance</span></div>
+              <div class="row"><span>T4_2024.pdf</span><span>Finance</span></div>
+            </div>
           </article>
-          <article class="how-card">
-            <p class="lab">02 &middot; Index</p>
-            <h3>Index once</h3>
-            <p>First launch builds a local index in the background while you keep working.</p>
+          <article class="app-area-card">
+            <h3>Recent</h3>
+            <p>Jump back to what you touched last.</p>
+            <div class="app-area-preview" aria-hidden="true">
+              <div class="row"><span>Lab_Report.docx</span><span>2h ago</span></div>
+              <div class="row"><span>notes_meeting.md</span><span>yesterday</span></div>
+              <div class="row"><span>design_v3.fig</span><span>Mon</span></div>
+            </div>
           </article>
-          <article class="how-card">
-            <p class="lab">03 &middot; Search</p>
-            <h3>Ask in plain English</h3>
-            <p>Describe what you need &mdash; Found It! surfaces files by content and context.</p>
+          <article class="app-area-card">
+            <h3>Archive</h3>
+            <p>Stash and restore without losing track.</p>
+            <div class="app-area-preview" aria-hidden="true">
+              <div class="row"><span>Old_Invoice_2022.pdf</span><span>archived</span></div>
+              <div class="row"><span>Restore</span><span style="color:rgba(37,99,235,.9)">action</span></div>
+            </div>
+          </article>
+          <article class="app-area-card">
+            <h3>Browse</h3>
+            <p>Docs, images, code, storage &mdash; at a glance.</p>
+            <div class="app-area-preview" aria-hidden="true">
+              <div class="row"><span>Docs</span><span>614</span></div>
+              <div class="row"><span>Images</span><span>558</span></div>
+              <div class="row"><span>Code</span><span>295</span></div>
+            </div>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section class="sec" id="looks-simple">
+      <div class="shell">
+        <div class="sec-head reveal-up">
+          <p class="sec-kicker">Product</p>
+          <h2 class="sec-title">Looks simple. Works hard.</h2>
+          <p class="sec-desc">Dark, focused UI that stays out of your way &mdash; with Search, Discover, Settings, and usage clarity built in.</p>
+        </div>
+        <div class="looks-wrap reveal-up">
+          <img class="looks-shot looks-shot--back" src="assets/app-storage.png" alt="Found It! storage dashboard showing Docs, Images, Code, and usage sections on macOS." width="1200" height="750" loading="lazy" decoding="async" />
+          <img class="looks-shot looks-shot--front" src="assets/app-search.png" alt="Found It! search interface with natural language query and file results." width="1200" height="750" loading="lazy" decoding="async" />
+        </div>
+        <div class="looks-caption reveal-up">
+          <span><strong>Storage</strong> &mdash; see where space goes</span>
+          <span><strong>Search</strong> &mdash; query by meaning, not titles</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="belief-sec reveal" aria-label="Positioning">
+      <div class="shell">
+        <p>Built for people who lose files constantly &mdash; and want them back in one calm search.</p>
       </div>
     </section>
 
@@ -567,17 +319,17 @@
 
     <section class="sec" id="features">
       <div class="shell">
-        <div class="sec-head animate-in">
+        <div class="sec-head reveal-up">
           <p class="sec-kicker">Features</p>
           <h2 class="sec-title">Everything Spotlight should have been.</h2>
         </div>
-        <div class="feat-grid stagger-group">
+        <div class="feat-grid stagger">
           <article class="feat-card"><h3>Natural-language search</h3><p>Type what you remember. Found It! handles the rest.</p></article>
           <article class="feat-card"><h3>Content-aware results</h3><p>Search inside PDFs, docs, notes, code, and more.</p></article>
           <article class="feat-card"><h3>Local-first privacy</h3><p>Your index stays on your Mac by default.</p></article>
           <article class="feat-card"><h3>Background indexing</h3><p>New files become discoverable without babysitting the app.</p></article>
           <article class="feat-card"><h3>Storage discovery</h3><p>See what is eating space across docs, images, code, and other buckets.</p></article>
-          <article class="feat-card"><h3>Fast keyboard workflow</h3><p>Open, search, and launch files without digging through Finder.</p></article>
+          <article class="feat-card"><h3>Accessibility options</h3><p>Tune the experience for readability and motion preferences.</p></article>
         </div>
       </div>
     </section>
@@ -586,12 +338,12 @@
 
     <section class="sec" id="privacy">
       <div class="shell">
-        <div class="sec-head animate-in">
+        <div class="sec-head reveal-up">
           <p class="sec-kicker">Privacy</p>
           <h2 class="sec-title">Private by default. Useful by design.</h2>
           <p class="sec-desc">Found It! is built around local-first indexing. Your files shouldn&rsquo;t need to live on someone else&rsquo;s server just so you can find them.</p>
         </div>
-        <div class="compare-wrap animate-in">
+        <div class="compare-wrap reveal-up">
           <table class="compare">
             <thead>
               <tr><th></th><th>Found It!</th><th>Typical cloud search</th></tr>
@@ -604,7 +356,7 @@
             </tbody>
           </table>
         </div>
-        <p class="privacy-note animate-in">Cloud integrations like iCloud Drive and Google Drive are <strong>planned / optional</strong> &mdash; not required for the core Mac experience.</p>
+        <p class="privacy-note reveal-up">Optional cloud integrations like iCloud Drive or Google Drive remain <strong>planned</strong> &mdash; clearly labeled if/when they ship.</p>
       </div>
     </section>
 
@@ -612,21 +364,19 @@
 
     <section class="sec" id="founder">
       <div class="shell">
-        <div class="sec-head animate-in">
+        <div class="sec-head reveal-up">
           <p class="sec-kicker">Founder</p>
           <h2 class="sec-title">Built by Nate Levy.</h2>
         </div>
-        <div class="founder-card animate-in">
+        <div class="founder-card reveal-up">
           <div class="founder-avatar" aria-hidden="true">NL</div>
           <div>
             <h3>Nate Levy</h3>
             <p class="role">Founder, Found It!</p>
-            <p class="meta-line">Montreal · McGill Mechanical Engineering</p>
-            <p class="bio">Found It! was built by Nate Levy, a Mechanical Engineering student at McGill who got tired of losing files on his Mac. The goal is simple: make every file findable, even when you have no idea what you named it.</p>
+            <p class="bio">Found It! started with a simple frustration: files are easy to save and weirdly hard to find. Nate built Found It! to make Mac search feel more like memory.</p>
             <div class="founder-actions">
               <a class="btn-outline" href="https://www.linkedin.com/in/nate-levy-b803412a9/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
               <a class="btn-outline" href="https://github.com/naterjlevy-a11y" target="_blank" rel="noopener noreferrer">GitHub</a>
-              <a class="btn-outline" href="mailto:hello@founditapp.com">Email</a>
             </div>
           </div>
         </div>
@@ -637,17 +387,17 @@
 
     <section class="sec" id="roadmap">
       <div class="shell">
-        <div class="sec-head animate-in">
+        <div class="sec-head reveal-up">
           <p class="sec-kicker">Roadmap</p>
           <h2 class="sec-title">Where Found It! is headed.</h2>
-          <p class="sec-desc">Nothing here ships until it is ready. Labels describe intent, not promises.</p>
+          <p class="sec-desc">Exploring and planned &mdash; not shipping promises.</p>
         </div>
-        <div class="road-grid stagger-group">
-          <article class="road-card"><span class="road-tag">Planned</span><h3>iCloud Drive search</h3><p>Optional integration once privacy constraints are nailed.</p></article>
-          <article class="road-card"><span class="road-tag">Planned</span><h3>Google Drive search</h3><p>For people who live in Drive but still want local-grade recall.</p></article>
-          <article class="road-card"><span class="road-tag">Exploring</span><h3>iOS companion</h3><p>Quick lookups when you are away from your Mac.</p></article>
-          <article class="road-card"><span class="road-tag">Exploring</span><h3>Team workspaces</h3><p>Shared indexes for small teams &mdash; heavy lift, carefully scoped.</p></article>
-          <article class="road-card"><span class="road-tag">Exploring</span><h3>API access</h3><p>For automation-minded power users.</p></article>
+        <div class="road-grid stagger">
+          <article class="road-card"><span class="road-tag">Planned</span><h3>iCloud Drive search</h3><p>Optional integration with clear consent.</p></article>
+          <article class="road-card"><span class="road-tag">Planned</span><h3>Google Drive search</h3><p>For Drive-heavy workflows.</p></article>
+          <article class="road-card"><span class="road-tag">Exploring</span><h3>iOS companion</h3><p>Quick lookups away from your Mac.</p></article>
+          <article class="road-card"><span class="road-tag">Exploring</span><h3>Team workspaces</h3><p>Shared indexes for small teams.</p></article>
+          <article class="road-card"><span class="road-tag">Exploring</span><h3>API access</h3><p>Automation for power users.</p></article>
         </div>
       </div>
     </section>
@@ -656,38 +406,41 @@
 
     <section class="sec" id="pricing">
       <div class="shell">
-        <div class="sec-head animate-in">
+        <div class="sec-head reveal-up">
           <p class="sec-kicker">Pricing</p>
-          <h2 class="sec-title">Start free. Upgrade when you need more.</h2>
-          <p class="sec-desc">Beta today &mdash; billing arrives when Pro is ready. No checkout yet.</p>
+          <h2 class="sec-title">Start free. Go Pro when you want unlimited search.</h2>
+          <p class="sec-desc">Free tier to try the workflow. Pro is <strong>$8/month</strong> for unlimited deep search.</p>
         </div>
-        <div class="pricing-grid stagger-group">
+        <div class="pricing-grid stagger">
           <article class="price-card">
             <h3>Free</h3>
             <div class="price">$0</div>
-            <p class="note">Try the core experience.</p>
+            <p class="note">Generous daily limit to learn the app.</p>
             <ul>
-              <li>Limited daily searches (beta)</li>
-              <li>Local indexing</li>
-              <li>Core content search</li>
-              <li>Great for seeing if Found It! fits your workflow</li>
+              <li>3 searches per day</li>
+              <li>Local-first indexing</li>
+              <li>Basic AI file matching</li>
+              <li>Recent and browse views</li>
             </ul>
-            <a class="btn-primary" style="margin-top:20px;text-align:center;width:100%;justify-content:center" href="mailto:hello@founditapp.com?subject=Found%20It%21%20Beta">Join beta</a>
+            <a class="btn-primary" style="margin-top:20px;text-align:center;width:100%;justify-content:center" href="#download">Download free</a>
           </article>
           <article class="price-card featured">
+            <span class="price-badge">Best value</span>
             <h3>Pro</h3>
-            <div class="price">&mdash;</div>
-            <p class="note">Coming when Pro launches.</p>
+            <div class="price">$8<span style="font-size:18px;font-weight:600;color:var(--text-3)">/mo</span></div>
+            <p class="note">Unlimited AI search &amp; faster indexing.</p>
             <ul>
               <li>Unlimited searches</li>
+              <li>Deep AI search</li>
+              <li>Smarter ranking</li>
+              <li>Advanced suggested searches</li>
               <li>Faster indexing</li>
-              <li>Early features</li>
               <li>Priority updates</li>
             </ul>
-            <a class="btn-secondary" style="margin-top:20px;text-align:center;width:100%;justify-content:center;display:flex;border-radius:10px;padding:12px" href="mailto:hello@founditapp.com?subject=Notify%20me%20when%20Pro%20launches">Get notified when Pro launches</a>
+            <a class="btn-primary" style="margin-top:20px;text-align:center;width:100%;justify-content:center" data-pro-link href="#">Upgrade to Pro</a>
           </article>
         </div>
-        <p class="pricing-foot animate-in">Payments will be handled securely (e.g. Stripe) when billing goes live &mdash; no charges until then.</p>
+        <p class="pricing-foot reveal-up">Checkout is powered by Stripe. You manage billing and receipts in-app.</p>
       </div>
     </section>
 
@@ -695,29 +448,32 @@
 
     <section class="sec" id="faq">
       <div class="shell">
-        <div class="sec-head animate-in">
+        <div class="sec-head reveal-up">
           <p class="sec-kicker">FAQ</p>
           <h2 class="sec-title">Straight answers.</h2>
         </div>
         <div class="faq-list">
-          <details class="faq-item animate-in"><summary>Does Found It! upload my files?</summary><div class="ans">No. The product is built around local-first indexing &mdash; your file contents are not uploaded to our servers for basic search. Optional cloud features, if added later, will be clearly labeled and opt-in.</div></details>
-          <details class="faq-item animate-in"><summary>What file types does it support?</summary><div class="ans">Found It! is designed for the messy reality of a Mac: PDFs, Office documents, notes, markdown, images with text, code, and more. Exact coverage evolves with each release.</div></details>
-          <details class="faq-item animate-in"><summary>Is this better than Spotlight?</summary><div class="ans">Spotlight is filename-first for many workflows. Found It! focuses on meaning and contents &mdash; closer to how you actually remember files.</div></details>
-          <details class="faq-item animate-in"><summary>Does it work with Google Drive or iCloud?</summary><div class="ans">Core focus is local disk today. Cloud providers are on the roadmap as optional integrations &mdash; not implied in the shipping beta unless stated in-app.</div></details>
-          <details class="faq-item animate-in"><summary>What happens after the free-search limit?</summary><div class="ans">During beta, limits may change. When Pro exists, upgrades will unlock higher limits &mdash; communicated clearly in the app.</div></details>
-          <details class="faq-item animate-in"><summary>Is Found It! available for Windows?</summary><div class="ans">No. macOS only for now.</div></details>
-          <details class="faq-item animate-in"><summary>How do I delete my index?</summary><div class="ans">You will be able to reset or delete the local index from Settings inside the app. Exact controls ship with the beta builds.</div></details>
+          <details class="faq-item reveal-up"><summary>Does Found It! upload my files?</summary><div class="ans">No. Core search is built around local-first indexing &mdash; file contents are not uploaded to our servers for basic search. Optional features will be clearly labeled.</div></details>
+          <details class="faq-item reveal-up"><summary>What file types does it support?</summary><div class="ans">PDFs, Office documents, notes, markdown, images with text, code, and more &mdash; the messy reality of a Mac disk.</div></details>
+          <details class="faq-item reveal-up"><summary>Is this better than Spotlight?</summary><div class="ans">Spotlight is filename-first for many workflows. Found It! focuses on meaning and contents &mdash; closer to how you remember files.</div></details>
+          <details class="faq-item reveal-up"><summary>Does it work with Google Drive or iCloud?</summary><div class="ans">Today the focus is local disk. Cloud providers are on the roadmap as optional integrations when privacy constraints are met.</div></details>
+          <details class="faq-item reveal-up"><summary>What happens after the free-search limit?</summary><div class="ans">You hit the daily cap until it resets, or upgrade to Pro for unlimited searches.</div></details>
+          <details class="faq-item reveal-up"><summary>Is Found It! available for Windows?</summary><div class="ans">No. macOS only.</div></details>
+          <details class="faq-item reveal-up"><summary>How do I delete my index?</summary><div class="ans">Reset or delete the local index from Settings inside the app.</div></details>
         </div>
       </div>
     </section>
 
     <section class="cta-sec" id="download">
-      <div class="shell animate-in">
+      <div class="shell reveal-up">
         <h2>Stop losing files you already have.</h2>
-        <p>Join the Found It! beta and make your Mac searchable by memory, not filenames.</p>
-        <div style="margin-top:24px">
-          <a class="btn-primary" href="mailto:hello@founditapp.com?subject=Found%20It%21%20Beta">Join beta</a>
+        <p>Download Found It! for Mac and make search feel like memory &mdash; not filenames.</p>
+        <div style="margin-top:24px;display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-items:center">
+          <a class="btn-primary" href="mailto:hello@founditapp.com?subject=Download%20Found%20It%20for%20Mac">Get Found It!</a>
+          <a class="btn-secondary" href="#pricing">Upgrade to Pro</a>
+          <a class="btn-secondary" href="contact.html">Contact</a>
         </div>
+        <p style="margin-top:16px;font-size:13px;color:var(--text-3);max-width:46ch;margin-left:auto;margin-right:auto">Prefer a direct download link? Email works while we rotate builds &mdash; same inbox as support.</p>
       </div>
     </section>
   </main>
@@ -730,17 +486,22 @@
             <span class="nav__logo" aria-hidden="true"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="24" height="24"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
             Found It!
           </div>
-          <p class="footer-tag">Natural-language search across your Mac &mdash; contents, not just filenames.</p>
+          <p class="footer-tag">AI file search for macOS.</p>
         </div>
         <div class="footer-cols">
           <div>
             <h4>Product</h4>
-            <a href="#features">Features</a>
-            <a href="#how-it-works">How it works</a>
-            <a href="#privacy">Privacy</a>
-            <a href="#founder">Founder</a>
+            <a href="#download">Download</a>
             <a href="#pricing">Pricing</a>
+            <a href="#features">Features</a>
             <a href="about.html">About</a>
+          </div>
+          <div>
+            <h4>Legal</h4>
+            <a href="privacy.html">Privacy</a>
+            <a href="terms.html">Terms</a>
+            <a href="cookies.html">Cookies</a>
+            <a href="refunds.html">Refunds</a>
           </div>
           <div>
             <h4>Connect</h4>
@@ -748,129 +509,15 @@
             <a href="https://github.com/naterjlevy-a11y" target="_blank" rel="noopener noreferrer">GitHub</a>
             <a href="https://www.linkedin.com/in/nate-levy-b803412a9/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           </div>
-          <div>
-            <h4>Legal</h4>
-            <a href="privacy.html">Privacy Policy</a>
-            <a href="terms.html">Terms</a>
-            <a href="cookies.html">Cookies</a>
-            <a href="refunds.html">Refunds</a>
-          </div>
         </div>
       </div>
       <div class="shell footer-bottom">
         <span>&copy; 2026 Found It!</span>
-        <span>Built for macOS · Local-first by default</span>
+        <span>macOS &middot; Local-first by default</span>
       </div>
     </div>
   </footer>
 
-  <script>
-    (function () {
-      "use strict";
-      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      if (!reduce) {
-        var px = 0.5, py = 0.5, cx = 0.5, cy = 0.5;
-        document.addEventListener("mousemove", function (e) {
-          px = e.clientX / window.innerWidth;
-          py = e.clientY / window.innerHeight;
-        }, { passive: true });
-        function tick() {
-          cx += (px - cx) * 0.06;
-          cy += (py - cy) * 0.06;
-          document.documentElement.style.setProperty("--ptr-x", cx);
-          document.documentElement.style.setProperty("--ptr-y", cy);
-          requestAnimationFrame(tick);
-        }
-        requestAnimationFrame(tick);
-      }
-    })();
-  </script>
-  <script>
-    (function () {
-      "use strict";
-      if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
-      gsap.registerPlugin(ScrollTrigger);
-
-      var bar = document.getElementById("scroll-progress");
-      function onScroll() {
-        var h = document.documentElement.scrollHeight - window.innerHeight;
-        var pct = h > 0 ? (window.scrollY / h) * 100 : 0;
-        if (bar) bar.style.width = Math.min(pct, 100) + "%";
-        var nav = document.getElementById("nav");
-        if (nav) nav.classList.toggle("is-scrolled", window.scrollY > 40);
-        updateNav();
-      }
-      window.addEventListener("scroll", onScroll, { passive: true });
-      window.addEventListener("resize", onScroll);
-      onScroll();
-
-      function updateNav() {
-        var ids = ["features", "how-it-works", "privacy", "founder", "pricing"];
-        var y = window.innerHeight * 0.35;
-        var best = null, bestScore = -1e9;
-        ids.forEach(function (id) {
-          var el = document.getElementById(id);
-          if (!el) return;
-          var r = el.getBoundingClientRect();
-          if (r.bottom < 80 || r.top > window.innerHeight) return;
-          var mid = (r.top + r.bottom) / 2;
-          var dist = Math.abs(mid - y);
-          var score = -dist + (r.top <= y && r.bottom >= y + 40 ? 200 : 0);
-          if (score > bestScore) { bestScore = score; best = id; }
-        });
-        document.querySelectorAll("a.nav-link[data-nav-target]").forEach(function (a) {
-          a.classList.toggle("is-active", a.getAttribute("data-nav-target") === best);
-        });
-      }
-
-      var nt = document.getElementById("navToggle"), nd = document.getElementById("navDrawer");
-      if (nt && nd) {
-        nt.addEventListener("click", function () {
-          var open = nd.classList.toggle("is-open");
-          nt.setAttribute("aria-expanded", open ? "true" : "false");
-        });
-      }
-
-      gsap.utils.toArray(".animate-in").forEach(function (el) {
-        gsap.from(el, {
-          opacity: 0, y: 22, duration: 0.5, ease: "power2.out",
-          scrollTrigger: { trigger: el, start: "top 90%", once: true },
-        });
-      });
-      gsap.utils.toArray(".stagger-group").forEach(function (group) {
-        var kids = gsap.utils.toArray(group.children);
-        if (!kids.length) return;
-        gsap.from(kids, {
-          opacity: 0, y: 16, duration: 0.42, stagger: 0.07, ease: "power2.out",
-          scrollTrigger: { trigger: group, start: "top 88%", once: true },
-        });
-      });
-    })();
-  </script>
-  <script>
-    (function () {
-      "use strict";
-      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      var el = document.getElementById("demoQueryText");
-      if (!el || reduce) return;
-      var phrases = [
-        "find tax documents from 2024",
-        "show me notes about thermodynamics",
-        "find the screenshot with the blue app icon",
-        "where is my resume draft?",
-      ];
-      var i = 0;
-      function cycle() {
-        i = (i + 1) % phrases.length;
-        el.style.opacity = "0";
-        setTimeout(function () {
-          el.textContent = phrases[i];
-          el.style.opacity = "1";
-        }, 220);
-      }
-      el.style.transition = "opacity 0.22s ease";
-      setInterval(cycle, 4200);
-    })();
-  </script>
+  <script src="js/main.js" defer></script>
 </body>
 </html>
