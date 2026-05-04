@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact — Found It!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    :root { --accent: #2563EB; --bg: #000; --border: rgba(255,255,255,0.08); --mono: "SF Mono", "Fira Code", ui-monospace, monospace; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: rgba(255,255,255,0.65); -webkit-font-smoothing: antialiased; line-height: 1.75; }
+    a { color: var(--accent); font-weight: 500; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .nav {
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 16px 10vw; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+    }
+    .nav__brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: #fff; }
+    .nav__logo {
+      width: 28px; height: 28px;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      color: var(--accent);
+    }
+    .nav__logo .brand-mark { display: block; width: 100%; height: 100%; }
+    .nav__links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .nav__links a { color: rgba(255,255,255,0.45); font-size: 14px; font-weight: 500; }
+    .nav__links a:hover { color: #fff; text-decoration: none; }
+    .nav__cta {
+      padding: 8px 20px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2);
+      font-size: 14px; font-weight: 500; color: #fff;
+    }
+    .nav__cta:hover { border-color: rgba(255,255,255,0.5); text-decoration: none; }
+    main { max-width: 680px; margin: 0 auto; padding: 56px 24px 100px; }
+    h1 { font-size: 36px; font-weight: 800; color: #fff; margin-bottom: 20px; letter-spacing: -0.02em; }
+    p { font-size: 16px; margin-bottom: 16px; }
+    footer {
+      border-top: 1px solid var(--border); padding: 32px 10vw;
+      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px;
+      font-size: 13px; color: rgba(255,255,255,0.25);
+    }
+    .footer__links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer__links a { color: rgba(255,255,255,0.35); font-weight: 500; }
+    .footer__links a:hover { color: rgba(255,255,255,0.7); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="nav__brand" href="index.html"><span class="nav__logo" aria-hidden="true"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="28" height="28" aria-hidden="true"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Found It!</a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="about.html">About</a>
+    </nav>
+    <a class="nav__cta" href="index.html#cta">Download</a>
+  </header>
+  <main>
+    <h1>Contact</h1>
+    <p>
+      Product questions, partnerships, or press:
+      <a href="mailto:hello@founditapp.com">hello@founditapp.com</a>
+    </p>
+    <p>
+      Privacy requests:
+      <a href="mailto:privacy@founditapp.com">privacy@founditapp.com</a>
+    </p>
+    <p style="font-family:var(--mono);font-size:13px;color:rgba(255,255,255,0.35)">Include “Found It!” in the subject line.</p>
+  </main>
+  <footer>
+    <span>© 2026 Found It!</span>
+    <div class="footer__links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="cookies.html">Cookies</a>
+      <a href="refunds.html">Refunds</a>
+      <a href="about.html">About</a>
+    </div>
+  </footer>
+</body>
+</html>

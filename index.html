@@ -1,0 +1,2175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Found It! — Your shortcut to your files</title>
+  <meta name="description" content="AI-powered search for every file on your Mac. Natural language. Private." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/TextPlugin.min.js"></script>
+  <style>
+    :root {
+      --accent: #2563EB;
+      --accent-glow: rgba(37, 99, 235, 0.15);
+      --bg: #000000;
+      --bg-2: #0A0A0A;
+      --bg-3: #111111;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-hover: rgba(255, 255, 255, 0.15);
+      --text: #FFFFFF;
+      --text-2: rgba(255, 255, 255, 0.5);
+      --text-3: rgba(255, 255, 255, 0.25);
+      --mono: "SF Mono", "Fira Code", ui-monospace, monospace;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    #app-demo, #product-video, #features, #pricing, #how, #cta { scroll-margin-top: 72px; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    section,
+    header.nav,
+    footer {
+      position: relative;
+      z-index: 2;
+    }
+    .shell {
+      width: 100%;
+      max-width: 1160px;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: clamp(20px, 4vw, 48px);
+      padding-right: clamp(20px, 4vw, 48px);
+    }
+    .section-intro {
+      text-align: center;
+      max-width: 640px;
+      margin-left: auto;
+      margin-right: auto;
+      margin-bottom: 8px;
+    }
+    .section-intro .sec-label { margin-bottom: 12px; }
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      width: 0%;
+      z-index: 9999;
+      background: #2563eb;
+      pointer-events: none;
+      transition: width 0.1s linear;
+    }
+
+    .section-divider {
+      width: 100%;
+      height: 1px;
+      margin: 0;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(255, 255, 255, 0.08) 20%,
+        rgba(255, 255, 255, 0.08) 80%,
+        transparent
+      );
+      pointer-events: none;
+    }
+
+    html {
+      --ptr-x: 0.5;
+      --ptr-y: 0.5;
+    }
+
+    /* Nav */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      padding: 16px clamp(20px, 4vw, 48px);
+      background: transparent;
+      border-bottom: 1px solid transparent;
+      transition: background 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
+    }
+    .nav__inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: relative;
+    }
+    .nav.is-scrolled {
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom-color: var(--border);
+    }
+    .nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .nav__logo {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+    .nav__logo .brand-mark {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .nav__links {
+      display: flex;
+      gap: 22px;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .nav__links a {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.5);
+      padding-bottom: 4px;
+      transition: color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .nav__links a:hover { color: #fff; }
+    .nav__links a.is-active {
+      color: #fff;
+      box-shadow: 0 2px 0 0 var(--accent);
+    }
+    .nav__cta {
+      padding: 8px 20px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+      background: transparent;
+    }
+    .nav__cta:hover { border-color: rgba(255, 255, 255, 0.5); }
+    .nav__toggle { display: none; width: 40px; height: 40px; border: 1px solid var(--border); border-radius: 6px; background: var(--bg-2); color: #fff; }
+    @media (max-width: 900px) {
+      .nav__links { display: none; }
+      .nav__toggle { display: flex; align-items: center; justify-content: center; }
+    }
+    .nav-drawer {
+      display: none;
+      position: fixed;
+      top: 56px;
+      left: 16px;
+      right: 16px;
+      padding: 16px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      z-index: 999;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .nav-drawer.is-open { display: flex; }
+    .nav-drawer a { font-size: 14px; color: var(--text-2); padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .nav-drawer a:last-child { border: none; }
+    .nav-drawer a.nav-link.is-active {
+      color: #fff;
+    }
+
+    /* Hero */
+    .hero {
+      min-height: 100vh;
+      position: relative;
+      background: #000;
+      overflow: hidden;
+      display: block;
+      padding: 0 0 80px;
+    }
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(ellipse 80% 50% at 50% 18%, rgba(37, 99, 235, 0.05), transparent 55%),
+        radial-gradient(ellipse 55% 45% at 82% 42%, rgba(37, 99, 235, 0.055), transparent 52%),
+        radial-gradient(ellipse 60% 40% at 50% 100%, rgba(37, 99, 235, 0.03), transparent 50%);
+      z-index: 0;
+      transform: translate3d(
+        calc((var(--ptr-x) - 0.5) * 28px),
+        calc((var(--ptr-y) - 0.5) * 22px),
+        0
+      );
+      will-change: transform;
+    }
+    .hero-shapes {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 1;
+      transform: translate3d(
+        calc((var(--ptr-x) - 0.5) * -18px),
+        calc((var(--ptr-y) - 0.5) * -14px),
+        0
+      );
+      will-change: transform;
+    }
+    .hero-shapes::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 6;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+      mix-blend-mode: overlay;
+      pointer-events: none;
+    }
+    .hero-shape {
+      position: absolute;
+      border-radius: 50%;
+      transform: rotate(30deg) scaleY(2.5);
+    }
+    .hero-shape--1 {
+      width: 500px;
+      height: 220px;
+      background: linear-gradient(to right, #020b1a, #0d2151, #0a2a5e);
+      top: -60px;
+      right: -80px;
+      opacity: 0.9;
+    }
+    .hero-shape--2 {
+      width: 380px;
+      height: 160px;
+      background: linear-gradient(to right, #061529, #1a3a6b, #2563eb);
+      top: 60px;
+      right: 40px;
+      opacity: 0.8;
+    }
+    .hero-shape--3 {
+      width: 280px;
+      height: 120px;
+      background: linear-gradient(to right, #0d2151, #2563eb, #3b82f6);
+      top: 160px;
+      right: -20px;
+      opacity: 0.7;
+    }
+    .hero-shape--4 {
+      width: 320px;
+      height: 100px;
+      background: linear-gradient(to right, #020b1a, #061529, #0d2151);
+      top: 240px;
+      right: 80px;
+      opacity: 0.6;
+    }
+    .hero-shape--5 {
+      width: 200px;
+      height: 80px;
+      background: linear-gradient(to right, #000, #061529);
+      top: 320px;
+      right: -40px;
+      opacity: 0.5;
+    }
+    .hero .shell {
+      position: relative;
+      z-index: 2;
+      max-width: 1160px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: clamp(20px, 4vw, 48px);
+      padding-right: clamp(20px, 4vw, 48px);
+    }
+    .hero-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: clamp(28px, 4vw, 48px);
+      align-items: start;
+      padding-top: clamp(88px, 14vh, 132px);
+      padding-bottom: 8px;
+    }
+    @media (min-width: 1000px) {
+      .hero-layout {
+        grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.95fr);
+        align-items: center;
+        gap: clamp(24px, 4vw, 48px);
+      }
+    }
+    .hero-col {
+      position: relative;
+      z-index: 2;
+      min-width: 0;
+    }
+    @media (min-width: 1000px) {
+      .hero-col--mock {
+        align-self: center;
+      }
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+      padding-left: 0;
+      padding-top: 0;
+      text-align: left;
+    }
+    @media (max-width: 999px) {
+      .hero-content {
+        max-width: 560px;
+        margin-left: 0;
+        margin-right: auto;
+        padding-left: clamp(8px, 4vw, 24px);
+      }
+    }
+    .hero__title {
+      font-size: clamp(56px, 7vw, 88px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -3px;
+      color: #fff;
+      max-width: 900px;
+      margin-left: 0;
+      margin-right: 0;
+      text-align: left;
+    }
+    .hero__title .hero-line { display: block; }
+    .hero-word { display: inline-block; margin-right: 0.12em; }
+    .hero__title .hero-line:last-child .hero-word:last-child { margin-right: 0; }
+    .hero__sub {
+      margin-top: 20px;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text-2);
+      max-width: 460px;
+      margin-left: 0;
+      margin-right: 0;
+      text-align: left;
+    }
+    .hero__btns {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 36px;
+      justify-content: flex-start;
+    }
+    .btn-mac {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .btn-mac:hover { background: rgba(255, 255, 255, 0.85); }
+    .btn-mac svg { width: 16px; height: 16px; }
+    .btn-ghost {
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-size: 15px;
+      font-weight: 500;
+      background: transparent;
+    }
+    .btn-ghost:hover { border-color: rgba(255, 255, 255, 0.4); }
+    .hero__meta {
+      margin-top: 16px;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: var(--text-3);
+      text-align: left;
+    }
+    .hero-mock-wrap {
+      margin-top: 40px;
+      width: min(560px, 92vw);
+      margin-left: auto;
+      margin-right: auto;
+      position: relative;
+    }
+    @media (min-width: 1000px) {
+      .hero-mock-wrap {
+        margin-top: 0;
+        width: 100%;
+        max-width: 500px;
+        margin-left: auto;
+        margin-right: 0;
+      }
+    }
+    .hero-mock-float {
+      animation: mockFloat 4s ease-in-out infinite;
+      will-change: transform;
+    }
+    @keyframes mockFloat {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+    .mockup-window {
+      background: #0a0a0a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.04),
+        0 30px 80px rgba(0, 0, 0, 0.8),
+        0 0 100px rgba(37, 99, 235, 0.08);
+      text-align: left;
+    }
+    .mockup-window__header {
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      background: #000;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    }
+    .mockup-window__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mockup-window__icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+    .mockup-window__icon .brand-mark {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+    .mockup-window__title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .mockup-window__gear {
+      padding: 8px;
+      color: rgba(255, 255, 255, 0.25);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+    }
+    .mockup-window__gear:hover {
+      color: rgba(255, 255, 255, 0.45);
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .mockup-window__gear svg {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+    .mockup-window__stats {
+      height: 30px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      color: rgba(255, 255, 255, 0.28);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .mockup-window__search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      height: 42px;
+      margin: 10px 14px;
+      padding: 0 12px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      border-radius: 10px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.92);
+      font-family: var(--mono);
+    }
+    .mockup-window__search-icon {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      opacity: 0.35;
+    }
+    .mockup-window__search .caret {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      margin-left: 2px;
+      background: var(--accent);
+      animation: caretBlink 1s step-end infinite;
+      vertical-align: -0.15em;
+    }
+    @keyframes caretBlink {
+      50% { opacity: 0; }
+    }
+    .mockup-window__results {
+      padding: 4px 0 6px;
+    }
+    .mock-result-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 44px;
+      padding: 8px 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .mock-result-row:last-child {
+      border-bottom: none;
+    }
+    .mock-file-thumb {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 2px 8px rgba(0, 0, 0, 0.35);
+    }
+    .mock-file-thumb svg {
+      width: 30px;
+      height: 30px;
+      display: block;
+      border-radius: 7px;
+    }
+    .mock-result-text {
+      min-width: 0;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .mock-file-name {
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: #fff;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.25;
+    }
+    .mock-file-path {
+      font-size: 10px;
+      font-weight: 500;
+      font-family: var(--mono);
+      letter-spacing: 0.03em;
+      color: rgba(255, 255, 255, 0.28);
+      line-height: 1.3;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* Legacy panel search (desktop demo / viz) */
+    .product-panel {
+      text-align: left;
+      background: rgba(18, 18, 22, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 18px;
+      box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.12), 0 24px 80px rgba(0, 0, 0, 0.45);
+      position: relative;
+      overflow: hidden;
+    }
+    .product-panel::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(37, 99, 235, 0.45), transparent);
+      opacity: 0.6;
+      animation: hairlinePulse 4s ease-in-out infinite;
+    }
+    @keyframes hairlinePulse {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 0.85; }
+    }
+    .product-panel__search {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 11px 14px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 8px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.92);
+      font-family: var(--mono);
+    }
+    .product-panel__search .caret {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      margin-left: 1px;
+      background: var(--accent);
+      animation: caretBlink 1s step-end infinite;
+      vertical-align: -0.15em;
+    }
+    .product-panel__results { margin-top: 14px; }
+    .js-result-row,
+    .js-demo-row,
+    .js-viz-row {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    .js-result-row.is-visible,
+    .js-demo-row.is-visible,
+    .js-viz-row.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Product video strip (placeholder — swap inner for <video> or iframe) */
+    .showcase-strip {
+      background: #000;
+      padding: 40px 0 48px;
+    }
+    .showcase-strip__chrome {
+      background: #0a0a0a;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.04),
+        0 24px 64px rgba(0, 0, 0, 0.65),
+        0 0 80px rgba(37, 99, 235, 0.06);
+      max-width: min(960px, 92vw);
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .showcase-tabs {
+      display: flex;
+      align-items: flex-end;
+      gap: 4px;
+      padding: 10px 12px 0;
+      background: #050508;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .showcase-tab {
+      font-size: 12px;
+      font-weight: 500;
+      padding: 8px 14px 10px;
+      border-radius: 8px 8px 0 0;
+      color: rgba(255, 255, 255, 0.35);
+      background: transparent;
+      user-select: none;
+    }
+    .showcase-tab--active {
+      color: #fff;
+      background: #0a0a0a;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-bottom-color: #0a0a0a;
+      margin-bottom: -1px;
+    }
+    .showcase-tab--inactive {
+      animation: showcaseTabDrift 7s ease-in-out infinite;
+    }
+    .showcase-tab--inactive:nth-of-type(2) {
+      animation-delay: -2.2s;
+    }
+    .showcase-tab--inactive:nth-of-type(3) {
+      animation-delay: -4.4s;
+    }
+    @keyframes showcaseTabDrift {
+      0%, 100% { transform: translateY(0); opacity: 0.42; }
+      50% { transform: translateY(-3px); opacity: 0.62; }
+    }
+    .showcase-stage {
+      aspect-ratio: 16 / 9;
+      background: linear-gradient(165deg, #0d0d12 0%, #050508 45%, #070a12 100%);
+      position: relative;
+    }
+    .showcase-stage__inner {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      text-align: center;
+      padding: 24px;
+    }
+    .showcase-play {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.04);
+      position: relative;
+    }
+    .showcase-play::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-35%, -50%);
+      border-style: solid;
+      border-width: 9px 0 9px 14px;
+      border-color: transparent transparent transparent rgba(255, 255, 255, 0.5);
+    }
+    .showcase-stage__label {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.55);
+    }
+    .showcase-stage__hint {
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.22);
+      font-family: var(--mono);
+    }
+
+    /* App demo section */
+    #app-demo {
+      background: #000;
+      padding: 48px 0 0;
+      overflow: hidden;
+    }
+    .desktop-frame {
+      margin: 0 auto;
+      max-width: 1000px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      overflow: hidden;
+      box-shadow: 0 -1px 0 rgba(255, 255, 255, 0.06) inset;
+      position: relative;
+    }
+    .desktop-frame::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), transparent);
+      pointer-events: none;
+      z-index: 2;
+    }
+    .desktop-bg {
+      background:
+        radial-gradient(ellipse 75% 55% at 50% 38%, rgba(37, 99, 235, 0.1), transparent 58%),
+        linear-gradient(180deg, #0c0c10 0%, #050508 100%);
+      min-height: 480px;
+      position: relative;
+      padding: 28px clamp(16px, 3vw, 32px) 56px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .menubar {
+      align-self: stretch;
+      width: 100%;
+      height: 28px;
+      background: rgba(40, 40, 45, 0.95);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      display: flex;
+      align-items: center;
+      padding: 0 16px;
+      font-size: 12px;
+      color: rgba(255, 255, 255, 0.45);
+      position: relative;
+    }
+    .menubar__tray {
+      position: absolute;
+      right: 120px;
+      top: 50%;
+      transform: translateY(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 24px;
+      height: 24px;
+      color: var(--accent);
+      filter: drop-shadow(0 0 10px rgba(37, 99, 235, 0.5));
+    }
+    .menubar__tray .brand-mark {
+      width: 18px;
+      height: 18px;
+      display: block;
+    }
+    .fi-panel {
+      position: relative;
+      margin-top: 36px;
+      width: min(440px, 100%);
+      z-index: 3;
+    }
+    .fi-row {
+      padding: 10px 8px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      font-size: 13px;
+    }
+    .fi-row:last-child { border: none; }
+    .fi-row strong { color: #fff; font-weight: 600; }
+    .fi-row span { color: var(--text-3); font-size: 12px; display: block; margin-top: 2px; }
+
+    /* Features */
+    #features {
+      padding: 100px 0 80px;
+      background: #000;
+    }
+    .sec-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.35);
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+      text-align: center;
+    }
+    .sec-head-lg {
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 800;
+      max-width: 560px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: center;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+    }
+    .bento {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 900px) {
+      .bento {
+        grid-template-columns: 1fr;
+      }
+    }
+    .card {
+      background: #0a0a0a;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 28px;
+      overflow: hidden;
+      position: relative;
+      transition: border-color 0.2s ease;
+    }
+    .card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    .card--bento-search {
+      grid-column: span 4;
+    }
+    .card--bento-side {
+      grid-column: span 2;
+    }
+    .card--bento-half {
+      grid-column: span 3;
+    }
+    .card--bento-full {
+      grid-column: 1 / -1;
+    }
+    @media (max-width: 900px) {
+      .card--bento-search,
+      .card--bento-side,
+      .card--bento-half,
+      .card--bento-full {
+        grid-column: span 1;
+      }
+    }
+    .card--demo-strip .card__viz {
+      margin-top: 16px;
+      min-height: 72px;
+      border-radius: 8px;
+      border: 1px dashed rgba(255, 255, 255, 0.12);
+      background: rgba(0, 0, 0, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .demo-strip-link {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.45);
+      font-family: var(--mono);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(37, 99, 235, 0.35);
+      padding-bottom: 2px;
+    }
+    .demo-strip-link:hover {
+      color: #fff;
+      border-bottom-color: var(--accent);
+    }
+    .card__lab {
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.35);
+      margin-bottom: 6px;
+    }
+    .card__title { font-size: 18px; font-weight: 600; color: #fff; }
+    .card__body {
+      margin-top: 8px;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255, 255, 255, 0.45);
+    }
+    .card__viz { margin-top: 20px; }
+    .viz-search {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--mono);
+      font-size: 13px;
+      padding: 10px 12px;
+      background: #000;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: rgba(255, 255, 255, 0.85);
+    }
+    .viz-search .caret {
+      display: inline-block;
+      width: 2px;
+      height: 1.1em;
+      background: var(--accent);
+      animation: caretBlink 1s step-end infinite;
+      flex-shrink: 0;
+    }
+    .viz-rows { margin-top: 8px; }
+    .viz-rows .js-viz-row {
+      font-size: 12px;
+      padding: 6px 0;
+      color: var(--text-2);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .viz-lock {
+      font-size: 64px;
+      text-align: center;
+      line-height: 1;
+      filter: grayscale(1) brightness(2);
+    }
+    .viz-speed {
+      font-size: 48px;
+      font-weight: 800;
+      text-align: center;
+      color: #fff;
+      padding: 16px 0;
+    }
+    .split-card-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      align-items: start;
+    }
+    @media (max-width: 700px) {
+      .split-card-inner { grid-template-columns: 1fr; }
+    }
+    .prog-rows { display: flex; flex-direction: column; gap: 10px; }
+    .prog-row {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .prog-row i {
+      display: block;
+      height: 100%;
+      width: 0%;
+      background: var(--accent);
+      border-radius: 3px;
+      animation: progFill 2.5s ease-in-out infinite;
+    }
+    .prog-row:nth-child(2) i { animation-delay: 0.3s; }
+    .prog-row:nth-child(3) i { animation-delay: 0.6s; }
+    @keyframes progFill {
+      0%, 30% { width: 0%; }
+      70%, 100% { width: 100%; }
+    }
+
+    /* Marquee */
+    .marquee-sec {
+      background: #000;
+      padding: 48px 0;
+      overflow: hidden;
+    }
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      gap: 10px;
+      margin-bottom: 10px;
+      will-change: transform;
+    }
+    .marquee-track--l { animation: marqL 35s linear infinite; }
+    .marquee-track--r { animation: marqR 38s linear infinite; }
+    @keyframes marqL {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes marqR {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
+    }
+    .marquee-group { display: flex; gap: 10px; flex-shrink: 0; padding-right: 10px; }
+    .marquee-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 20px;
+      background: var(--bg-3);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 6px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.55);
+      white-space: nowrap;
+    }
+    .marquee-item .stars { color: var(--accent); letter-spacing: 1px; }
+
+    /* How */
+    #how {
+      padding: 100px 0;
+      background: #000;
+    }
+    .how-grid {
+      margin-top: 48px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+      gap: 16px;
+      max-width: 1100px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      align-items: stretch;
+    }
+    .how-card {
+      background: #0a0a0a;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      padding: 24px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+      transition: border-color 0.2s ease;
+    }
+    .how-card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+    .how-card__lab {
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .how-card__title {
+      font-size: 18px;
+      font-weight: 600;
+      color: #fff;
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .how-card__body {
+      font-size: 14px;
+      line-height: 1.55;
+      color: var(--text-2);
+      flex: 1;
+    }
+    .how-card__preview {
+      margin-top: 20px;
+      border-radius: 8px;
+      background: #050508;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      padding: 12px 14px;
+      min-height: 92px;
+    }
+    .how-card__preview > *:first-child {
+      margin-top: 0;
+    }
+    .how-preview__row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.45);
+      font-family: var(--mono);
+    }
+    .how-preview__row--bar .how-preview__brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #fff;
+      font-weight: 600;
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 12px;
+    }
+    .how-preview__dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      box-shadow: 0 0 12px rgba(37, 99, 235, 0.45);
+    }
+    .how-preview__hint {
+      margin-top: 10px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.28);
+      line-height: 1.4;
+    }
+    .how-preview__ring {
+      margin-top: 14px;
+      height: 5px;
+      border-radius: 99px;
+      background: rgba(255, 255, 255, 0.06);
+      overflow: hidden;
+    }
+    .how-preview__ring i {
+      display: block;
+      height: 100%;
+      width: 68%;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--accent), #3b82f6);
+      animation: howIdx 2.4s ease-in-out infinite;
+    }
+    @keyframes howIdx {
+      0%, 100% { width: 32%; opacity: 0.85; }
+      50% { width: 94%; opacity: 1; }
+    }
+    .how-preview__meta {
+      margin-top: 0;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.3);
+      font-family: var(--mono);
+    }
+    .how-preview__search {
+      margin-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: rgba(255, 255, 255, 0.38);
+      font-family: var(--mono);
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .how-preview__results {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .how-preview__file {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.45);
+    }
+    .how-preview__file i {
+      width: 5px;
+      height: 5px;
+      border-radius: 1px;
+      background: rgba(37, 99, 235, 0.8);
+      flex-shrink: 0;
+    }
+
+    /* Pricing */
+    #pricing {
+      padding: 100px 0 120px;
+      background: #000;
+    }
+    .pricing-sub {
+      margin-top: 12px;
+      font-size: 18px;
+      color: var(--text-2);
+      text-align: center;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .pricing-grid {
+      margin-top: 48px;
+      margin-left: auto;
+      margin-right: auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 0;
+      max-width: 900px;
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .pricing-grid {
+        grid-template-columns: 1fr;
+      }
+      .pricing-divider { display: none; }
+    }
+    .pricing-col { padding: 0 24px; }
+    .pricing-divider {
+      width: 1px;
+      background: rgba(255, 255, 255, 0.08);
+      min-height: 280px;
+      align-self: stretch;
+    }
+    .pricing-title { font-size: 20px; font-weight: 600; margin-bottom: 8px; }
+    .pricing-price { font-size: 48px; font-weight: 800; line-height: 1; }
+    .pricing-per { font-size: 16px; color: rgba(255, 255, 255, 0.4); margin-top: 4px; }
+    .pricing-list {
+      margin-top: 28px;
+      list-style: none;
+      font-size: 15px;
+      color: var(--text-2);
+      line-height: 2;
+    }
+    .pricing-list li::before { content: "· "; color: #fff; }
+    .badge-pop {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+    .btn-outline-lg {
+      margin-top: 32px;
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 15px;
+      font-weight: 500;
+      color: #fff;
+    }
+    .btn-outline-lg:hover { border-color: rgba(255, 255, 255, 0.4); }
+    .btn-fill-dark {
+      margin-top: 32px;
+      display: inline-block;
+      padding: 12px 24px;
+      border-radius: 8px;
+      background: #fff;
+      color: #000;
+      font-size: 15px;
+      font-weight: 600;
+    }
+    .btn-fill-dark:hover { background: rgba(255, 255, 255, 0.85); }
+    .pricing-foot {
+      margin-top: 40px;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.2);
+      text-align: center;
+    }
+
+    /* Final CTA */
+    #cta {
+      padding: 160px 0;
+      background: #000;
+    }
+    #cta .shell {
+      text-align: center;
+    }
+    .cta-head {
+      font-size: clamp(48px, 6vw, 80px);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.05;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .cta-sub {
+      margin-top: 12px;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .cta-foot {
+      margin-top: 20px;
+      font-family: var(--mono);
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    /* Footer */
+    footer {
+      background: #000;
+      padding: 32px 0;
+    }
+    footer::before {
+      content: "";
+      display: block;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(37, 99, 235, 0.4) 30%,
+        rgba(37, 99, 235, 0.4) 70%,
+        transparent
+      );
+      margin-bottom: 48px;
+    }
+    .footer__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .footer__meta {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .footer__social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      justify-content: flex-end;
+      font-size: 13px;
+    }
+    .footer__social a {
+      color: rgba(255, 255, 255, 0.32);
+      font-weight: 500;
+    }
+    .footer__social a:hover {
+      color: rgba(255, 255, 255, 0.75);
+    }
+    @media (max-width: 700px) {
+      .footer__inner {
+        justify-content: center;
+        text-align: center;
+      }
+      .footer__brand {
+        width: 100%;
+        justify-content: center;
+      }
+      .footer__meta {
+        width: 100%;
+        align-items: center;
+      }
+      .footer__social {
+        justify-content: center;
+      }
+    }
+    .footer__brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.4);
+    }
+    .footer__brand .nav__logo { width: 24px; height: 24px; }
+    .footer__links {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .footer__links a {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.3);
+    }
+    .footer__links a:hover { color: rgba(255, 255, 255, 0.7); }
+    .footer__copy {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.2);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .hero__bg,
+      .hero-shapes {
+        transform: none !important;
+      }
+      .showcase-tab--inactive {
+        animation: none !important;
+      }
+      .how-preview__ring i {
+        animation: none !important;
+        width: 72% !important;
+      }
+      .hero-mock-float {
+        animation: none !important;
+      }
+      .marquee-track--l,
+      .marquee-track--r,
+      .prog-row i {
+        animation: none !important;
+      }
+      .product-panel::after {
+        animation: none !important;
+        opacity: 0.45;
+      }
+      .product-panel__search .caret,
+      .fi-panel .mockup-window__search .caret,
+      .viz-search .caret,
+      .mockup-window__search .caret {
+        animation: none !important;
+        opacity: 0.85;
+      }
+      .js-result-row,
+      .js-demo-row,
+      .js-viz-row {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+      <a class="nav__brand" href="index.html">
+        <span class="nav__logo" aria-hidden="true"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="28" height="28" aria-hidden="true"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        Found It!
+      </a>
+      <nav class="nav__links" aria-label="Primary">
+        <a class="nav-link" href="#features" data-nav-target="features">Features</a>
+        <a class="nav-link" href="#how" data-nav-target="how">How it works</a>
+        <a class="nav-link" href="#pricing" data-nav-target="pricing">Pricing</a>
+        <a class="nav-link" href="about.html">About</a>
+      </nav>
+      <a class="nav__cta" href="#cta">Download</a>
+      <button type="button" class="nav__toggle" id="navToggle" aria-label="Menu">☰</button>
+    </div>
+  </header>
+  <div class="nav-drawer" id="navDrawer">
+    <a class="nav-link" href="#features" data-nav-target="features">Features</a>
+    <a class="nav-link" href="#how" data-nav-target="how">How it works</a>
+    <a class="nav-link" href="#pricing" data-nav-target="pricing">Pricing</a>
+    <a class="nav-link" href="about.html">About</a>
+    <a href="#cta">Download</a>
+  </div>
+
+  <section class="hero" id="top">
+    <div class="hero__bg" aria-hidden="true"></div>
+    <div class="hero-shapes" aria-hidden="true">
+      <div class="hero-shape hero-shape--1"></div>
+      <div class="hero-shape hero-shape--2"></div>
+      <div class="hero-shape hero-shape--3"></div>
+      <div class="hero-shape hero-shape--4"></div>
+      <div class="hero-shape hero-shape--5"></div>
+    </div>
+    <div class="shell">
+      <div class="hero-layout">
+        <div class="hero-col hero-col--copy">
+          <div class="hero-content">
+            <h1 class="hero__title" id="heroTitle">
+              <span class="hero-line"><span class="hero-word">Your</span> <span class="hero-word">shortcut</span> <span class="hero-word">to</span></span>
+              <span class="hero-line"><span class="hero-word">your</span> <span class="hero-word">files.</span></span>
+            </h1>
+            <p class="hero__sub">Found It! searches every file on your Mac using AI. Natural language. Instant results. 100% private.</p>
+            <div class="hero__btns hero-buttons">
+              <a class="btn-mac" href="#cta">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                Download for Mac
+              </a>
+              <a class="btn-ghost" href="#pricing">View pricing</a>
+            </div>
+            <p class="hero__meta">v1.0.0 &nbsp;|&nbsp; macOS 13+ &nbsp;|&nbsp; Free to start</p>
+          </div>
+        </div>
+        <div class="hero-col hero-col--mock">
+        <div class="hero-mock-wrap" id="heroMockWrap">
+          <div class="hero-mock-float">
+          <div class="mockup-window" id="heroProductPanel">
+            <div class="mockup-window__header">
+              <div class="mockup-window__brand">
+                <span class="mockup-window__icon" aria-hidden="true"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                <span class="mockup-window__title">Found It!</span>
+              </div>
+              <button type="button" class="mockup-window__gear" aria-label="Settings" tabindex="-1">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97 0-.33-.03-.66-.07-1l2.11-1.66c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.4-1.06-.73-1.69-.98l-.38-2.65A.488.488 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.38 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.66c-.04.34-.07.67-.07 1 0 .33.03.65.07.97l-2.11 1.66c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.31.61.22l2.49-1c.52.4 1.06.74 1.69.99l.38 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.38-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1c.22.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/></svg>
+              </button>
+            </div>
+            <div class="mockup-window__stats">1,473 files  ·  Last indexed today</div>
+            <div class="mockup-window__search">
+              <svg class="mockup-window__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+              <span id="heroSearchText"></span><span class="caret" aria-hidden="true"></span>
+            </div>
+            <div class="mockup-window__results">
+              <div class="mock-result-row js-result-row">
+                <span class="mock-file-thumb" aria-hidden="true"><svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" rx="7" fill="#E11D48"/><text x="15" y="19" text-anchor="middle" fill="#fff" font-size="6.5" font-weight="800" font-family="system-ui,Segoe UI,sans-serif" letter-spacing="0.15">PDF</text></svg></span>
+                <div class="mock-result-text">
+                  <div class="mock-file-name">Physics_Notes_Ch4.pdf</div>
+                  <div class="mock-file-path">~/Documents/School</div>
+                </div>
+              </div>
+              <div class="mock-result-row js-result-row">
+                <span class="mock-file-thumb" aria-hidden="true"><svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" rx="7" fill="#1D4ED8"/><text x="15" y="20" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="system-ui,Segoe UI,sans-serif">W</text></svg></span>
+                <div class="mock-result-text">
+                  <div class="mock-file-name">Tax_Return_2024.docx</div>
+                  <div class="mock-file-path">~/Documents/Finance</div>
+                </div>
+              </div>
+              <div class="mock-result-row js-result-row">
+                <span class="mock-file-thumb" aria-hidden="true"><svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" rx="7" fill="#059669"/><path fill="#fff" d="M10 10h1.5v8H10zm3 2h1.5v6H13zm3-1h6v1.2h-6zm0 2.5h5v1.2h-5zm0 2.5h6v1.2h-6z"/></svg></span>
+                <div class="mock-result-text">
+                  <div class="mock-file-name">project_proposal.md</div>
+                  <div class="mock-file-path">~/Desktop/Projects</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <section id="product-video" class="showcase-strip" aria-label="Product demo video">
+    <div class="shell">
+      <div class="showcase-strip__chrome animate-in">
+        <div class="showcase-tabs" role="tablist" aria-label="Demo views">
+          <span class="showcase-tab showcase-tab--active" aria-selected="true">Demo</span>
+          <span class="showcase-tab showcase-tab--inactive">Shortcuts</span>
+          <span class="showcase-tab showcase-tab--inactive">Indexing</span>
+        </div>
+        <!-- Replace inner block with: <video src="your-demo.mp4" controls playsinline poster="..."></video> -->
+        <div class="showcase-stage">
+          <div class="showcase-stage__inner">
+            <span class="showcase-play" aria-hidden="true"></span>
+            <p class="showcase-stage__label">Drop your screen recording here</p>
+            <p class="showcase-stage__hint">16:9 · MP4 or embedded player</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <section id="app-demo">
+    <div class="desktop-frame" id="desktopFrame">
+      <div class="desktop-bg">
+        <div class="menubar">
+          <span style="margin-right:16px"></span>
+          File &nbsp; Edit &nbsp; View &nbsp; Window &nbsp; Help
+          <span style="flex:1"></span>
+          <span class="menubar__tray" aria-hidden="true" title="Found It!"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span style="width:80px"></span>
+          Sat May 2 &nbsp; 9:41 AM
+        </div>
+        <div class="mockup-window fi-panel" id="fiPanel">
+          <div class="mockup-window__header">
+            <div class="mockup-window__brand">
+              <span class="mockup-window__icon" aria-hidden="true"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+              <span class="mockup-window__title">Found It!</span>
+            </div>
+            <button type="button" class="mockup-window__gear" aria-label="Settings" tabindex="-1">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 15.5A3.5 3.5 0 0 1 8.5 12 3.5 3.5 0 0 1 12 8.5a3.5 3.5 0 0 1 3.5 3.5 3.5 3.5 0 0 1-3.5 3.5m7.43-2.53c.04-.32.07-.64.07-.97 0-.33-.03-.66-.07-1l2.11-1.66c.19-.15.24-.42.12-.64l-2-3.46c-.12-.22-.39-.31-.61-.22l-2.49 1c-.52-.4-1.06-.73-1.69-.98l-.38-2.65A.488.488 0 0 0 14 2h-4c-.25 0-.46.18-.5.42l-.38 2.65c-.63.25-1.17.59-1.69.98l-2.49-1c-.22-.09-.49 0-.61.22l-2 3.46c-.13.22-.07.49.12.64l2.11 1.66c-.04.34-.07.67-.07 1 0 .33.03.65.07.97l-2.11 1.66c-.19.15-.24.42-.12.64l2 3.46c.12.22.39.31.61.22l2.49-1c.52.4 1.06.74 1.69.99l.38 2.65c.04.24.25.42.5.42h4c.25 0 .46-.18.5-.42l.38-2.65c.63-.26 1.17-.59 1.69-.99l2.49 1c.22.09.49 0 .61-.22l2-3.46c.12-.22.07-.49-.12-.64l-2.11-1.66Z"/></svg>
+            </button>
+          </div>
+          <div class="mockup-window__stats">1,473 files  ·  Last indexed today</div>
+          <div class="mockup-window__search">
+            <svg class="mockup-window__search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+            <span id="panelSearch"></span><span class="caret" aria-hidden="true"></span>
+          </div>
+          <div class="mockup-window__results">
+            <div class="mock-result-row js-demo-row">
+              <span class="mock-file-thumb" aria-hidden="true"><svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" rx="7" fill="#E11D48"/><text x="15" y="19" text-anchor="middle" fill="#fff" font-size="6.5" font-weight="800" font-family="system-ui,Segoe UI,sans-serif" letter-spacing="0.15">PDF</text></svg></span>
+              <div class="mock-result-text">
+                <div class="mock-file-name">Physics_Notes_Ch4.pdf</div>
+                <div class="mock-file-path">~/Documents/School</div>
+              </div>
+            </div>
+            <div class="mock-result-row js-demo-row">
+              <span class="mock-file-thumb" aria-hidden="true"><svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" rx="7" fill="#1D4ED8"/><text x="15" y="20" text-anchor="middle" fill="#fff" font-size="12" font-weight="800" font-family="system-ui,Segoe UI,sans-serif">W</text></svg></span>
+              <div class="mock-result-text">
+                <div class="mock-file-name">Tax_Return_2024.docx</div>
+                <div class="mock-file-path">~/Documents/Finance</div>
+              </div>
+            </div>
+            <div class="mock-result-row js-demo-row">
+              <span class="mock-file-thumb" aria-hidden="true"><svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><rect width="30" height="30" rx="7" fill="#059669"/><path fill="#fff" d="M10 10h1.5v8H10zm3 2h1.5v6H13zm3-1h6v1.2h-6zm0 2.5h5v1.2h-5zm0 2.5h6v1.2h-6z"/></svg></span>
+              <div class="mock-result-text">
+                <div class="mock-file-name">project_proposal.md</div>
+                <div class="mock-file-path">~/Desktop/Projects</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <section id="features">
+    <div class="shell">
+      <div class="section-intro">
+        <p class="sec-label animate-in">Features</p>
+        <h2 class="sec-head-lg animate-in">There&apos;s a search for that.</h2>
+      </div>
+      <div class="bento stagger-group">
+      <article class="card card--bento-search" id="searchFeatureCard">
+        <p class="card__lab">SEARCH</p>
+        <h3 class="card__title">Natural language.</h3>
+        <p class="card__body">Type like you think. Found It! understands context, not just keywords.</p>
+        <div class="card__viz">
+          <div class="viz-search">
+            <span id="vizSearch">find meeting notes from last week</span><span class="caret" aria-hidden="true"></span>
+          </div>
+          <div class="viz-rows">
+            <div class="js-viz-row">Meeting_Notes_Jan.pages</div>
+            <div class="js-viz-row">Q4_Kickoff_Deck.key</div>
+            <div class="js-viz-row">Action_items.txt</div>
+          </div>
+        </div>
+      </article>
+      <article class="card card--bento-side">
+        <p class="card__lab">PRIVACY</p>
+        <h3 class="card__title">Yours alone.</h3>
+        <p class="card__body">Everything stays on your Mac. No cloud. No uploads.</p>
+        <div class="card__viz viz-lock" aria-hidden="true">🔒</div>
+      </article>
+      <article class="card card--bento-half">
+        <p class="card__lab">SPEED</p>
+        <h3 class="card__title">Instant.</h3>
+        <p class="card__body">Search thousands of files in milliseconds.</p>
+        <div class="card__viz viz-speed">&lt; 1s</div>
+      </article>
+      <article class="card card--bento-half card--demo-strip">
+        <p class="card__lab">DEMO</p>
+        <h3 class="card__title">See it in motion.</h3>
+        <p class="card__body">Screen recording slot lives above — swap in your MP4 or embed when ready.</p>
+        <div class="card__viz">
+          <a class="demo-strip-link" href="#product-video">Open video strip</a>
+        </div>
+      </article>
+      <article class="card card--bento-full">
+        <div class="split-card-inner">
+          <div>
+            <p class="card__lab">ALWAYS UPDATED</p>
+            <h3 class="card__title">Works while you sleep.</h3>
+            <p class="card__body">Background indexing keeps new files discoverable without lifting a finger.</p>
+          </div>
+          <div class="prog-rows">
+            <div class="prog-row"><i></i></div>
+            <div class="prog-row"><i></i></div>
+            <div class="prog-row"><i></i></div>
+          </div>
+        </div>
+      </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <section class="marquee-sec" aria-label="Testimonials">
+    <div class="marquee-track marquee-track--l animate-in">
+      <div class="marquee-group">
+        <span class="marquee-item"><span class="stars">★★★★★</span> "Finally found my tax docs from 3 years ago"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "This is what Spotlight should have been"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "Indexed 2,000 files in minutes"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "I use this every single day"</span>
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        <span class="marquee-item"><span class="stars">★★★★★</span> "Finally found my tax docs from 3 years ago"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "This is what Spotlight should have been"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "Indexed 2,000 files in minutes"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "I use this every single day"</span>
+      </div>
+    </div>
+    <div class="marquee-track marquee-track--r animate-in">
+      <div class="marquee-group">
+        <span class="marquee-item"><span class="stars">★★★★★</span> "Replaced Spotlight completely"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "Setup took under 3 minutes"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "The AI search is genuinely magic"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "Best $8 I spend every month"</span>
+      </div>
+      <div class="marquee-group" aria-hidden="true">
+        <span class="marquee-item"><span class="stars">★★★★★</span> "Replaced Spotlight completely"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "Setup took under 3 minutes"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "The AI search is genuinely magic"</span>
+        <span class="marquee-item"><span class="stars">★★★★★</span> "Best $8 I spend every month"</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <section id="how">
+    <div class="shell">
+      <div class="section-intro">
+        <p class="sec-label animate-in">How it works</p>
+        <h2 class="sec-head-lg animate-in">Up and running in minutes.</h2>
+      </div>
+      <div class="how-grid stagger-group">
+        <article class="how-card">
+          <p class="how-card__lab">01 · Download</p>
+          <h3 class="how-card__title">Grab the app</h3>
+          <p class="how-card__body">Install in one click. Found It! lives in your menu bar — quiet, always one shortcut away.</p>
+          <div class="how-card__preview" aria-hidden="true">
+            <div class="how-preview__row how-preview__row--bar">
+              <span class="how-preview__brand"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="14" height="14" aria-hidden="true"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Found It!</span>
+              <span class="how-preview__dot"></span>
+            </div>
+            <p class="how-preview__hint">Menu bar · Click the icon to open the search window</p>
+          </div>
+        </article>
+        <article class="how-card">
+          <p class="how-card__lab">02 · Index</p>
+          <h3 class="how-card__title">Index once</h3>
+          <p class="how-card__body">First launch builds a local index in the background. Keep working while it maps your Mac.</p>
+          <div class="how-card__preview" aria-hidden="true">
+            <p class="how-preview__meta">Background indexing</p>
+            <div class="how-preview__ring"><i></i></div>
+            <p class="how-preview__hint">New files are picked up automatically — nothing leaves your machine.</p>
+          </div>
+        </article>
+        <article class="how-card">
+          <p class="how-card__lab">03 · Search</p>
+          <h3 class="how-card__title">Find anything</h3>
+          <p class="how-card__body">Describe what you need in plain English and open the right file in one step.</p>
+          <div class="how-card__preview" aria-hidden="true">
+            <div class="how-preview__search">find tax PDFs from last year…</div>
+            <div class="how-preview__results">
+              <div class="how-preview__file"><i></i> Tax_Return_2024.pdf</div>
+              <div class="how-preview__file"><i></i> Receipts_Q4.pages</div>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <section id="pricing">
+    <div class="shell">
+      <div class="section-intro">
+        <h2 class="sec-head-lg animate-in">Simple pricing.</h2>
+        <p class="pricing-sub animate-in">Free to start. Pro when you need it.</p>
+      </div>
+      <div class="pricing-grid stagger-group">
+      <div class="pricing-col">
+        <h3 class="pricing-title">Free</h3>
+        <div class="pricing-price">$0</div>
+        <ul class="pricing-list">
+          <li>3 searches per day</li>
+          <li>Full AI indexing</li>
+          <li>All file types</li>
+          <li>100% private</li>
+        </ul>
+        <a class="btn-outline-lg" href="#cta">Get started</a>
+      </div>
+      <div class="pricing-divider" aria-hidden="true"></div>
+      <div class="pricing-col">
+        <span class="badge-pop">Popular</span>
+        <h3 class="pricing-title">Pro</h3>
+        <div class="pricing-price">$8</div>
+        <p class="pricing-per">/ month</p>
+        <ul class="pricing-list">
+          <li>Everything in Free</li>
+          <li>Unlimited searches</li>
+          <li>Priority indexing</li>
+          <li>Early access</li>
+        </ul>
+        <a class="btn-fill-dark" href="#cta">Get Pro</a>
+      </div>
+      </div>
+      <p class="pricing-foot animate-in">Cancel anytime · Secure checkout via Stripe</p>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <section id="cta">
+    <div class="shell">
+      <h2 class="cta-head animate-in">Stop losing your files.</h2>
+      <p class="cta-sub animate-in">Download Found It! free today.</p>
+      <a class="btn-mac animate-in" href="mailto:hello@founditapp.com" style="margin-top:32px;display:inline-flex">
+        <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16" aria-hidden="true"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        Download for Mac
+      </a>
+      <p class="cta-foot animate-in">macOS 13 or later · Free to start</p>
+    </div>
+  </section>
+
+  <div class="section-divider" aria-hidden="true"></div>
+
+  <footer>
+    <div class="shell footer__inner">
+    <div class="footer__brand">
+      <span class="nav__logo" aria-hidden="true"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="24" height="24" aria-hidden="true"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      Found It!
+    </div>
+    <nav class="footer__links" aria-label="Footer">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="cookies.html">Cookies</a>
+      <a href="refunds.html">Refunds</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <div class="footer__meta">
+      <nav class="footer__social" aria-label="Elsewhere">
+        <!-- Replace hrefs with your real profiles (search: footer__social) -->
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      </nav>
+      <span class="footer__copy">© 2026 Found It!</span>
+    </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (reduce) return;
+      var px = 0.5,
+        py = 0.5,
+        cx = 0.5,
+        cy = 0.5;
+      document.addEventListener(
+        "mousemove",
+        function (e) {
+          px = e.clientX / window.innerWidth;
+          py = e.clientY / window.innerHeight;
+        },
+        { passive: true }
+      );
+      function bgPointerTick() {
+        cx += (px - cx) * 0.06;
+        cy += (py - cy) * 0.06;
+        document.documentElement.style.setProperty("--ptr-x", cx);
+        document.documentElement.style.setProperty("--ptr-y", cy);
+        requestAnimationFrame(bgPointerTick);
+      }
+      requestAnimationFrame(bgPointerTick);
+    })();
+  </script>
+  <script>
+    (function () {
+      "use strict";
+      if (typeof gsap === "undefined") return;
+      gsap.registerPlugin(ScrollTrigger, TextPlugin);
+
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      var bar = document.getElementById("scroll-progress");
+      function updateNavActiveFromSections() {
+        var ids = ["features", "how", "pricing"];
+        var anchorY = window.innerHeight * 0.34;
+        var bestId = null;
+        var bestScore = -1e9;
+        ids.forEach(function (id) {
+          var el = document.getElementById(id);
+          if (!el) return;
+          var r = el.getBoundingClientRect();
+          if (r.bottom < 72 || r.top > window.innerHeight) return;
+          var dist = Math.abs((r.top + r.bottom) * 0.5 - anchorY);
+          var score = -dist + (r.top <= anchorY && r.bottom >= anchorY + 48 ? 220 : 0);
+          if (score > bestScore) {
+            bestScore = score;
+            bestId = id;
+          }
+        });
+        document.querySelectorAll("a.nav-link[data-nav-target]").forEach(function (a) {
+          var t = a.getAttribute("data-nav-target");
+          a.classList.toggle("is-active", t === bestId);
+        });
+      }
+
+      var navSectionIds = ["features", "how", "pricing"];
+      var navSectionObserver = new IntersectionObserver(
+        function () {
+          updateNavActiveFromSections();
+        },
+        {
+          root: null,
+          rootMargin: "-72px 0px -45% 0px",
+          threshold: [0, 0.05, 0.1, 0.2, 0.35, 0.5, 0.65, 0.8, 1],
+        }
+      );
+      navSectionIds.forEach(function (id) {
+        var el = document.getElementById(id);
+        if (el) navSectionObserver.observe(el);
+      });
+
+      function onScroll() {
+        var h = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+        if (bar) bar.style.width = Math.min(pct, 100) + "%";
+        var nav = document.getElementById("nav");
+        if (nav) nav.classList.toggle("is-scrolled", window.scrollY > 80);
+        updateNavActiveFromSections();
+      }
+      function onResize() {
+        onScroll();
+        if (typeof ScrollTrigger !== "undefined") ScrollTrigger.refresh();
+      }
+      window.addEventListener("scroll", onScroll, { passive: true });
+      window.addEventListener("resize", onResize);
+      onScroll();
+
+      var nt = document.getElementById("navToggle"),
+        nd = document.getElementById("navDrawer");
+      if (nt && nd) {
+        nt.addEventListener("click", function () {
+          nd.classList.toggle("is-open");
+        });
+      }
+
+      function typingLoopHero(el, phrases, rows) {
+        if (!el || !phrases.length) return null;
+        var tl = gsap.timeline({ repeat: -1, paused: true });
+        phrases.forEach(function (phrase) {
+          tl.call(function () {
+            if (rows && rows.length) gsap.set(rows, { opacity: 0, y: 8 });
+          });
+          tl.to(el, {
+            duration: phrase.length * 0.08,
+            text: { value: phrase, delimiter: "" },
+            ease: "none",
+          });
+          if (rows && rows.length) {
+            tl.to(rows, {
+              opacity: 1,
+              y: 0,
+              duration: 0.35,
+              stagger: 0.1,
+              ease: "power2.out",
+            });
+          }
+          tl.to({}, { duration: 2 });
+          if (rows && rows.length) {
+            tl.to(rows, { opacity: 0, duration: 0.25, stagger: 0.05 });
+          }
+          tl.to(el, {
+            duration: phrase.length * 0.04,
+            text: { value: "", delimiter: "" },
+            ease: "none",
+          });
+          tl.to({}, { duration: 0.2 });
+        });
+        return tl;
+      }
+
+      function typingLoop(el, phrases, rows) {
+        if (!el || !phrases.length) return null;
+        var tl = gsap.timeline({ repeat: -1, paused: true });
+        phrases.forEach(function (phrase) {
+          tl.call(function () {
+            if (rows && rows.length) gsap.set(rows, { opacity: 0, y: 8 });
+          });
+          tl.to(el, {
+            duration: Math.max(0.55, phrase.length * 0.042),
+            text: { value: phrase, delimiter: "" },
+            ease: "none",
+          });
+          if (rows && rows.length) {
+            tl.to(rows, {
+              opacity: 1,
+              y: 0,
+              duration: 0.35,
+              stagger: 0.08,
+              ease: "power2.out",
+            });
+          }
+          tl.to({}, { duration: 1.35 });
+          tl.to(el, {
+            duration: Math.max(0.35, phrase.length * 0.026),
+            text: { value: "", delimiter: "" },
+            ease: "none",
+          });
+          tl.to({}, { duration: 0.4 });
+        });
+        return tl;
+      }
+
+      var heroSearchEl = document.getElementById("heroSearchText");
+      var heroRows = gsap.utils.toArray("#heroProductPanel .js-result-row");
+      var panelSearchEl = document.getElementById("panelSearch");
+      var demoRows = gsap.utils.toArray("#fiPanel .js-demo-row");
+      var vizSearchEl = document.getElementById("vizSearch");
+      var vizRows = gsap.utils.toArray("#searchFeatureCard .js-viz-row");
+
+      var heroPhrases = [
+        "find my physics homework",
+        "tax documents 2024",
+        "graduation photos",
+        "project proposal draft",
+      ];
+      var panelPhrases = ["find my physics homework", "tax documents 2024", "graduation photos", "project proposal draft"];
+      var vizPhrases = [
+        "find meeting notes from last week",
+        "old invoices in Downloads",
+        "PDF with budget tables",
+        "photos from Montreal trip",
+      ];
+
+      var heroTyping = null;
+      var panelTyping = null;
+      var vizTyping = null;
+
+      if (!reduce) {
+        if (heroSearchEl) heroSearchEl.textContent = "";
+        if (panelSearchEl) panelSearchEl.textContent = "";
+        if (vizSearchEl) vizSearchEl.textContent = "";
+        if (heroRows.length) gsap.set(heroRows, { opacity: 0, y: 8 });
+        if (demoRows.length) gsap.set(demoRows, { opacity: 0, y: 8 });
+        if (vizRows.length) gsap.set(vizRows, { opacity: 0, y: 8 });
+
+        heroTyping = typingLoopHero(heroSearchEl, heroPhrases, heroRows);
+        panelTyping = typingLoop(panelSearchEl, panelPhrases, demoRows);
+        vizTyping = typingLoop(vizSearchEl, vizPhrases, vizRows);
+      }
+
+      if (!reduce) {
+        gsap.from(".hero-shape", {
+          opacity: 0,
+          x: 60,
+          duration: 1.2,
+          stagger: 0.1,
+          ease: "power3.out",
+          delay: 0.2,
+        });
+
+        var introTl = gsap.timeline({
+          defaults: { ease: "power3.out" },
+          onComplete: function () {
+            if (heroTyping) heroTyping.play(0);
+          },
+        });
+        introTl.from("#nav", { y: -20, opacity: 0, duration: 0.4 });
+        introTl.from(
+          ".hero-word",
+          { y: 30, opacity: 0, duration: 0.7, stagger: 0.06, delay: 0.3 },
+          "-=0.2"
+        );
+        introTl.from(".hero__sub", { y: 30, opacity: 0, duration: 0.5 }, "-=0.35");
+        introTl.from(".hero-buttons", { y: 15, opacity: 0, duration: 0.4 }, "-=0.25");
+        introTl.from(".hero__meta", { opacity: 0, duration: 0.35 }, "-=0.2");
+        introTl.from(".hero-mock-wrap", { y: 28, opacity: 0, duration: 0.65, ease: "power2.out" }, "-=0.25");
+
+        gsap.fromTo(
+          "#desktopFrame",
+          { y: 80, opacity: 0.9 },
+          {
+            y: 0,
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: "#app-demo",
+              start: "top bottom",
+              end: "center center",
+              scrub: true,
+            },
+          }
+        );
+
+        gsap.utils.toArray(".animate-in").forEach(function (el) {
+          gsap.from(el, {
+            opacity: 0,
+            y: 28,
+            duration: 0.55,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: el,
+              start: "top 88%",
+              once: true,
+            },
+          });
+        });
+
+        gsap.utils.toArray(".stagger-group").forEach(function (group) {
+          var kids = gsap.utils.toArray(group.children);
+          if (!kids.length) return;
+          gsap.from(kids, {
+            opacity: 0,
+            y: 20,
+            duration: 0.45,
+            stagger: 0.08,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: group,
+              start: "top 85%",
+              once: true,
+            },
+          });
+        });
+
+        ScrollTrigger.create({
+          trigger: "#app-demo",
+          start: "top 78%",
+          once: true,
+          onEnter: function () {
+            if (panelTyping) panelTyping.play(0);
+          },
+        });
+
+        ScrollTrigger.create({
+          trigger: "#searchFeatureCard",
+          start: "top 85%",
+          once: true,
+          onEnter: function () {
+            if (vizTyping) vizTyping.play(0);
+          },
+        });
+
+        gsap.utils.toArray(".card").forEach(function (card) {
+          card.addEventListener("mousemove", function (e) {
+            var rect = card.getBoundingClientRect();
+            var x = e.clientX - rect.left;
+            var y = e.clientY - rect.top;
+            card.style.background =
+              "radial-gradient(200px circle at " +
+              x +
+              "px " +
+              y +
+              "px, rgba(37,99,235,0.07), transparent 70%), #0A0A0A";
+          });
+          card.addEventListener("mouseleave", function () {
+            card.style.background = "#0A0A0A";
+          });
+        });
+      } else {
+        gsap.set("#nav", { opacity: 1, y: 0 });
+        gsap.set([".hero-word", ".hero__sub", ".hero-buttons", ".hero__meta"], { opacity: 1, y: 0 });
+        gsap.set(".hero-mock-wrap", { opacity: 1, y: 0 });
+        if (heroSearchEl && !heroSearchEl.textContent) heroSearchEl.textContent = "find my physics homework";
+        if (panelSearchEl && !panelSearchEl.textContent) panelSearchEl.textContent = "find my physics homework";
+        if (vizSearchEl && !vizSearchEl.textContent)
+          vizSearchEl.textContent = "find meeting notes from last week";
+      }
+
+      window.addEventListener("load", function () {
+        ScrollTrigger.refresh();
+      });
+    })();
+  </script>
+</body>
+</html>

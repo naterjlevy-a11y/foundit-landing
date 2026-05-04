@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Found It!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --accent: #2563EB;
+      --bg: #000000;
+      --bg-3: #111111;
+      --border: rgba(255, 255, 255, 0.08);
+      --mono: "SF Mono", "Fira Code", ui-monospace, monospace;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Inter, system-ui, sans-serif;
+      background: var(--bg);
+      color: rgba(255, 255, 255, 0.65);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    a:hover { text-decoration: underline; }
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 10vw;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 16px;
+      font-weight: 600;
+      color: #fff;
+    }
+    .nav__logo {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: var(--accent);
+    }
+    .nav__logo .brand-mark {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+    .nav__links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .nav__links a { color: rgba(255, 255, 255, 0.45); font-size: 14px; font-weight: 500; }
+    .nav__links a:hover { color: #fff; text-decoration: none; }
+    .nav__cta {
+      padding: 8px 20px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 14px;
+      font-weight: 500;
+      color: #fff;
+    }
+    .nav__cta:hover { border-color: rgba(255, 255, 255, 0.5); text-decoration: none; }
+    .hero { padding: 80px 10vw 60px; max-width: 900px; margin: 0 auto; }
+    .hero h1 {
+      font-size: clamp(36px, 5vw, 52px);
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+      margin-bottom: 12px;
+    }
+    .hero p { font-size: 18px; color: rgba(255, 255, 255, 0.4); }
+    section { padding: 60px 10vw; max-width: 900px; margin: 0 auto; }
+    section h2 { font-size: 24px; font-weight: 800; color: #fff; margin-bottom: 20px; }
+    .photo {
+      width: 100%;
+      max-width: 280px;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .founder-id { margin-bottom: 40px; }
+    .founder-id strong { display: block; color: #fff; font-size: 18px; font-weight: 600; }
+    .founder-id span { font-size: 14px; color: rgba(255, 255, 255, 0.4); margin-top: 4px; display: block; }
+    .body-text { font-size: 17px; line-height: 1.8; color: rgba(255, 255, 255, 0.7); }
+    .body-text p { margin-bottom: 1.2em; }
+    .editorial-kicker {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 2px;
+      color: rgba(255, 255, 255, 0.3);
+      margin-bottom: 20px;
+    }
+    .editorial-body {
+      font-size: 18px;
+      line-height: 1.8;
+      color: rgba(255, 255, 255, 0.7);
+    }
+    .editorial-body p { margin-bottom: 1.2em; }
+    .founder-stats {
+      display: flex;
+      gap: 48px;
+      margin-top: 36px;
+      flex-wrap: wrap;
+    }
+    .founder-stats strong {
+      display: block;
+      font-size: 36px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .founder-stats span {
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.4);
+      margin-top: 4px;
+      display: block;
+    }
+    .founder-links {
+      margin-top: 20px;
+      font-size: 14px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 20px;
+    }
+    .founder-links a { color: var(--accent); }
+    .founder-links a:hover { text-decoration: underline; }
+    .roadmap { max-width: 1000px; }
+    .road-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 24px;
+    }
+    @media (max-width: 640px) {
+      .road-grid { grid-template-columns: 1fr; }
+    }
+    .road-card {
+      padding: 24px;
+      background: #0a0a0a;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+    }
+    .road-card h3 { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 6px; }
+    .road-card p { font-size: 14px; color: rgba(255, 255, 255, 0.45); }
+    .tag { font-size: 11px; font-weight: 600; color: var(--accent); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; display: block; }
+    .contact-block { text-align: center; padding: 80px 10vw 100px; }
+    .contact-block a { font-size: 18px; font-weight: 600; }
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 10vw;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 13px;
+      color: rgba(255, 255, 255, 0.25);
+    }
+    .footer__links { display: flex; gap: 24px; flex-wrap: wrap; }
+    .footer__links a { color: rgba(255, 255, 255, 0.35); font-weight: 500; }
+    .footer__links a:hover { color: rgba(255, 255, 255, 0.7); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header class="nav">
+    <a class="nav__brand" href="index.html"><span class="nav__logo" aria-hidden="true"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="28" height="28" aria-hidden="true"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Found It!</a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="index.html#features">Features</a>
+      <a href="index.html#pricing">Pricing</a>
+      <a href="about.html">About</a>
+    </nav>
+    <a class="nav__cta" href="index.html#cta">Download</a>
+  </header>
+
+  <header class="hero">
+    <h1>About Found It!</h1>
+    <p>Built by a student. Built for everyone.</p>
+  </header>
+
+  <section>
+    <div class="founder-id">
+      <div class="photo">NL</div>
+      <strong>Nate Levy</strong>
+      <span>Founder, Found It!</span>
+      <div class="founder-links">
+        <a href="https://www.mcgill.ca" target="_blank" rel="noopener">McGill University</a>
+        <span style="color:rgba(255,255,255,0.2)">·</span>
+        <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+        <span style="color:rgba(255,255,255,0.2)">·</span>
+        <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+    <div class="body-text">
+      <p>I&apos;m a Mechanical Engineering student at McGill University in Montreal, Quebec. I built Found It! because I kept losing files on my Mac — and I knew I wasn&apos;t alone.</p>
+      <p>Spotlight searches file names. Google Drive searches file names. Everything searches file names. But nobody actually names their files well.</p>
+      <p>Found It! is different. It reads what&apos;s INSIDE your files and understands what you&apos;re looking for, even when you can&apos;t remember what the file was called.</p>
+      <p>I built this entirely on my own while studying full-time. Every line of code, every design decision, every feature — built by one person who just wanted a better way to find files.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="editorial-kicker">ABOUT THE FOUNDER</p>
+    <div class="editorial-body">
+      <p>Nate is a Mechanical Engineering student at McGill University in Montreal.</p>
+      <p>He built Found It! after spending too much time searching for files he knew existed on his Mac. Spotlight searches file names. Found It! searches what&apos;s actually inside your files.</p>
+      <p>The goal is simple: find anything in under a second — regardless of what you named it or where you put it.</p>
+    </div>
+    <div class="founder-stats">
+      <div>
+        <strong>1,473</strong>
+        <span>files on my Mac, all searchable</span>
+      </div>
+      <div>
+        <strong>&lt; 1s</strong>
+        <span>average search time</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Our mission</h2>
+    <p class="body-text" style="font-size: 20px; font-weight: 700; color: #fff; margin-bottom: 24px">To make your files actually findable.</p>
+    <div class="body-text">
+      <p><strong style="color:#fff">Private by design.</strong> Your files stay on your Mac.</p>
+      <p><strong style="color:#fff">AI that actually helps.</strong> Search that understands intent, not just keywords.</p>
+      <p><strong style="color:#fff">Built for the long run.</strong> Indie software funded by the people who use it.</p>
+    </div>
+  </section>
+
+  <section class="roadmap" id="roadmap">
+    <h2>Where we&apos;re headed</h2>
+    <div class="road-grid">
+      <article class="road-card">
+        <span class="tag">Coming soon</span>
+        <h3>iCloud &amp; Google Drive Search</h3>
+        <p>Search beyond your local disk without giving up privacy principles.</p>
+      </article>
+      <article class="road-card">
+        <span class="tag">On the roadmap</span>
+        <h3>iOS Companion App</h3>
+        <p>Quick lookups from your phone when you&apos;re away from your Mac.</p>
+      </article>
+      <article class="road-card">
+        <span class="tag">Being explored</span>
+        <h3>Team Sharing</h3>
+        <p>Shared indexes for small teams.</p>
+      </article>
+      <article class="road-card">
+        <span class="tag">Being explored</span>
+        <h3>API Access</h3>
+        <p>Wire Found It! into power-user workflows.</p>
+      </article>
+    </div>
+  </section>
+
+  <div class="contact-block">
+    <h2 style="margin-bottom: 12px">Get in touch</h2>
+    <p><a href="mailto:hello@founditapp.com">hello@founditapp.com</a></p>
+    <p style="margin-top: 16px; font-size: 14px">
+      <!-- Replace with your profile URLs -->
+      <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>
+      &nbsp;·&nbsp;
+      <a href="https://www.linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+    </p>
+    <p style="margin-top: 40px"><a href="index.html" style="font-size: 15px; color: rgba(255,255,255,0.45)">← Back to home</a></p>
+  </div>
+
+  <footer>
+    <span>© 2026 Found It!</span>
+    <div class="footer__links">
+      <a href="privacy.html">Privacy</a>
+      <a href="terms.html">Terms</a>
+      <a href="cookies.html">Cookies</a>
+      <a href="refunds.html">Refunds</a>
+      <a href="contact.html">Contact</a>
+    </div>
+  </footer>
+</body>
+</html>
