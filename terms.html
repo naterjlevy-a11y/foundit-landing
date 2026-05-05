@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Terms of Service — Found It!</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <title>Terms of Service — Found It</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <style>
     :root {
       --accent: #2563EB;
@@ -16,7 +14,7 @@
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: Inter, system-ui, sans-serif;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
       background: var(--bg);
       color: rgba(255, 255, 255, 0.6);
       -webkit-font-smoothing: antialiased;
@@ -44,32 +42,18 @@
       font-weight: 600;
       color: #fff;
     }
-    .nav__logo {
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      color: var(--accent);
-    }
-    .nav__logo .brand-mark {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
     .nav__links { display: flex; gap: 24px; flex-wrap: wrap; }
-    .nav__links a { color: rgba(255, 255, 255, 0.45); font-size: 14px; font-weight: 500; }
+    .nav__links a { color: rgba(255, 255, 255, 0.45); font-size: 13.5px; font-weight: 500; }
     .nav__links a:hover { color: #fff; text-decoration: none; }
     .nav__cta {
-      padding: 8px 20px;
-      border-radius: 6px;
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 14px;
-      font-weight: 500;
+      padding: 8px 18px;
+      border-radius: 10px;
+      background: var(--accent);
+      font-size: 13.5px;
+      font-weight: 600;
       color: #fff;
     }
-    .nav__cta:hover { border-color: rgba(255, 255, 255, 0.5); text-decoration: none; }
+    .nav__cta:hover { opacity: 0.88; text-decoration: none; }
     main { max-width: 680px; margin: 0 auto; padding: 56px 24px 100px; }
     h1 { font-size: 36px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 8px; }
     .meta { font-family: var(--mono); font-size: 13px; color: rgba(255, 255, 255, 0.3); margin-bottom: 40px; }
@@ -101,15 +85,16 @@
 </head>
 <body>
   <header class="nav">
-    <a class="nav__brand" href="index.html"><span class="nav__logo" aria-hidden="true"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="28" height="28" aria-hidden="true"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Found It!</a>
+    <a class="nav__brand" href="index.html">
+      <img src="assets/logo-mark.svg" width="22" height="22" alt="" aria-hidden="true" />
+      Found It
+    </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="index.html#features">Features</a>
-      <a href="index.html#how-it-works">How it works</a>
+      <a href="index.html#how">How it works</a>
       <a href="index.html#pricing">Pricing</a>
-      <a href="index.html#founder">Founder</a>
-      <a href="index.html#download">Download</a>
     </nav>
-    <a class="nav__cta" href="index.html#download">Download</a>
+    <a class="nav__cta" href="index.html#download">Download for Mac</a>
   </header>
   <main>
     <h1>Terms of Service</h1>
