@@ -4,24 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Found It! — AI File Search for Mac</title>
-  <meta name="description" content="Found It! helps you search your Mac files with natural language, so you can find PDFs, notes, screenshots, code, homework, receipts, and old documents even when you forgot the filename." />
+  <meta name="description" content="Found It! searches your Mac files by meaning — not just filename. Natural language, local-first, menu bar." />
   <link rel="canonical" href="https://found-it.me/" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://found-it.me/" />
   <meta property="og:title" content="Found It! — AI File Search for Mac" />
   <meta property="og:description" content="Search your Mac the way you remember it. Local-first AI file search for macOS." />
-  <meta property="og:locale" content="en_US" />
   <meta property="og:image" content="https://found-it.me/assets/app-search.png" />
-  <meta property="og:image:alt" content="Found It! search interface on macOS" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:image" content="https://found-it.me/assets/app-search.png" />
-  <meta name="twitter:title" content="Found It! — AI File Search for Mac" />
-  <meta name="twitter:description" content="Find the file you forgot how to describe. Natural-language search across file contents on your Mac." />
   <link rel="icon" type="image/png" href="assets/logo-reference.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/styles.css?v=2" />
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -30,23 +26,19 @@
   <header class="nav" id="nav">
     <div class="nav__inner">
       <a class="nav__brand" href="index.html">
-        <span class="nav__logo" aria-hidden="true">
-          <svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="20" height="20">
-            <circle cx="11" cy="11" r="7.5" stroke="currentColor" stroke-width="1.75"/>
-            <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-          </svg>
-        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="18" height="18" aria-hidden="true">
+          <circle cx="11" cy="11" r="7.5" stroke="currentColor" stroke-width="1.75"/>
+          <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+        </svg>
         Found It!
       </a>
       <nav class="nav__links" aria-label="Primary">
+        <a class="nav-link" href="#manifesto" data-nav-target="manifesto">About</a>
         <a class="nav-link" href="#features" data-nav-target="features">Features</a>
-        <a class="nav-link" href="#how-it-works" data-nav-target="how-it-works">How It Works</a>
         <a class="nav-link" href="#pricing" data-nav-target="pricing">Pricing</a>
-        <a class="nav-link" href="#founder" data-nav-target="founder">About</a>
       </nav>
       <div class="nav__right">
-        <a class="nav__cta nav__cta--ghost" href="#pricing">See Pro</a>
-        <a class="nav__cta nav__cta--gradient" href="#download">Download</a>
+        <a class="nav__cta" href="#download">Download</a>
         <button type="button" class="nav__toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
             <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
@@ -57,27 +49,23 @@
   </header>
 
   <div class="nav-drawer" id="navDrawer">
+    <a class="nav-link" href="#manifesto">About</a>
     <a class="nav-link" href="#features">Features</a>
-    <a class="nav-link" href="#how-it-works">How It Works</a>
     <a class="nav-link" href="#pricing">Pricing</a>
-    <a class="nav-link" href="#founder">About</a>
     <div class="nav-drawer__divider"></div>
-    <a href="#pricing">See Pro</a>
     <a href="#download" class="nav-drawer__cta">Download for Mac</a>
   </div>
 
   <main id="main">
 
-    <!-- ═══ HERO ═══ -->
-    <section class="hero" id="top" aria-labelledby="hero-heading">
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <div class="hero-cursor-glow" aria-hidden="true"></div>
       <div class="hero__orb hero__orb--1" aria-hidden="true"></div>
       <div class="hero__orb hero__orb--2" aria-hidden="true"></div>
-      <div class="hero__orb hero__orb--3" aria-hidden="true"></div>
-      <div class="hero__grain" aria-hidden="true"></div>
 
       <div class="shell">
-        <!-- Badge + Copy + CTAs (centered) -->
-        <div class="hero-top">
+        <div class="hero__inner">
           <div class="hero-badge">
             <span class="hero-badge__dot" aria-hidden="true"></span>
             Menu bar app &middot; macOS &middot; Privacy-first
@@ -89,353 +77,108 @@
           </h1>
 
           <p class="hero__sub">
-            Found It! lives in your menu bar and searches every file on your Mac by meaning — not just filename. PDFs, notes, screenshots, code, receipts, homework — found even when you don't remember what you called it.
+            Found It! lives in your menu bar and searches every file on your Mac by meaning — not just filename. PDFs, notes, screenshots, code, receipts — found even when you can't remember what you called it.
           </p>
 
           <div class="hero__actions">
             <a class="btn-gradient" href="#download">
-              <svg width="16" height="16" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.3-164-39.3c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.6-49 192.5-49 30.9 0 133.4 2.6 198.4 99zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
+              <svg width="15" height="15" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.3-164-39.3c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.6-49 192.5-49 30.9 0 133.4 2.6 198.4 99zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
               Download for Mac — Free
             </a>
-            <a class="btn-ghost" href="#pricing">See Pro features &rarr;</a>
+            <a class="btn-ghost" href="#pricing">See Pro &rarr;</a>
           </div>
 
-          <div class="hero-shortcut" aria-label="Keyboard shortcut: Command Shift O to open from anywhere">
-            <span class="hero-shortcut__label">Open from anywhere</span>
-            <kbd>⌘</kbd><kbd>⇧</kbd><kbd>O</kbd>
-          </div>
-
-          <div class="hero-trust-row" role="list">
-            <span class="hero-trust-chip" role="listitem">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-              Local-first
-            </span>
-            <span class="hero-trust-chip" role="listitem">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-              AI-powered
-            </span>
-            <span class="hero-trust-chip" role="listitem">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M9 12l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
-              No file uploads
-            </span>
-            <span class="hero-trust-chip" role="listitem">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-              macOS 12+
-            </span>
-          </div>
-        </div>
-
-        <!-- Product demo window -->
-        <div class="hero-window-wrap">
-          <div class="hero-window-glow" aria-hidden="true"></div>
-          <div class="hero-mac-window" role="img" aria-label="Found It! app demo showing natural-language file search">
-            <div class="hero-mac-titlebar">
-              <span class="hero-mac-dot hero-mac-dot--r" aria-hidden="true"></span>
-              <span class="hero-mac-dot hero-mac-dot--y" aria-hidden="true"></span>
-              <span class="hero-mac-dot hero-mac-dot--g" aria-hidden="true"></span>
-              <span class="hero-mac-title">Found It!</span>
-            </div>
-            <div class="hero-mac-body">
-              <aside class="hero-mac-sidebar" aria-label="App navigation">
-                <div class="hero-nav-item is-active">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                  Search
-                </div>
-                <div class="hero-nav-item">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  Discover
-                </div>
-                <div class="hero-nav-item">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 9v11a2 2 0 01-2 2H6a2 2 0 01-2-2V9"/><path d="M9 22V12h6v10M2 10.5l10-8 10 8"/></svg>
-                  Archive
-                </div>
-                <div class="hero-nav-item">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 005.93 19.07M4.93 4.93A10 10 0 0019.07 19.07"/></svg>
-                  Settings
-                </div>
-                <div class="hero-sidebar-spacer"></div>
-                <div class="hero-sidebar-stat">
-                  <span class="hero-sidebar-stat__n">1,470</span>
-                  <span class="hero-sidebar-stat__l">files</span>
-                </div>
-              </aside>
-              <div class="hero-mac-main">
-                <div class="hero-search-row">
-                  <div class="hero-search-input" role="textbox" aria-live="polite" aria-label="Search query being typed">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                    <span class="hero-type-target"><span id="heroTypeQuery"></span><span class="hero-caret" aria-hidden="true"></span></span>
-                  </div>
-                  <span class="hero-pro-chip">Pro</span>
-                </div>
-                <div class="hero-results-label" aria-hidden="true">
-                  <span class="hero-results-label__dot"></span>
-                  <span id="heroResultsCount">Searching…</span>
-                </div>
-                <div class="hero-results" id="heroResults" aria-live="polite"></div>
-              </div>
-            </div>
+          <div class="hero__chips" role="list">
+            <span role="listitem">Local-first</span>
+            <span role="listitem">AI-powered</span>
+            <span role="listitem">No uploads</span>
+            <span role="listitem">macOS 12+</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ═══ TRUST STRIP ═══ -->
-    <section class="trust-strip reveal-up" id="trust-strip" aria-label="What you can search">
-      <div class="shell trust-strip__inner">
-        <span class="trust-strip__item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg>
-          PDFs &amp; Office
-        </span>
-        <span class="trust-strip__dot" aria-hidden="true"></span>
-        <span class="trust-strip__item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-          Screenshots &amp; images
-        </span>
-        <span class="trust-strip__dot" aria-hidden="true"></span>
-        <span class="trust-strip__item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h2M8 17h2M12 13h4M12 17h4"/></svg>
-          Notes &amp; code
-        </span>
-        <span class="trust-strip__dot" aria-hidden="true"></span>
-        <span class="trust-strip__item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Local-first
-        </span>
-        <span class="trust-strip__dot" aria-hidden="true"></span>
-        <span class="trust-strip__item">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-          Free to start
-        </span>
-        <span class="trust-strip__dot" aria-hidden="true"></span>
-        <span class="trust-strip__item trust-strip__item--accent">Pro <strong>$8</strong>/mo</span>
-      </div>
-    </section>
-
-    <!-- ═══ HOW IT WORKS ═══ -->
-    <section class="sec sec--how" id="how-it-works">
+    <!-- MANIFESTO -->
+    <section class="sec sec--manifesto" id="manifesto">
       <div class="shell">
-        <div class="sec-head reveal-up">
-          <p class="sec-kicker">How it works</p>
-          <h2 class="sec-title">Search like your memory works.</h2>
-          <p class="sec-desc sec-desc--narrow">You remember the idea, the class, the date, or the weird detail. Found It! turns that into a ranked result with transparent match hints — not a dump of filenames.</p>
-        </div>
-
-        <div class="memory-demo-card reveal-up">
-          <div class="memory-search">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            <span class="memory-query-line"><span id="memoryTypeQuery"></span><span class="hero-caret" aria-hidden="true"></span></span>
-          </div>
-          <div class="memory-pills" id="memoryPills"></div>
-          <div class="memory-explain">
-            <div class="memory-why" id="memoryWhyBlock">
-              <h4>Why this matched</h4>
-              <p id="memoryWhyText">Queries fuse topic, file type, and time context instead of matching random keywords.</p>
-            </div>
-            <div class="memory-top-hit" id="memoryTopHit" aria-live="polite">
-              <span class="memory-top-hit__label">Top result</span>
-              <p class="memory-top-hit__name" id="memoryTopName">Tax_Return_2024.pdf</p>
-              <p class="memory-top-hit__path" id="memoryTopPath">~/Documents/Finance</p>
-              <p class="memory-top-hit__match" id="memoryTopMatch">Matched: tax + 2024</p>
-            </div>
-          </div>
-          <div class="memory-results" id="memoryResults"></div>
-        </div>
-
-        <div class="how-steps stagger">
-          <article class="how-step">
-            <div class="how-step__icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            </div>
-            <span class="how-step__n">01</span>
-            <h3>Install &amp; index</h3>
-            <p>Download the Mac app and sign in. Your index builds locally in the background — no babysitting.</p>
-          </article>
-          <article class="how-step">
-            <div class="how-step__icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            </div>
-            <span class="how-step__n">02</span>
-            <h3>Ask naturally</h3>
-            <p>Type what you remember — a topic, a date, a person, a phrase from inside the file. Hit <kbd>⌘⇧O</kbd> from any app.</p>
-          </article>
-          <article class="how-step">
-            <div class="how-step__icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            </div>
-            <span class="how-step__n">03</span>
-            <h3>Open it</h3>
-            <p>Results show match reasons so you know why each file surfaced. Click to open in Finder or your default app.</p>
-          </article>
+        <div class="manifesto reveal-up">
+          <h2>Why we built this.</h2>
+          <p>Spotlight searches filenames. Your memory doesn't work that way.</p>
+          <p>You remember the topic. The class it was for. A phrase that was somewhere inside it. The month you wrote it. Found It! takes all of that and surfaces the right file — with a reason it matched, not just 200 results and a prayer.</p>
+          <p>It runs in your menu bar. It indexes everything locally. Nothing leaves your Mac for core search. Press <strong>⌘⇧O</strong> from any app, type what you remember, and you're done.</p>
+          <p>We built this because we kept opening folder after folder for a file we saved five minutes ago. Spotlight wasn't the answer. This is.</p>
+          <p class="manifesto__sign">— Nate Levy, Founder</p>
         </div>
       </div>
     </section>
 
-    <!-- ═══ FEATURES ═══ -->
+    <!-- FEATURES -->
     <section class="sec sec--muted" id="features">
       <div class="shell">
         <div class="sec-head reveal-up">
-          <p class="sec-kicker">Capabilities</p>
-          <h2 class="sec-title">Built for real disks<br>and messy filenames.</h2>
-          <p class="sec-desc">Everything you need to find content, not just titles.</p>
+          <h2 class="sec-title">What it does.</h2>
+          <p class="sec-desc">Six things that make file search actually work.</p>
         </div>
-        <div class="bento stagger">
-          <article class="bento-card bento-card--wide bento-card--featured">
-            <span class="bento-icon bento-icon--blue" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-            </span>
-            <h3>Natural-language search</h3>
-            <p>Type what you remember — a topic, a date, a concept. Found It! ranks by meaning across your entire library, not just filename matches.</p>
-            <div class="bento-inline-demo" aria-hidden="true">
-              <span class="bento-query">"math homework from last week"</span>
-              <span class="bento-arrow">→</span>
-              <span class="bento-result">Calculus_HW7.pdf <span class="bento-match">matched: math + homework + last week</span></span>
+        <div class="feat-grid stagger">
+          <article class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             </div>
+            <h3>Natural language</h3>
+            <p>"Math homework from last week" finds Calculus_HW7.pdf. Even when that's not the filename.</p>
           </article>
-          <article class="bento-card">
-            <span class="bento-icon bento-icon--indigo" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
-            </span>
+          <article class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h8"/></svg>
+            </div>
             <h3>Inside documents</h3>
-            <p>PDFs, docs, notes — search contents, not just titles.</p>
+            <p>PDFs, Word docs, notes — we search what's in the file, not just what it's called.</p>
           </article>
-          <article class="bento-card">
-            <span class="bento-icon bento-icon--violet" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            </span>
-            <h3>OCR for images</h3>
-            <p>Screenshots and scans become searchable when text is present.</p>
+          <article class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <h3>OCR images</h3>
+            <p>Screenshots and scans with text become searchable automatically. No tagging needed.</p>
           </article>
-          <article class="bento-card">
-            <span class="bento-icon bento-icon--blue" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 8v4l3 3M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-            </span>
-            <h3>Recent &amp; archive</h3>
-            <p>Jump back to what you touched or stash without losing track.</p>
+          <article class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M9 12l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+            </div>
+            <h3>Match reasons</h3>
+            <p>Every result tells you why it surfaced. No more guessing if you've got the right file.</p>
           </article>
-          <article class="bento-card">
-            <span class="bento-icon bento-icon--indigo" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M4 6h16M4 10h16M4 14h10M4 18h10"/></svg>
-            </span>
-            <h3>Browse by type</h3>
-            <p>Docs, images, code, storage — structured like your disk.</p>
-          </article>
-          <article class="bento-card bento-card--wide">
-            <span class="bento-icon bento-icon--green" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </span>
+          <article class="feat-card">
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
             <h3>Local-first privacy</h3>
-            <p>Your index stays on your Mac. No uploading files for core search. Optional cloud features, if they ship, will be clearly labeled and opt-in.</p>
+            <p>Your index stays on your Mac. Nothing uploads for core search. Private by design.</p>
           </article>
-          <article class="bento-card bento-card--pro">
-            <span class="bento-badge-pro">Pro</span>
-            <span class="bento-icon bento-icon--gradient" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </span>
-            <h3>Deep AI search</h3>
-            <p>Unlimited queries with AI reranking, query expansion, and smarter scoring when you subscribe.</p>
-          </article>
-          <article class="bento-card">
-            <span class="bento-icon bento-icon--violet" aria-hidden="true">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l3 3"/></svg>
-            </span>
-            <h3>Global shortcut</h3>
-            <p>Press <kbd class="inline-kbd">⌘⇧O</kbd> from any app to open Found It! instantly.</p>
+          <article class="feat-card feat-card--accent">
+            <span class="feat-pro-badge">Pro</span>
+            <div class="feat-icon">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+            </div>
+            <h3>Unlimited deep search</h3>
+            <p>AI reranking, query expansion, smarter scoring. Unlimited queries for heavy use.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <!-- ═══ APP SURFACES ═══ -->
-    <section class="sec" id="app-areas">
-      <div class="shell">
-        <div class="sec-head reveal-up">
-          <p class="sec-kicker">Surfaces</p>
-          <h2 class="sec-title">One app. Four ways to find things.</h2>
-        </div>
-        <div class="app-surfaces stagger">
-          <article class="surface-card surface-card--active">
-            <div class="surface-card__head">
-              <h3>Search</h3>
-              <span class="surface-badge surface-badge--ai">AI</span>
-            </div>
-            <p>Ask in plain language. Results explain why they surfaced with match quality badges.</p>
-            <div class="surface-preview" aria-hidden="true">
-              <div class="surface-preview__query">
-                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-                <span>tax PDFs 2024</span>
-              </div>
-              <div class="surface-preview__row"><span>Tax_Return_2024.pdf</span><span class="match-pill">Exact</span></div>
-              <div class="surface-preview__row"><span>T4_2024.pdf</span><span class="match-pill match-pill--strong">Strong</span></div>
-            </div>
-          </article>
-          <article class="surface-card">
-            <div class="surface-card__head"><h3>Recent</h3></div>
-            <p>Open what you touched last — fast.</p>
-            <div class="surface-preview" aria-hidden="true">
-              <div class="surface-preview__row"><span>Lab_Report.docx</span><span class="muted">2h ago</span></div>
-              <div class="surface-preview__row"><span>notes.md</span><span class="muted">yesterday</span></div>
-              <div class="surface-preview__row"><span>budget_q1.xlsx</span><span class="muted">3d ago</span></div>
-            </div>
-          </article>
-          <article class="surface-card">
-            <div class="surface-card__head"><h3>Archive</h3></div>
-            <p>Move clutter out of the way without deleting history.</p>
-            <div class="surface-preview" aria-hidden="true">
-              <div class="surface-preview__row"><span>Invoice_2022.pdf</span><span class="tag">archived</span></div>
-              <div class="surface-preview__row"><span>Old_Resume.pdf</span><span class="tag">archived</span></div>
-              <div class="surface-preview__row"><span class="linkish">Restore selected</span></div>
-            </div>
-          </article>
-          <article class="surface-card">
-            <div class="surface-card__head"><h3>Browse</h3></div>
-            <p>See docs, images, code, and what is using space.</p>
-            <div class="surface-preview" aria-hidden="true">
-              <div class="surface-preview__row"><span>Documents</span><span>614</span></div>
-              <div class="surface-preview__row"><span>Images</span><span>558</span></div>
-              <div class="surface-preview__row"><span>Code</span><span>295</span></div>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══ SHOWCASE ═══ -->
-    <section class="sec sec--showcase" id="looks-simple">
-      <div class="shell">
-        <div class="showcase-head reveal-up">
-          <p class="sec-kicker">Product</p>
-          <h2 class="sec-title">Looks simple. Works hard.</h2>
-          <p class="sec-desc sec-desc--narrow">Focused, fast, and built to stay out of your way — with Search, Discover, Settings, and usage clarity built in.</p>
-        </div>
-        <div class="showcase-stage reveal-up">
-          <div class="showcase-glow" aria-hidden="true"></div>
-          <div class="showcase-windows">
-            <figure class="showcase-window showcase-window--back">
-              <img src="assets/app-storage.png" alt="Found It! storage view: categories and disk usage on macOS." width="1200" height="750" loading="lazy" decoding="async" />
-              <figcaption>Storage &amp; discovery</figcaption>
-            </figure>
-            <figure class="showcase-window showcase-window--front">
-              <img src="assets/app-search.png" alt="Found It! search with natural language query and results list." width="1200" height="750" loading="lazy" decoding="async" />
-              <figcaption>Natural-language search</figcaption>
-            </figure>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══ PRICING ═══ -->
+    <!-- PRICING -->
     <section class="sec" id="pricing">
       <div class="shell">
         <div class="sec-head reveal-up">
-          <p class="sec-kicker">Pricing</p>
-          <h2 class="sec-title">Start free.<br>Go deep when you need it.</h2>
-          <p class="sec-desc">No credit card required to start.</p>
+          <h2 class="sec-title">Pricing.</h2>
+          <p class="sec-desc">Free to start. $8/month when you need unlimited.</p>
         </div>
         <div class="pricing-grid stagger">
           <article class="price-card">
             <div class="price-card__tier">Free</div>
             <div class="price">$0</div>
-            <p class="note">Try the full workflow on your Mac — forever free.</p>
+            <p class="note">Try the full workflow — forever free.</p>
             <ul>
               <li>3 searches per day</li>
               <li>Local-first indexing</li>
@@ -462,146 +205,54 @@
             <a class="btn-gradient btn-full" data-pro-link href="#">Upgrade to Pro</a>
           </article>
         </div>
-        <p class="pricing-foot reveal-up">Billing runs through Stripe &middot; Manage plans in-app &middot; Cancel any time</p>
+        <p class="pricing-foot reveal-up">Billing runs through Stripe &middot; Cancel any time</p>
       </div>
     </section>
 
-    <!-- ═══ FOUNDER ═══ -->
-    <section class="sec sec--founder" id="founder">
-      <div class="shell">
-        <div class="founder-layout reveal-up">
-          <div class="founder-copy">
-            <p class="sec-kicker">Founder</p>
-            <h2 class="sec-title">Built by Nate Levy.</h2>
-            <p class="founder-lead">Found It! started with a simple frustration: saving files is easy, but finding them later is weirdly hard. Nate built Found It! to make Mac search feel more like memory — and less like guessing the right filename.</p>
-            <div class="founder-quote">
-              <p>"I kept having to open folder after folder to find a file I'd saved five minutes ago. There had to be a better way."</p>
-            </div>
-          </div>
-          <div class="founder-card">
-            <div class="founder-avatar" aria-hidden="true">
-              <span>NL</span>
-            </div>
-            <div>
-              <h3>Nate Levy</h3>
-              <p class="role">Founder, Found It!</p>
-              <div class="founder-actions">
-                <a class="btn-outline" href="https://www.linkedin.com/in/nate-levy-b803412a9/" target="_blank" rel="noopener noreferrer">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-                  LinkedIn
-                </a>
-                <a class="btn-outline" href="https://github.com/naterjlevy-a11y" target="_blank" rel="noopener noreferrer">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.004.07 1.532 1.032 1.532 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.094.39-1.988 1.032-2.684-.103-.253-.448-1.27.098-2.646 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.116 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.393.1 2.646.645.696 1.028 1.59 1.028 2.684 0 3.848-2.338 4.693-4.566 4.923.359.309.678.919.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.578.688.48C19.138 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/></svg>
-                  GitHub
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══ ROADMAP ═══ -->
-    <section class="sec sec--muted" id="roadmap">
+    <!-- FAQ -->
+    <section class="sec sec--muted" id="faq">
       <div class="shell">
         <div class="sec-head reveal-up">
-          <p class="sec-kicker">Roadmap</p>
-          <h2 class="sec-title">Where Found It! is headed.</h2>
-          <p class="sec-desc">Exploring and planned — not shipping promises.</p>
-        </div>
-        <div class="roadmap-grid stagger">
-          <article class="road-pill">
-            <span class="road-tag road-tag--planned">Planned</span>
-            <h3>iCloud Drive search</h3>
-            <p>Optional, consent-forward integration with your iCloud files.</p>
-          </article>
-          <article class="road-pill">
-            <span class="road-tag road-tag--planned">Planned</span>
-            <h3>Google Drive search</h3>
-            <p>For Drive-heavy workflows without leaving your Mac.</p>
-          </article>
-          <article class="road-pill">
-            <span class="road-tag road-tag--exploring">Exploring</span>
-            <h3>iOS companion</h3>
-            <p>Quick lookups and file access away from your Mac.</p>
-          </article>
-          <article class="road-pill">
-            <span class="road-tag road-tag--exploring">Exploring</span>
-            <h3>Team workspaces</h3>
-            <p>Shared indexes for small teams who share files.</p>
-          </article>
-          <article class="road-pill">
-            <span class="road-tag road-tag--exploring">Exploring</span>
-            <h3>API access</h3>
-            <p>Automation hooks and integrations for power users.</p>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══ PRIVACY ═══ -->
-    <section class="sec sec--privacy" id="privacy">
-      <div class="shell privacy-compact reveal-up">
-        <div class="privacy-compact__text">
-          <div class="privacy-icon" aria-hidden="true">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          </div>
-          <h2 class="privacy-compact__title">Private by default.</h2>
-          <p>Local-first indexing. No uploading your files for core search. Optional cloud features, if they ship, will be labeled and opt-in. <a href="privacy.html" class="link-arrow">Privacy policy &rarr;</a></p>
-        </div>
-        <div class="privacy-compact__compare">
-          <div class="pc-row">
-            <span class="pc-app">Found It!</span>
-            <span class="pc-val ok">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
-              On-device index
-            </span>
-          </div>
-          <div class="pc-row">
-            <span class="pc-app">Typical cloud search</span>
-            <span class="pc-val muted">Upload-dependent</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ═══ FAQ ═══ -->
-    <section class="sec" id="faq">
-      <div class="shell">
-        <div class="sec-head reveal-up">
-          <p class="sec-kicker">FAQ</p>
-          <h2 class="sec-title">Straight answers.</h2>
+          <h2 class="sec-title">Questions.</h2>
         </div>
         <div class="faq-list">
-          <details class="faq-item reveal-up"><summary>Does Found It! upload my files?</summary><div class="ans">No. Core search is local-first — contents stay on your Mac unless you opt into a future network feature we clearly describe.</div></details>
-          <details class="faq-item reveal-up"><summary>What file types does it support?</summary><div class="ans">PDFs, Office files, notes, markdown, images with text, code, and more. The indexer reads text content, metadata, and runs OCR on images.</div></details>
-          <details class="faq-item reveal-up"><summary>Is this better than Spotlight?</summary><div class="ans">Spotlight is filename-first. Found It! is built around meaning and file contents — it understands "math homework from last week" and returns ranked results with match reasons.</div></details>
-          <details class="faq-item reveal-up"><summary>Does it work with Google Drive or iCloud?</summary><div class="ans">Today the focus is local disk. Cloud providers are roadmap items.</div></details>
-          <details class="faq-item reveal-up"><summary>What happens after the free limit?</summary><div class="ans">You can wait for the daily reset or upgrade to Pro for unlimited searches. Free users still get full indexing and Browse/Archive features.</div></details>
-          <details class="faq-item reveal-up"><summary>Windows?</summary><div class="ans">macOS only. Found It! integrates tightly with macOS file APIs and the menu bar.</div></details>
-          <details class="faq-item reveal-up"><summary>How do I reset my index?</summary><div class="ans">From the Settings tab inside the app.</div></details>
+          <details class="faq-item reveal-up">
+            <summary>Does it upload my files?</summary>
+            <div class="ans">No. Core search is local-first — file contents stay on your Mac. Optional cloud features, if they ever ship, will be clearly described and opt-in.</div>
+          </details>
+          <details class="faq-item reveal-up">
+            <summary>Is this better than Spotlight?</summary>
+            <div class="ans">Spotlight is filename-first. Found It! searches by meaning and contents — it understands "math homework from last week" and returns ranked results with reasons for each match.</div>
+          </details>
+          <details class="faq-item reveal-up">
+            <summary>What file types does it support?</summary>
+            <div class="ans">PDFs, Office files, notes, markdown, images with text (via OCR), code files, and more. The indexer reads text content, metadata, and runs OCR on images.</div>
+          </details>
+          <details class="faq-item reveal-up">
+            <summary>What happens after the free limit?</summary>
+            <div class="ans">You wait for the daily reset, or upgrade to Pro for unlimited searches. Free users keep full indexing and Browse/Archive features.</div>
+          </details>
+          <details class="faq-item reveal-up">
+            <summary>Windows or iOS?</summary>
+            <div class="ans">macOS only for now. Found It! integrates tightly with macOS file APIs and the menu bar. iOS is on the roadmap.</div>
+          </details>
         </div>
       </div>
     </section>
 
-    <!-- ═══ FINAL CTA ═══ -->
+    <!-- FINAL CTA -->
     <section class="cta-sec" id="download">
-      <div class="cta-sec__bg" aria-hidden="true">
-        <div class="cta-sec__orb cta-sec__orb--1"></div>
-        <div class="cta-sec__orb cta-sec__orb--2"></div>
-      </div>
       <div class="shell reveal-up">
-        <p class="sec-kicker">Get started</p>
-        <h2 class="cta-sec__title">Ready for search<br>that feels like <span class="gradient-text">memory?</span></h2>
-        <p class="cta-sec__desc">Download Found It! for Mac — free to start, Pro when you need unlimited depth.</p>
+        <h2 class="cta-sec__title">Ready to find what<br>you're looking for?</h2>
+        <p class="cta-sec__desc">Download Found It! for Mac. Free to start.</p>
         <div class="cta-sec__actions">
           <a class="btn-gradient btn-gradient--lg" href="mailto:hello@founditapp.com?subject=Download%20Found%20It%20for%20Mac">
-            <svg width="17" height="17" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.3-164-39.3c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.6-49 192.5-49 30.9 0 133.4 2.6 198.4 99zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
+            <svg width="16" height="16" viewBox="0 0 814 1000" fill="currentColor" aria-hidden="true"><path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.3-164-39.3c-76 0-103.7 40.8-165.9 40.8s-105-57.8-155.5-127.4C46 790.7 0 663 0 541.8c0-207.5 135.4-317.3 269-317.3 70.1 0 128.4 46.4 172.5 46.4 42.8 0 109.6-49 192.5-49 30.9 0 133.4 2.6 198.4 99zm-234-181.5c31.1-36.9 53.1-88.1 53.1-139.3 0-7.1-.6-14.3-1.9-20.1-50.6 1.9-110.8 33.7-147.1 75.8-28.5 32.4-55.1 83.6-55.1 135.5 0 7.8 1.3 15.6 1.9 18.1 3.2.6 8.4 1.3 13.6 1.3 45.4 0 102.5-30.4 135.5-71.3z"/></svg>
             Download for Mac — Free
           </a>
           <a class="btn-ghost" href="#pricing">See Pro &rarr;</a>
         </div>
-        <p class="cta-sec__sub">No credit card · macOS 12+ · Free forever plan</p>
+        <p class="cta-sec__sub">No credit card &middot; macOS 12+ &middot; Free forever plan</p>
       </div>
     </section>
 
@@ -611,12 +262,10 @@
     <div class="shell footer-grid">
       <div>
         <div class="footer-brand">
-          <span class="nav__logo" aria-hidden="true">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="18" height="18">
-              <circle cx="11" cy="11" r="7.5" stroke="currentColor" stroke-width="1.75"/>
-              <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
-            </svg>
-          </span>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="16" height="16" aria-hidden="true">
+            <circle cx="11" cy="11" r="7.5" stroke="currentColor" stroke-width="1.75"/>
+            <path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/>
+          </svg>
           Found It!
         </div>
         <p class="footer-tag">AI file search for macOS.</p>
@@ -635,13 +284,11 @@
           <a href="#download">Download</a>
           <a href="#pricing">Pricing</a>
           <a href="#features">Features</a>
-          <a href="about.html">About</a>
         </div>
         <div>
           <h4>Legal</h4>
           <a href="privacy.html">Privacy</a>
           <a href="terms.html">Terms</a>
-          <a href="cookies.html">Cookies</a>
           <a href="refunds.html">Refunds</a>
         </div>
         <div>
