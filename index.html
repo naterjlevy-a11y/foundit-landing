@@ -5,20 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Found It — Natural-language file search for Mac</title>
-  <meta name="description" content="Find files on your Mac by describing what you remember. Found It is a menu bar app for fast, natural-language file search." />
+  <meta name="description" content="Find files on your Mac by describing what you remember. Found It is a menu bar app for natural-language file search, image conversion, and drag-and-drop file workflows." />
   <link rel="canonical" href="https://found-it.me/" />
 
   <!-- Open Graph -->
   <meta property="og:type"        content="website" />
   <meta property="og:url"         content="https://found-it.me/" />
   <meta property="og:title"       content="Found It — Find any file on your Mac by describing it" />
-  <meta property="og:description" content="A macOS menu bar app that helps you find files using natural language, even when you forgot the file name." />
+  <meta property="og:description" content="Search your Mac by description, then open, preview, convert, or drag files wherever they need to go." />
   <meta property="og:image"       content="https://found-it.me/assets/app-search.png" />
 
   <!-- Twitter -->
   <meta name="twitter:card"        content="summary_large_image" />
   <meta name="twitter:title"       content="Found It — Find any file on your Mac by describing it" />
-  <meta name="twitter:description" content="A macOS menu bar app that helps you find files using natural language, even when you forgot the file name." />
+  <meta name="twitter:description" content="Search your Mac by description, then open, preview, convert, or drag files wherever they need to go." />
   <meta name="twitter:image"       content="https://found-it.me/assets/app-search.png" />
 
   <!-- Favicons -->
@@ -88,8 +88,8 @@
           </h1>
 
           <p class="hero__sub">
-            Found It is a macOS menu bar app that searches your files using natural language.
-            No exact file names. No digging through folders. Just type what you remember.
+            Search your Mac by describing what you remember.
+            Found It is a macOS menu bar app that finds files using natural language &mdash; no exact file names, no digging through folders.
           </p>
 
           <div class="hero__actions">
@@ -102,7 +102,7 @@
             <a class="btn-ghost btn-ghost--lg" href="#demo">See how it works</a>
           </div>
 
-          <p class="hero__support">Free for 3 searches/day &nbsp;&middot;&nbsp; Pro is $8/month &nbsp;&middot;&nbsp; Menu bar only</p>
+          <p class="hero__support">Unlimited searches &nbsp;&middot;&nbsp; 500 files indexed free &nbsp;&middot;&nbsp; Pro unlocks full indexing ($8/mo) &nbsp;&middot;&nbsp; Menu bar only</p>
 
           <!-- COMMAND PALETTE MOCKUP -->
           <div class="mockup-wrap" aria-hidden="true">
@@ -191,9 +191,9 @@
               <div class="mockup-footer">
                 <span>Indexed locally</span>
                 <span class="mockup-footer-sep" aria-hidden="true">·</span>
-                <span>0.18s</span>
+                <span>Open · Preview · Reveal</span>
                 <span class="mockup-footer-sep" aria-hidden="true">·</span>
-                <span>3 results</span>
+                <span>Convert · Drag</span>
               </div>
 
             </div>
@@ -213,7 +213,7 @@
         <div class="sec-head reveal-up">
           <p class="sec-eyebrow">Search demo</p>
           <h2 class="sec-title">Search the way you think.</h2>
-          <p class="sec-desc">Found It works when you remember the topic, time period, class, client, or project — not the exact file name.</p>
+          <p class="sec-desc">Search your Mac by describing what you remember. Found It works when you recall the topic, time period, class, client, or project — not the exact file name.</p>
         </div>
 
         <div class="demo-window reveal-up">
@@ -305,42 +305,44 @@
         <div class="sec-head reveal-up">
           <p class="sec-eyebrow">How it works</p>
           <h2 class="sec-title">Built around a local index.</h2>
-          <p class="sec-desc">Found It indexes your files once, keeps the index updated, and searches it quickly whenever you need something.</p>
+          <p class="sec-desc">Found It indexes common folders on your Mac, keeps your library updated in the background, and finds files by description — then helps you use them right away.</p>
         </div>
 
         <div class="how-steps stagger">
 
           <div class="how-step">
             <div class="how-step-num" aria-hidden="true">01</div>
-            <h3>Indexes once</h3>
-            <p>Found It scans Documents, Downloads, and Desktop in the background and builds a searchable local index with AI-generated summaries.</p>
+            <h3>Found It indexes your files</h3>
+            <p>Found It scans Documents, Downloads, and Desktop, then builds a searchable local index with AI-generated summaries.</p>
             <div class="how-step-tags" aria-label="Technologies">
+              <span class="how-tag">local folders</span>
               <span class="how-tag">AI summaries</span>
-              <span class="how-tag">embeddings</span>
             </div>
           </div>
 
           <div class="how-step">
             <div class="how-step-num" aria-hidden="true">02</div>
-            <h3>Searches locally</h3>
-            <p>Search runs against a local SQLite database on your Mac, so results are fast and your files stay on your machine.</p>
+            <h3>Search by description</h3>
+            <p>Type what you remember: a topic, project, class, filename fragment, or rough time period.</p>
             <div class="how-step-tags" aria-label="Technologies">
               <span class="how-tag">SQLite</span>
-              <span class="how-tag">local index</span>
+              <span class="how-tag">natural language</span>
             </div>
           </div>
 
           <div class="how-step">
             <div class="how-step-num" aria-hidden="true">03</div>
-            <h3>Stays current</h3>
-            <p>New files are automatically indexed every 5 minutes. Nothing to manage — it quietly keeps pace with your work.</p>
+            <h3>Use the file immediately</h3>
+            <p>Open, preview, reveal in Finder, convert common image formats, or drag files wherever they need to go.</p>
             <div class="how-step-tags" aria-label="Technologies">
-              <span class="how-tag">auto-indexing</span>
-              <span class="how-tag">background sync</span>
+              <span class="how-tag">menu bar</span>
+              <span class="how-tag">workflow actions</span>
             </div>
           </div>
 
         </div>
+
+        <p class="how-note reveal-up">Free indexes up to 500 files. Pro unlocks unlimited indexing. Found It keeps your index updated in the background; Pro adds priority re-indexing so your library stays fresher.</p>
 
       </div>
     </section>
@@ -353,6 +355,7 @@
 
         <div class="sec-head reveal-up">
           <h2 class="sec-title">Everything you need to stop losing files.</h2>
+          <p class="sec-desc">Free gives you unlimited searches across your first 500 indexed files. Pro unlocks the full Mac file command center: unlimited indexing, Deep Search, common image conversion, drag-and-drop import, and priority re-indexing.</p>
         </div>
 
         <div class="feat-grid stagger">
@@ -361,32 +364,33 @@
             <div class="feat-icon" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
             </div>
-            <h3>Natural-language file search</h3>
-            <p>Describe what you remember. Found It surfaces the most likely files, ranked by relevance.</p>
+            <h3>Natural-language search</h3>
+            <p>Describe what you remember and Found It surfaces the right files.</p>
           </article>
 
           <article class="feat-card">
+            <div class="feat-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <h3>Search history that persists</h3>
+            <p>Your recent searches stay available across app restarts, so you can quickly return to what you were looking for.</p>
+          </article>
+
+          <article class="feat-card">
+            <div class="feat-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <h3>500 files included free</h3>
+            <p>Start with unlimited searches across your first 500 indexed files.</p>
+          </article>
+
+          <article class="feat-card feat-card--pro">
+            <span class="feat-pro-badge">Pro</span>
             <div class="feat-icon" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
             </div>
-            <h3>Local SQLite index</h3>
-            <p>Search runs against a local database built on your Mac. No cloud index, no round trips.</p>
-          </article>
-
-          <article class="feat-card">
-            <div class="feat-icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-            </div>
-            <h3>Auto-indexing</h3>
-            <p>New files are picked up automatically every few minutes. Nothing to configure.</p>
-          </article>
-
-          <article class="feat-card">
-            <div class="feat-icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-            </div>
-            <h3>Menu bar native</h3>
-            <p>No dock clutter. Found It lives quietly in your menu bar, ready when you need it.</p>
+            <h3>Unlimited indexing with Pro</h3>
+            <p>Pro indexes your full Mac file library instead of stopping at the free cap.</p>
           </article>
 
           <article class="feat-card feat-card--pro">
@@ -395,15 +399,34 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </div>
             <h3>Deep Search</h3>
-            <p>A stronger retrieval pass for vague memories, messy folders, and files with unhelpful names.</p>
+            <p>A stronger retrieval mode for vague, messy, or difficult searches.</p>
           </article>
 
-          <article class="feat-card">
+          <article class="feat-card feat-card--pro">
+            <span class="feat-pro-badge">Pro</span>
             <div class="feat-icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
             </div>
-            <h3>Built for Mac</h3>
-            <p>A focused SwiftUI app designed around macOS conventions and workflows.</p>
+            <h3>Image conversion</h3>
+            <p>Convert common image formats like JPEG, PNG, HEIC, TIFF, and PDF where supported — secondary to search, not a generic file converter.</p>
+          </article>
+
+          <article class="feat-card feat-card--pro">
+            <span class="feat-pro-badge">Pro</span>
+            <div class="feat-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 9l-3 3 3 3"/><path d="M9 5l3-3 3 3"/><path d="M15 19l3 3 3-3"/><path d="M19 9l3 3-3 3"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+            </div>
+            <h3>Drag-and-drop import &amp; use</h3>
+            <p>Drag files into Found It or drag found files out into Mail, Finder, browser upload fields, or other apps.</p>
+          </article>
+
+          <article class="feat-card feat-card--pro">
+            <span class="feat-pro-badge">Pro</span>
+            <div class="feat-icon" aria-hidden="true">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+            </div>
+            <h3>Priority re-indexing</h3>
+            <p>Pro keeps your index fresher with priority re-indexing.</p>
           </article>
 
         </div>
@@ -419,8 +442,8 @@
 
         <div class="sec-head reveal-up">
           <p class="sec-eyebrow">Pro feature</p>
-          <h2 class="sec-title">When the obvious result is not enough, go deeper.</h2>
-          <p class="sec-desc">Deep Search is built for vague memories, messy folders, and files with useless names. It gives Pro users a stronger retrieval pass for the searches that matter.</p>
+          <h2 class="sec-title">Go deeper when normal search is not enough.</h2>
+          <p class="sec-desc">Deep Search is built for vague memories, messy folders, and files with useless names. It gives Pro users a stronger retrieval pass for the searches that matter. Deep Search is included with Pro.</p>
         </div>
 
         <div class="compare-grid stagger">
@@ -446,7 +469,7 @@
                 <span class="compare-item-dot" aria-hidden="true">
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
-                Included on the free plan
+                Unlimited searches on Free — across indexed files (up to 500)
               </li>
               <li class="compare-item">
                 <span class="compare-item-dot" aria-hidden="true">
@@ -485,7 +508,7 @@
                 <span class="compare-item-dot" aria-hidden="true">
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
-                Included with Pro — unlimited
+                Deep Search included with Pro
               </li>
             </ul>
           </div>
@@ -495,6 +518,48 @@
       </div>
     </section>
     <!-- /deep search -->
+
+
+    <!-- ══════════════════ 6b. ACTIONS ══════════════════ -->
+    <section class="sec" id="actions">
+      <div class="shell">
+
+        <div class="sec-head reveal-up">
+          <h2 class="sec-title">Find it. Convert it. Drag it anywhere.</h2>
+          <p class="sec-desc">Found It does not stop at showing you where a file is. Open it, preview it, reveal it in Finder, convert common image formats, or drag it straight into another app.</p>
+        </div>
+
+        <div class="problem-grid stagger">
+
+          <div class="problem-card">
+            <div class="problem-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 9l-3 3 3 3"/><path d="M9 5l3-3 3 3"/><path d="M15 19l3 3 3-3"/><path d="M19 9l3 3-3 3"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+            </div>
+            <h3>Drag files into your workflow <span class="problem-card-hint">Pro</span></h3>
+            <p>Pull a found file into Mail, Finder, Messages, Slack, or a browser upload field.</p>
+          </div>
+
+          <div class="problem-card">
+            <div class="problem-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+            </div>
+            <h3>Convert common image formats <span class="problem-card-hint">Pro only</span></h3>
+            <p>Turn JPEG, PNG, HEIC, TIFF, and other common formats into the format you need.</p>
+          </div>
+
+          <div class="problem-card">
+            <div class="problem-icon" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+            </div>
+            <h3>Use files immediately</h3>
+            <p>Preview, reveal, share, or copy the moment Found It surfaces a match. Convert common images or drag between apps with Pro.</p>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+    <!-- /actions -->
 
 
     <!-- ══════════════════ 7. PRIVACY ══════════════════ -->
@@ -593,7 +658,7 @@
       <div class="shell">
 
         <div class="sec-head reveal-up">
-          <h2 class="sec-title">Start free. Upgrade when you need unlimited search.</h2>
+          <h2 class="sec-title">Try Found It free on your first 500 files. Go Pro for the full library.</h2>
         </div>
 
         <div class="pricing-grid stagger">
@@ -608,19 +673,25 @@
                 <span class="price-feature-check" aria-hidden="true">
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
-                3 searches/day
+                Unlimited searches
               </li>
               <li class="price-feature">
                 <span class="price-feature-check" aria-hidden="true">
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
-                Local indexing
+                Up to 500 indexed files
               </li>
               <li class="price-feature">
                 <span class="price-feature-check" aria-hidden="true">
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
-                Basic natural-language search
+                Natural-language file search
+              </li>
+              <li class="price-feature">
+                <span class="price-feature-check" aria-hidden="true">
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                Search history across app restarts
               </li>
               <li class="price-feature">
                 <span class="price-feature-check" aria-hidden="true">
@@ -636,13 +707,13 @@
           <article class="price-card price-card--pro">
             <p class="price-tier">Pro</p>
             <div class="price-amount">$8<span class="price-unit">/mo</span></div>
-            <p class="price-sub">For people who live in their files</p>
+            <p class="price-sub">Unlock the full power of Found It</p>
             <ul class="price-features" role="list">
               <li class="price-feature">
                 <span class="price-feature-check" aria-hidden="true">
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="#2563EB" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
-                Unlimited searches
+                Unlimited file indexing
               </li>
               <li class="price-feature">
                 <span class="price-feature-check" aria-hidden="true">
@@ -654,13 +725,25 @@
                 <span class="price-feature-check" aria-hidden="true">
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="#2563EB" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
-                Auto-indexing
+                Image conversion
               </li>
               <li class="price-feature">
                 <span class="price-feature-check" aria-hidden="true">
                   <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="#2563EB" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
                 </span>
-                Future Pro improvements
+                Drag-and-drop import &amp; use
+              </li>
+              <li class="price-feature">
+                <span class="price-feature-check" aria-hidden="true">
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="#2563EB" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                Priority re-indexing
+              </li>
+              <li class="price-feature">
+                <span class="price-feature-check" aria-hidden="true">
+                  <svg width="8" height="8" viewBox="0 0 8 8" fill="none"><polyline points="1.5 4 3 5.5 6.5 2" stroke="#2563EB" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                </span>
+                Everything in Free
               </li>
             </ul>
             <a class="btn-primary btn-full" href="#" data-pro>Go Pro</a>
@@ -688,18 +771,66 @@
 
           <details class="faq-item reveal-up">
             <summary>
-              Does Found It replace Spotlight?
+              Is there a free version?
               <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-ans">No. Spotlight is useful when you know what something is called. Found It is for when you remember what the file was about, not its exact name.</div>
+            <div class="faq-ans">Yes. Free includes unlimited searches across your first 500 indexed files. No credit card required to download.</div>
           </details>
 
           <details class="faq-item reveal-up">
             <summary>
-              What folders does it index?
+              Is search limited on the free plan?
               <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-ans">Found It currently indexes Documents, Downloads, and Desktop. Support for additional folders is planned for a future release.</div>
+            <div class="faq-ans">No. Search is not capped on the free plan. Free indexes up to 500 files.</div>
+          </details>
+
+          <details class="faq-item reveal-up">
+            <summary>
+              What does Pro unlock?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-ans">Pro unlocks unlimited file indexing, Deep Search, image conversion for common formats, drag-and-drop import and use, and priority re-indexing.</div>
+          </details>
+
+          <details class="faq-item reveal-up">
+            <summary>
+              Can Found It convert files?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-ans">Found It can convert common image formats such as JPEG, PNG, HEIC, TIFF, and PDF where supported. General document and video conversion are not the focus right now.</div>
+          </details>
+
+          <details class="faq-item reveal-up">
+            <summary>
+              Does Found It remember my searches?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-ans">Yes. Search history persists across app restarts so you can quickly return to previous searches.</div>
+          </details>
+
+          <details class="faq-item reveal-up">
+            <summary>
+              What folders does Found It index?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-ans">Found It indexes common Mac locations such as Documents, Downloads, and Desktop. Support for additional folders may ship in a future release.</div>
+          </details>
+
+          <details class="faq-item reveal-up">
+            <summary>
+              How much does Pro cost?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-ans">Pro is $8/month and unlocks unlimited indexing plus Deep Search, image conversion, drag-and-drop import and use, and priority re-indexing. You can cancel anytime through the billing portal.</div>
+          </details>
+
+          <details class="faq-item reveal-up">
+            <summary>
+              Does Found It replace Spotlight?
+              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+            </summary>
+            <div class="faq-ans">No. Spotlight is useful when you know what something is called. Found It is for when you remember what the file was about, not its exact name.</div>
           </details>
 
           <details class="faq-item reveal-up">
@@ -712,26 +843,10 @@
 
           <details class="faq-item reveal-up">
             <summary>
-              How much does Pro cost?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-ans">Pro is $8/month and includes unlimited searches and Deep Search. You can cancel at any time through the billing portal.</div>
-          </details>
-
-          <details class="faq-item reveal-up">
-            <summary>
               Does search happen online?
               <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
             <div class="faq-ans">Search runs against a local index on your Mac. Found It may use a lightweight query-expansion call (through a secure Edge Function) to better understand search intent. This call costs under $0.001 and the API key is never exposed in the app.</div>
-          </details>
-
-          <details class="faq-item reveal-up">
-            <summary>
-              Is there a free version?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-ans">Yes. The free tier includes 3 searches per day with full local indexing. No credit card required to download.</div>
           </details>
 
         </div>
@@ -755,7 +870,7 @@
           </a>
           <a class="btn-ghost btn-ghost--lg" href="#pricing">See pricing</a>
         </div>
-        <p class="cta-sec__sub">Free to start &nbsp;&middot;&nbsp; Menu bar only &nbsp;&middot;&nbsp; Pro available</p>
+        <p class="cta-sec__sub">Unlimited searches on Free &nbsp;&middot;&nbsp; 500 files indexed &nbsp;&middot;&nbsp; Pro unlocks full indexing</p>
       </div>
     </section>
     <!-- /cta -->
