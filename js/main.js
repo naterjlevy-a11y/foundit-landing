@@ -5,7 +5,7 @@
 
   var CONFIG = {
     downloadHref: "mailto:hello@founditapp.com?subject=Download%20Found%20It%20for%20Mac",
-    proHref:      "mailto:hello@founditapp.com?subject=Upgrade%20to%20Found%20It%20Pro%20(%248%2Fmo)",
+    proHref:      "mailto:hello@founditapp.com?subject=Upgrade%20to%20Found%20It%20Pro%20(%2410.99%2Fmo)",
   };
 
   /* ─────────────────────────────────
@@ -84,7 +84,7 @@
       if (sub)     sub.classList.add("is-on");
       if (actions) actions.classList.add("is-on");
       if (support) support.classList.add("is-on");
-      if (mockup)  mockup.classList.add("is-on");
+      if (mockup)  { mockup.classList.add("is-on"); mockup.classList.add("is-floating"); }
       return;
     }
 
@@ -120,6 +120,8 @@
       setTimeout(function () { if (actions) actions.classList.add("is-on"); }, tail + 140);
       setTimeout(function () { if (support) support.classList.add("is-on"); }, tail + 200);
       setTimeout(function () { if (mockup)  mockup.classList.add("is-on");  }, tail + 280);
+      // Start float after entrance transition finishes (0.6s transition + buffer)
+      setTimeout(function () { if (mockup)  mockup.classList.add("is-floating"); }, tail + 1100);
     }
   }
 
@@ -332,6 +334,58 @@
   }
 
   /* ─────────────────────────────────
+     WAITLIST FORMS
+     ───────────────────────────────── */
+  var WAITLIST_URL = "https://fmdkvulakydslqmsccte.supabase.co/functions/v1/join-waitlist";
+
+  function initWaitlist() {
+    document.querySelectorAll(".waitlist-form").forEach(function (form) {
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        var input = form.querySelector(".waitlist-input");
+        var btn   = form.querySelector(".waitlist-btn");
+        var msg   = form.querySelector(".waitlist-msg");
+        if (!input || !btn || !msg) return;
+
+        var email = input.value.trim();
+        if (!email) return;
+
+        form.classList.add("is-loading");
+        btn.disabled = true;
+        msg.textContent = "";
+        msg.className = "waitlist-msg";
+
+        fetch(WAITLIST_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: email }),
+        })
+          .then(function (res) { return res.json(); })
+          .then(function (data) {
+            form.classList.remove("is-loading");
+            btn.disabled = false;
+            if (data.success) {
+              form.classList.add("is-done");
+              msg.className = "waitlist-msg is-success";
+              msg.textContent = data.already
+                ? "You’re already on the list — we’ll be in touch!"
+                : "You’re on the list! We’ll email you when Found It is ready.";
+            } else {
+              msg.className = "waitlist-msg is-error";
+              msg.textContent = data.error || "Something went wrong. Please try again.";
+            }
+          })
+          .catch(function () {
+            form.classList.remove("is-loading");
+            btn.disabled = false;
+            msg.className = "waitlist-msg is-error";
+            msg.textContent = "Something went wrong. Please try again.";
+          });
+      });
+    });
+  }
+
+  /* ─────────────────────────────────
      INIT
      ───────────────────────────────── */
   document.addEventListener("DOMContentLoaded", function () {
@@ -342,6 +396,7 @@
     initHeroAnimation();
     initSearchDemo();
     initFAQ();
+    initWaitlist();
   });
 
 })();
