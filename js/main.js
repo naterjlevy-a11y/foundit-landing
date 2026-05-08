@@ -366,10 +366,10 @@
             btn.disabled = false;
             if (data.success) {
               form.classList.add("is-done");
-              msg.className = "waitlist-msg is-success";
+              msg.className = "waitlist-msg";
               msg.textContent = data.already
-                ? "You’re already on the list — we’ll be in touch!"
-                : "You’re on the list! We’ll email you when Found It is ready.";
+                ? "You’re already on the list."
+                : "You’re on the list. We’ll be in touch.";
             } else {
               msg.className = "waitlist-msg is-error";
               msg.textContent = data.error || "Something went wrong. Please try again.";
