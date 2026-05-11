@@ -5,88 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Terms of Service — Found It</title>
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
     :root {
       --accent: #2563EB;
-      --bg: #000000;
-      --border: rgba(255, 255, 255, 0.08);
-      --mono: "SF Mono", "Fira Code", ui-monospace, monospace;
+      --bg: #ffffff;
+      --panel: #f6f6f8;
+      --border: rgba(0,0,0,0.08);
+      --border-strong: rgba(0,0,0,0.14);
+      --text: #0d0d0f;
+      --text-2: rgba(13,13,15,0.55);
+      --mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Inter", system-ui, sans-serif;
-      background: var(--bg);
-      color: rgba(255, 255, 255, 0.6);
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.75;
-    }
+    body { font-family: "Inter Tight", system-ui, sans-serif; background: var(--bg); color: var(--text-2); -webkit-font-smoothing: antialiased; line-height: 1.75; }
     a { color: var(--accent); text-decoration: none; font-weight: 500; }
     a:hover { text-decoration: underline; }
     .nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 10vw;
-      background: rgba(0, 0, 0, 0.85);
-      backdrop-filter: blur(12px);
+      position: sticky; top: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 10vw; height: 56px;
+      background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--border);
     }
-    .nav__brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      color: #fff;
-    }
-    .nav__links { display: flex; gap: 24px; flex-wrap: wrap; }
-    .nav__links a { color: rgba(255, 255, 255, 0.45); font-size: 13.5px; font-weight: 500; }
-    .nav__links a:hover { color: #fff; text-decoration: none; }
-    .nav__cta {
-      padding: 8px 18px;
-      border-radius: 10px;
-      background: var(--accent);
-      font-size: 13.5px;
-      font-weight: 600;
-      color: #fff;
-    }
-    .nav__cta:hover { opacity: 0.88; text-decoration: none; }
-    main { max-width: 680px; margin: 0 auto; padding: 56px 24px 100px; }
-    h1 { font-size: 36px; font-weight: 800; color: #fff; letter-spacing: -0.02em; margin-bottom: 8px; }
-    .meta { font-family: var(--mono); font-size: 13px; color: rgba(255, 255, 255, 0.3); margin-bottom: 40px; }
-    h2 {
-      font-size: 18px;
-      font-weight: 600;
-      color: #fff;
-      margin-top: 48px;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
-    }
-    p { font-size: 16px; margin-bottom: 16px; }
+    .nav__brand { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; text-decoration: none; }
+    .nav__brand:hover { text-decoration: none; }
+    .nav__links { display: flex; gap: 24px; }
+    .nav__links a { color: var(--text-2); font-size: 13.5px; font-weight: 500; }
+    .nav__links a:hover { color: var(--text); text-decoration: none; }
+    .nav__cta { padding: 7px 16px; border-radius: 10px; background: var(--text); font-size: 13px; font-weight: 600; color: #fff; letter-spacing: -0.01em; }
+    .nav__cta:hover { opacity: 0.82; text-decoration: none; }
+    main { max-width: 700px; margin: 0 auto; padding: 64px 24px 100px; }
+    .page-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--text-2); margin-bottom: 16px; }
+    h1 { font-size: 40px; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 10px; }
+    .meta { font-family: var(--mono); font-size: 12px; color: rgba(13,13,15,0.35); margin-bottom: 48px; }
+    h2 { font-size: 19px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-top: 48px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    p { font-size: 15.5px; margin-bottom: 14px; color: var(--text-2); }
+    p strong { color: var(--text); font-weight: 600; }
     footer {
-      border-top: 1px solid var(--border);
-      padding: 32px 10vw;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      font-size: 13px;
-      color: rgba(255, 255, 255, 0.25);
+      border-top: 1px solid var(--border); padding: 28px 10vw;
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
+      font-size: 13px; color: rgba(13,13,15,0.35); font-family: "Inter Tight", system-ui, sans-serif;
     }
-    .footer__links { display: flex; gap: 24px; flex-wrap: wrap; }
-    .footer__links a { color: rgba(255, 255, 255, 0.35); font-weight: 500; }
-    .footer__links a:hover { color: rgba(255, 255, 255, 0.7); text-decoration: none; }
+    .footer__links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer__links a { color: var(--text-2); font-weight: 500; font-size: 13px; }
+    .footer__links a:hover { color: var(--text); text-decoration: none; }
   </style>
 </head>
 <body>
   <header class="nav">
     <a class="nav__brand" href="index.html">
-      <img src="assets/logo-mark.svg" width="22" height="22" alt="" aria-hidden="true" />
+      <img src="assets/logo-mark.svg" width="20" height="20" alt="" aria-hidden="true" />
       Found It
     </a>
     <nav class="nav__links" aria-label="Primary">
@@ -94,47 +65,51 @@
       <a href="index.html#how">How it works</a>
       <a href="index.html#pricing">Pricing</a>
     </nav>
-    <a class="nav__cta" href="index.html#download">Download for Mac</a>
+    <a class="nav__cta" href="index.html#waitlist">Get early access</a>
   </header>
+
   <main>
+    <p class="page-label">§ Legal</p>
     <h1>Terms of Service</h1>
     <p class="meta">Last updated: May 2026</p>
-    <p>These Terms of Service (“Terms”) govern your use of Found It! software, updates, and related websites operated by the project maintainer (“we”, “us”).</p>
+
+    <p>These Terms of Service ("Terms") govern your use of Found It! software, updates, and related websites operated by Nate Levy ("we", "us").</p>
 
     <h2>1. Acceptance</h2>
     <p>By downloading, installing, or using Found It!, you agree to these Terms. If you disagree, do not use the software.</p>
 
     <h2>2. The service</h2>
-    <p>Found It! is a macOS application that helps you search files on your machine. Features may change between releases; we describe the current intent on our marketing site.</p>
+    <p>Found It! is a macOS application that helps you search files on your machine using natural-language queries and local AI indexing. Features may change between releases; the current feature set is described on our website.</p>
 
     <h2>3. Accounts &amp; eligibility</h2>
-    <p>You must have the legal capacity to enter these Terms. You are responsible for credentials associated with your account if we offer one.</p>
+    <p>You must have the legal capacity to enter these Terms. You are responsible for keeping your account credentials secure. If you believe your account has been compromised, contact us immediately.</p>
 
     <h2>4. Plans &amp; billing</h2>
-    <p><strong>Free tier:</strong> includes unlimited searches across up to 500 indexed files, as described in-product. Pro unlocks unlimited indexing and additional features described in-product.</p>
-    <p><strong>Pro (when available):</strong> If we offer a paid plan, subscription pricing and renewal terms will be shown at checkout through our payment processor (for example Stripe). You would authorize that processor to charge your payment method on the schedule you select.</p>
+    <p><strong>Free tier:</strong> Includes AI-powered search across up to 500 indexed files, as described in-app. No credit card required.</p>
+    <p><strong>Pro plan ($10.99/month or $87.99/year):</strong> Unlocks unlimited file indexing and priority features described in-app. Subscription billing is handled by Stripe. You authorise Stripe to charge your payment method on the schedule you select at checkout. You may cancel at any time from your billing portal.</p>
 
     <h2>5. License</h2>
-    <p>We grant you a personal, non-exclusive, non-transferable license to run the software on supported macOS versions for your own use, subject to these Terms.</p>
+    <p>We grant you a personal, non-exclusive, non-transferable license to run Found It! on supported macOS versions for your own personal use, subject to these Terms. You may not redistribute, reverse-engineer, or sublicense the software.</p>
 
     <h2>6. Acceptable use</h2>
-    <p>You agree not to misuse the software: no unlawful access to third-party systems, no harassment, no attempt to disrupt or overload services, and no redistribution of the app outside permitted channels.</p>
+    <p>You agree not to misuse the software: no unlawful access to third-party systems, no attempt to disrupt or overload our services, and no redistribution of the app outside of permitted channels.</p>
 
     <h2>7. Third-party services</h2>
-    <p>The product may integrate with operating-system APIs, authentication providers, or payment processors. Their terms may apply in addition to ours.</p>
+    <p>Found It! integrates with macOS system APIs, Supabase (authentication and Edge Functions), Stripe (billing), and MiniMax (AI summarisation). Their respective terms apply in addition to ours.</p>
 
     <h2>8. Disclaimers</h2>
-    <p>The software is provided “as is” to the maximum extent permitted by law. Search results depend on your local data and model behavior; we do not guarantee particular outcomes.</p>
+    <p>The software is provided "as is" to the maximum extent permitted by law. Search results depend on your local file content and AI model behaviour; we do not guarantee particular outcomes or uptime.</p>
 
     <h2>9. Limitation of liability</h2>
     <p>To the maximum extent permitted by law, we are not liable for indirect, incidental, special, consequential, or punitive damages, or loss of data or profits, arising from your use of the software.</p>
 
     <h2>10. Changes</h2>
-    <p>We may update these Terms. Continued use after changes become effective constitutes acceptance of the revised Terms.</p>
+    <p>We may update these Terms as the product evolves. Continued use after changes become effective constitutes acceptance of the revised Terms. Significant changes will be communicated via the app or by email.</p>
 
     <h2>11. Contact</h2>
-    <p><a href="mailto:hello@founditapp.com">hello@founditapp.com</a></p>
+    <p>Questions about these Terms: <a href="mailto:naterjlevy@icloud.com">naterjlevy@icloud.com</a></p>
   </main>
+
   <footer>
     <span>© 2026 Found It!</span>
     <div class="footer__links">
