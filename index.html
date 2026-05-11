@@ -30,6 +30,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="css/styles.css" />
+
 </head>
 <body>
 
@@ -37,7 +38,7 @@
   <div id="scroll-progress" aria-hidden="true"></div>
 
   <!-- ══════════════════ NAV ══════════════════ -->
-  <header class="nav" id="nav" role="banner">
+  <header class="nav nav--hero" id="nav" role="banner">
     <div class="nav__inner">
 
       <a class="nav__brand" href="index.html" aria-label="Found It home">
@@ -49,7 +50,7 @@
       <nav class="nav__links" aria-label="Primary navigation">
         <a class="nav-link" href="#features"  data-nav-target="features">Features</a>
         <a class="nav-link" href="#how"       data-nav-target="how">How it works</a>
-        <a class="nav-link" href="#privacy"   data-nav-target="privacy">Privacy</a>
+        <a class="nav-link" href="privacy.html">Privacy</a>
         <a class="nav-link" href="#pricing"   data-nav-target="pricing">Pricing</a>
         <a class="nav-link" href="#about"     data-nav-target="about">About</a>
       </nav>
@@ -69,7 +70,7 @@
   <div class="nav-drawer" id="navDrawer" aria-hidden="true">
     <a class="nav-link" href="#features">Features</a>
     <a class="nav-link" href="#how">How it works</a>
-    <a class="nav-link" href="#privacy">Privacy</a>
+    <a class="nav-link" href="privacy.html">Privacy</a>
     <a class="nav-link" href="#pricing">Pricing</a>
     <a class="nav-link" href="#about">About</a>
     <div class="nav-drawer__divider"></div>
@@ -79,7 +80,23 @@
   <main id="main">
 
     <!-- ══════════════════ 1. HERO ══════════════════ -->
-    <section class="hero" id="hero">
+    <section class="hero hero--dark" id="hero">
+
+      <!-- Background glow -->
+      <div class="hero-bg-glow" aria-hidden="true"></div>
+
+      <!-- Floating geometric shapes -->
+      <div class="hero-shapes" aria-hidden="true">
+        <div class="shape-outer shape-s1"><div class="shape-body"></div></div>
+        <div class="shape-outer shape-s2"><div class="shape-body"></div></div>
+        <div class="shape-outer shape-s3"><div class="shape-body"></div></div>
+        <div class="shape-outer shape-s4"><div class="shape-body"></div></div>
+        <div class="shape-outer shape-s5"><div class="shape-body"></div></div>
+      </div>
+
+      <!-- Top + bottom fade overlay -->
+      <div class="hero-fade" aria-hidden="true"></div>
+
       <div class="shell">
         <div class="hero__inner">
 
@@ -94,7 +111,7 @@
           </h1>
 
           <p class="hero__sub">
-            Type what you remember about a file — the class, the project, roughly when you made it — and Found It finds it. No exact name needed.
+            Type what you remember — the class, the project, roughly when you made it. No exact filename needed.
           </p>
 
           <div class="hero__actions" id="waitlist">
@@ -102,7 +119,7 @@
               <div class="waitlist-row">
                 <input class="waitlist-input" type="email" placeholder="your@email.com" autocomplete="email" required aria-label="Email address" />
                 <button class="waitlist-btn" type="submit">
-                  <span class="waitlist-btn-text">Get notified</span>
+                  <span class="waitlist-btn-text">Get early access</span>
                   <span class="waitlist-btn-spinner" aria-hidden="true"></span>
                 </button>
               </div>
@@ -111,94 +128,6 @@
           </div>
 
           <p class="hero__support">macOS &nbsp;&middot;&nbsp; Early access &nbsp;&middot;&nbsp; Free to join</p>
-
-          <!-- COMMAND PALETTE MOCKUP -->
-          <div class="mockup-wrap" aria-hidden="true">
-            <div class="mockup-glow"></div>
-            <div class="mockup" role="img" aria-label="Found It search interface showing results for 'physics homework from last year'">
-
-              <div class="mockup-bar">
-                <div class="mockup-dots" aria-hidden="true">
-                  <span class="mockup-dot mockup-dot--red"></span>
-                  <span class="mockup-dot mockup-dot--yellow"></span>
-                  <span class="mockup-dot mockup-dot--green"></span>
-                </div>
-                <span class="mockup-bar-title">Found It</span>
-                <div class="mockup-bar-spacer"></div>
-              </div>
-
-              <div class="mockup-search">
-                <svg class="mockup-search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                  <circle cx="11" cy="11" r="8"/>
-                  <path d="m21 21-4.35-4.35"/>
-                </svg>
-                <span class="mockup-query" id="heroMockupQuery">physics homework from last year</span>
-                <span class="mockup-cursor-blink" aria-hidden="true"></span>
-              </div>
-
-              <div class="mockup-results">
-
-                <div class="mockup-result mockup-result--active">
-                  <div class="mockup-icon mockup-icon--pdf" aria-hidden="true">PDF</div>
-                  <div class="mockup-result-body">
-                    <div class="mockup-result-top">
-                      <span class="mockup-result-name">Physics_Lab_Energy_Conservation.pdf</span>
-                      <span class="mockup-tag mockup-tag--best">Best match</span>
-                      <span class="mockup-tag mockup-tag--pdf">PDF</span>
-                    </div>
-                    <div class="mockup-result-desc">Lab report covering energy, motion, graphs, and calculations</div>
-                    <div class="mockup-result-path">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                      Documents / School / Physics
-                    </div>
-                  </div>
-                  <kbd class="mockup-shortcut">⌘1</kbd>
-                </div>
-
-                <div class="mockup-result">
-                  <div class="mockup-icon mockup-icon--docx" aria-hidden="true">DOC</div>
-                  <div class="mockup-result-body">
-                    <div class="mockup-result-top">
-                      <span class="mockup-result-name">Grade_11_Physics_Review.docx</span>
-                      <span class="mockup-tag mockup-tag--docx">DOCX</span>
-                    </div>
-                    <div class="mockup-result-desc">Review notes on kinematics, forces, electricity, and exam prep</div>
-                    <div class="mockup-result-path">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                      Downloads
-                    </div>
-                  </div>
-                  <kbd class="mockup-shortcut">⌘2</kbd>
-                </div>
-
-                <div class="mockup-result">
-                  <div class="mockup-icon mockup-icon--pdf" aria-hidden="true">PDF</div>
-                  <div class="mockup-result-body">
-                    <div class="mockup-result-top">
-                      <span class="mockup-result-name">Waves_and_Sound_Notes.pdf</span>
-                      <span class="mockup-tag mockup-tag--pdf">PDF</span>
-                    </div>
-                    <div class="mockup-result-desc">Class notes on wave speed, frequency, and sound</div>
-                    <div class="mockup-result-path">
-                      <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
-                      Desktop
-                    </div>
-                  </div>
-                  <kbd class="mockup-shortcut">⌘3</kbd>
-                </div>
-
-              </div>
-
-              <div class="mockup-footer">
-                <span>Indexed locally</span>
-                <span class="mockup-footer-sep" aria-hidden="true">·</span>
-                <span>Open · Preview · Reveal</span>
-                <span class="mockup-footer-sep" aria-hidden="true">·</span>
-                <span>Delete · Drag</span>
-              </div>
-
-            </div>
-          </div>
 
         </div>
       </div>
@@ -245,83 +174,6 @@
     <!-- /demo -->
 
 
-    <!-- ══════════════════ 4. RECENTLY SHIPPED ══════════════════ -->
-    <section class="sec sec--alt shipped-sec" id="updates">
-      <div class="shell">
-
-        <div class="sec-head reveal-up">
-          <p class="sec-eyebrow">§ 002 · Recently shipped</p>
-          <h2 class="sec-title">What's new.</h2>
-          <p class="sec-desc">A bunch of stuff I've been working on lately.</p>
-        </div>
-
-        <div class="shipped-grid stagger">
-
-          <div class="shipped-item">
-            <div class="shipped-icon shipped-icon--speed" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </div>
-            <div class="shipped-body">
-              <h4>Search is near-instant now</h4>
-              <p>Everything runs locally — no network call, no waiting. Type a query and results show up in milliseconds.</p>
-            </div>
-          </div>
-
-          <div class="shipped-item">
-            <div class="shipped-icon shipped-icon--panel" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
-            </div>
-            <div class="shipped-body">
-              <h4>Panel opens instantly</h4>
-              <p>It stays in memory now. Click the menu bar icon and it just appears — no lag, no cold start every time.</p>
-            </div>
-          </div>
-
-          <div class="shipped-item">
-            <div class="shipped-icon shipped-icon--delete" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4h6v2"/></svg>
-            </div>
-            <div class="shipped-body">
-              <h4>Delete files from search results</h4>
-              <p>Open any result and there's a Delete button right there. No Finder, no digging through menus.</p>
-            </div>
-          </div>
-
-          <div class="shipped-item">
-            <div class="shipped-icon shipped-icon--lock" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <div class="shipped-body">
-              <h4>Login stored in Keychain</h4>
-              <p>Auth tokens now live in the macOS Keychain, not a file. A small thing that matters.</p>
-            </div>
-          </div>
-
-          <div class="shipped-item">
-            <div class="shipped-icon shipped-icon--smart" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r=".5" fill="currentColor"/></svg>
-            </div>
-            <div class="shipped-body">
-              <h4>Smarter keyword matching</h4>
-              <p>The scoring pass is faster — query tokens computed once, filenames cached. First search already fast; every one after is faster.</p>
-            </div>
-          </div>
-
-          <div class="shipped-item">
-            <div class="shipped-icon shipped-icon--deep" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M21 21l-6-6m6 6v-4.8m0 4.8h-4.8"/><path d="M3 16.2V21m0 0h4.8M3 21l6-6"/><path d="M21 7.8V3m0 0h-4.8M21 3l-6 6"/><path d="M3 7.8V3m0 0h4.8M3 3l6 6"/></svg>
-            </div>
-            <div class="shipped-body">
-              <h4>Deep Search gets more context</h4>
-              <p>It now generates related keywords before searching, then re-ranks results after. Helps a lot when your query is vague or the file name is useless.</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-    <!-- /recently shipped -->
 
 
 
@@ -330,7 +182,7 @@
       <div class="shell">
 
         <div class="sec-head reveal-up">
-          <p class="sec-eyebrow">§ 003 · How it works</p>
+          <p class="sec-eyebrow">§ 002 · How it works</p>
           <h2 class="sec-title">It indexes first, then searches <span class="hl">fast.</span></h2>
           <p class="sec-desc">Found It builds a local index of your files in the background. When you search, everything is already there — no scanning, no waiting.</p>
         </div>
@@ -400,42 +252,18 @@
 
           <article class="feat-card">
             <div class="feat-icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-            </div>
-            <h3>Instant panel open</h3>
-            <p>The panel lives in memory between opens. Click the menu bar icon and it appears immediately — no cold-start, no lag.</p>
-          </article>
-
-          <article class="feat-card">
-            <div class="feat-icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <h3>Search history</h3>
-            <p>Recent searches persist across app restarts so you can quickly return to what you were looking for.</p>
-          </article>
-
-          <article class="feat-card">
-            <div class="feat-icon" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
             </div>
             <h3>File actions built in</h3>
-            <p>Open, preview in Quick Look, reveal in Finder, copy path, share, or delete — all from the search result panel with one click.</p>
+            <p>Open, preview in Quick Look, reveal in Finder, copy path, share, or delete — all from the result panel with one click.</p>
           </article>
 
           <article class="feat-card">
             <div class="feat-icon" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
             </div>
-            <h3>500 files included free</h3>
-            <p>Start with unlimited searches across your first 500 indexed files. No credit card required.</p>
-          </article>
-
-          <article class="feat-card">
-            <div class="feat-icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <h3>Keychain security</h3>
-            <p>Auth tokens stored in the macOS Keychain with device-only access. API keys stay server-side, never in the app binary.</p>
+            <h3>500 files, free forever</h3>
+            <p>Unlimited searches across your first 500 indexed files. No credit card required.</p>
           </article>
 
           <article class="feat-card feat-card--pro">
@@ -444,7 +272,7 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
             </div>
             <h3>Unlimited indexing</h3>
-            <p>Pro indexes your full Mac file library — no cap. The complete index means better recall on everything you've ever saved.</p>
+            <p>Index your entire Mac library — no cap. Better recall on everything you've ever saved.</p>
           </article>
 
           <article class="feat-card feat-card--pro">
@@ -453,7 +281,7 @@
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M21 21l-6-6m6 6v-4.8m0 4.8h-4.8"/><path d="M3 16.2V21m0 0h4.8M3 21l6-6"/><path d="M21 7.8V3m0 0h-4.8M21 3l-6 6"/><path d="M3 7.8V3m0 0h4.8M3 3l6 6"/></svg>
             </div>
             <h3>Deep Search</h3>
-            <p>AI query expansion finds 5–8 related terms before searching, then re-ranks results. Built for vague, messy, or hard-to-name files.</p>
+            <p>AI query expansion finds related terms before searching, then re-ranks results. Built for vague or hard-to-name files.</p>
           </article>
 
           <article class="feat-card feat-card--pro">
@@ -461,26 +289,8 @@
             <div class="feat-icon" aria-hidden="true">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
             </div>
-            <h3>Image conversion</h3>
-            <p>Convert JPEG, PNG, HEIC, TIFF, and more — right from the file panel, without leaving Found It.</p>
-          </article>
-
-          <article class="feat-card feat-card--pro">
-            <span class="feat-pro-badge">Pro</span>
-            <div class="feat-icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M5 9l-3 3 3 3"/><path d="M9 5l3-3 3 3"/><path d="M15 19l3 3 3-3"/><path d="M19 9l3 3-3 3"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
-            </div>
-            <h3>Drag-and-drop import &amp; use</h3>
-            <p>Drag files into Found It or drag found files out into Mail, Finder, a browser upload field, or any other app.</p>
-          </article>
-
-          <article class="feat-card feat-card--pro">
-            <span class="feat-pro-badge">Pro</span>
-            <div class="feat-icon" aria-hidden="true">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-            </div>
-            <h3>Priority re-indexing</h3>
-            <p>Pro keeps your index fresher. New and changed files get re-indexed faster so your library is always up to date.</p>
+            <h3>Image conversion &amp; drag-and-drop</h3>
+            <p>Convert JPEG, PNG, HEIC, and more. Drag found files straight into Mail, Finder, or any upload field.</p>
           </article>
 
         </div>
@@ -491,93 +301,6 @@
 
 
 
-    <!-- ══════════════════ 10. PRIVACY ══════════════════ -->
-    <section class="sec sec--alt" id="privacy">
-      <div class="shell">
-
-        <div class="sec-head reveal-up">
-          <p class="sec-eyebrow">§ 004 · Privacy</p>
-          <h2 class="sec-title">Your files don't <span class="hl">leave</span> your Mac.</h2>
-          <p class="sec-desc">Standard search is entirely local — no network call at all. Deep Search sends only your query text to expand it. Nothing else goes anywhere.</p>
-        </div>
-
-        <div class="arch-wrap reveal-up">
-
-          <p class="arch-label">Local path — stays on your Mac</p>
-          <div class="arch-path">
-            <div class="arch-node">Mac files</div>
-            <span class="arch-arrow" aria-hidden="true">→</span>
-            <div class="arch-node">AI summaries + embeddings</div>
-            <span class="arch-arrow" aria-hidden="true">→</span>
-            <div class="arch-node">SQLite index</div>
-            <span class="arch-arrow" aria-hidden="true">→</span>
-            <div class="arch-node arch-node--result">Ranked results</div>
-          </div>
-          <p class="arch-note">All of the above runs locally on your machine. Standard search never touches the network.</p>
-
-          <br>
-
-          <p class="arch-label" style="margin-top:8px">Network path — Deep Search query expansion only (Pro)</p>
-          <div class="arch-path">
-            <div class="arch-node">Search query</div>
-            <span class="arch-arrow arch-arrow--blue" aria-hidden="true">→</span>
-            <div class="arch-node arch-node--secure">Secure Edge Function</div>
-            <span class="arch-arrow arch-arrow--blue" aria-hidden="true">→</span>
-            <div class="arch-node">Intent + keyword expansion</div>
-          </div>
-          <p class="arch-note arch-note--blue">API key is protected server-side — never bundled in the app. Under $0.001 per Deep Search call.</p>
-
-        </div>
-
-        <div class="trust-grid stagger">
-
-          <div class="trust-item">
-            <div class="trust-icon" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <p>Search runs against a local SQLite index. Standard search never touches the network.</p>
-          </div>
-
-          <div class="trust-item">
-            <div class="trust-icon" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </div>
-            <p>Auth tokens stored in the macOS Keychain with device-only access — not a plaintext file.</p>
-          </div>
-
-          <div class="trust-item">
-            <div class="trust-icon" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4.03 3-9 3S3 13.66 3 12"/><path d="M3 5v14c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/></svg>
-            </div>
-            <p>No file contents are ever stored in the cloud. Your index is a local database on your Mac.</p>
-          </div>
-
-          <div class="trust-item">
-            <div class="trust-icon" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="1"/></svg>
-            </div>
-            <p>API keys protected server-side via Supabase Edge Functions. Never bundled in the app binary.</p>
-          </div>
-
-          <div class="trust-item">
-            <div class="trust-icon" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-            </div>
-            <p>No telemetry. The app is designed to minimize unnecessary network exposure.</p>
-          </div>
-
-          <div class="trust-item">
-            <div class="trust-icon" aria-hidden="true">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-            </div>
-            <p>Account and payment flows handled through Supabase Auth and Stripe. Cancel anytime.</p>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-    <!-- /privacy -->
 
 
     <!-- ══════════════════ 11. PRICING ══════════════════ -->
@@ -711,7 +434,7 @@
               Is there a free version?
               <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-ans">Yes. Free includes unlimited searches across your first 500 indexed files. No credit card required to download.</div>
+            <div class="faq-ans">Yes. Free includes unlimited searches across your first 500 indexed files. No credit card required.</div>
           </details>
 
           <details class="faq-item reveal-up">
@@ -719,7 +442,7 @@
               How fast is the search?
               <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-ans">Standard search is fully local — keyword extraction, scoring, and ranking all happen on your Mac with no network call. Results appear in milliseconds. Deep Search (Pro) adds an AI pass which takes 1–3 seconds but finds much more for vague or messy queries.</div>
+            <div class="faq-ans">Standard search is fully local — no network call. Results appear in milliseconds. Deep Search (Pro) adds an AI pass that takes 1–3 seconds but finds much more for vague queries.</div>
           </details>
 
           <details class="faq-item reveal-up">
@@ -727,23 +450,7 @@
               What does Pro unlock?
               <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-ans">Pro unlocks unlimited file indexing, Deep Search (AI query expansion + reranking + natural-language answer), image conversion for common formats, drag-and-drop import and use, and priority re-indexing.</div>
-          </details>
-
-          <details class="faq-item reveal-up">
-            <summary>
-              How does Found It score search results?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-ans">Each candidate file is scored across 10+ signals: exact keyword match, lemma match (e.g. "running" matches "run"), fuzzy match for typos, filename match, metadata topics and entities, content chunks, embedding cosine similarity, document type, date window, and recency. Higher scores float to the top.</div>
-          </details>
-
-          <details class="faq-item reveal-up">
-            <summary>
-              Where are my auth credentials stored?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-ans">Auth tokens are stored in the macOS Keychain with device-only access — not in a file on disk. API keys are protected server-side through Supabase Edge Functions and are never bundled in the app binary.</div>
+            <div class="faq-ans">Pro unlocks unlimited file indexing, Deep Search (AI query expansion + reranking), image conversion, drag-and-drop import and use, and priority re-indexing.</div>
           </details>
 
           <details class="faq-item reveal-up">
@@ -751,15 +458,7 @@
               What folders does Found It index?
               <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-ans">Found It indexes common Mac locations — Documents, Downloads, and Desktop. Support for additional custom folders is on the roadmap.</div>
-          </details>
-
-          <details class="faq-item reveal-up">
-            <summary>
-              How much does Pro cost?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-ans">Pro is $10.99/month and unlocks unlimited indexing, Deep Search, image conversion, drag-and-drop import and use, and priority re-indexing. Cancel anytime through the billing portal.</div>
+            <div class="faq-ans">Documents, Downloads, and Desktop. Support for custom folders is on the roadmap.</div>
           </details>
 
           <details class="faq-item reveal-up">
@@ -767,15 +466,7 @@
               Does Found It replace Spotlight?
               <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
             </summary>
-            <div class="faq-ans">No. Spotlight is great when you know what something is called. Found It is for when you remember what the file was about — the topic, the class, the project — not its exact name.</div>
-          </details>
-
-          <details class="faq-item reveal-up">
-            <summary>
-              Does search happen online?
-              <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-            </summary>
-            <div class="faq-ans">Standard search is 100% local — no network call of any kind. Deep Search (Pro) uses a lightweight query expansion call through a secure Edge Function to understand intent and find related terms. This call costs under $0.001 and the API key is never exposed in the app.</div>
+            <div class="faq-ans">No. Spotlight is great when you know the filename. Found It is for when you remember what the file was about — the topic, the class, the project — not its exact name.</div>
           </details>
 
         </div>
@@ -789,7 +480,7 @@
     <section class="sec about-sec" id="about">
       <div class="shell">
         <div class="about-inner reveal-up">
-          <p class="sec-eyebrow">§ 005 · About</p>
+          <p class="sec-eyebrow">§ 003 · About</p>
           <h2 class="about-name">Nate Levy</h2>
           <p class="about-desc">I built Found It because I kept losing my own files. It started as a weekend project and kept going from there.</p>
           <div class="about-links">
