@@ -3,78 +3,96 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Cookie Policy — Found It!</title>
+  <title>Cookie Policy — Found It</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
-    :root { --accent: #2563EB; --bg: #000; --border: rgba(255,255,255,0.08); --mono: "SF Mono", "Fira Code", ui-monospace, monospace; }
+    :root {
+      --accent: #2563EB;
+      --bg: #ffffff;
+      --panel: #f6f6f8;
+      --border: rgba(0,0,0,0.08);
+      --text: #0d0d0f;
+      --text-2: rgba(13,13,15,0.55);
+      --mono: "JetBrains Mono", "SF Mono", ui-monospace, monospace;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Inter, system-ui, sans-serif; background: var(--bg); color: rgba(255,255,255,0.6); -webkit-font-smoothing: antialiased; line-height: 1.75; }
-    a { color: var(--accent); font-weight: 500; text-decoration: none; }
+    body { font-family: "Inter Tight", system-ui, sans-serif; background: var(--bg); color: var(--text-2); -webkit-font-smoothing: antialiased; line-height: 1.75; }
+    a { color: var(--accent); text-decoration: none; font-weight: 500; }
     a:hover { text-decoration: underline; }
     .nav {
       position: sticky; top: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 16px 10vw; background: rgba(0,0,0,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border);
+      padding: 0 10vw; height: 56px;
+      background: rgba(255,255,255,0.88); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
     }
-    .nav__brand { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: #fff; }
-    .nav__logo {
-      width: 28px; height: 28px;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-      color: var(--accent);
-    }
-    .nav__logo .brand-mark { display: block; width: 100%; height: 100%; }
-    .nav__links { display: flex; gap: 24px; flex-wrap: wrap; }
-    .nav__links a { color: rgba(255,255,255,0.45); font-size: 14px; font-weight: 500; }
-    .nav__links a:hover { color: #fff; text-decoration: none; }
-    .nav__cta {
-      padding: 8px 20px; border-radius: 6px; border: 1px solid rgba(255,255,255,0.2);
-      font-size: 14px; font-weight: 500; color: #fff;
-    }
-    .nav__cta:hover { border-color: rgba(255,255,255,0.5); text-decoration: none; }
-    main { max-width: 680px; margin: 0 auto; padding: 56px 24px 100px; }
-    h1 { font-size: 36px; font-weight: 800; color: #fff; margin-bottom: 8px; letter-spacing: -0.02em; }
-    .meta { font-family: var(--mono); font-size: 13px; color: rgba(255,255,255,0.3); margin-bottom: 32px; }
-    h2 { font-size: 18px; font-weight: 600; color: #fff; margin-top: 40px; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
-    p { font-size: 16px; margin-bottom: 16px; }
+    .nav__brand { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; text-decoration: none; }
+    .nav__brand:hover { text-decoration: none; }
+    .nav__links { display: flex; gap: 24px; }
+    .nav__links a { color: var(--text-2); font-size: 13.5px; font-weight: 500; }
+    .nav__links a:hover { color: var(--text); text-decoration: none; }
+    .nav__cta { padding: 7px 16px; border-radius: 10px; background: var(--text); font-size: 13px; font-weight: 600; color: #fff; letter-spacing: -0.01em; }
+    .nav__cta:hover { opacity: 0.82; text-decoration: none; }
+    main { max-width: 700px; margin: 0 auto; padding: 64px 24px 100px; }
+    .page-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 1.4px; text-transform: uppercase; color: var(--text-2); margin-bottom: 16px; }
+    h1 { font-size: 40px; font-weight: 800; color: var(--text); letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 10px; }
+    .meta { font-family: var(--mono); font-size: 12px; color: rgba(13,13,15,0.35); margin-bottom: 48px; }
+    h2 { font-size: 19px; font-weight: 700; color: var(--text); letter-spacing: -0.02em; margin-top: 48px; margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+    p { font-size: 15.5px; margin-bottom: 14px; color: var(--text-2); }
+    p strong { color: var(--text); font-weight: 600; }
     footer {
-      border-top: 1px solid var(--border); padding: 32px 10vw;
-      display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px;
-      font-size: 13px; color: rgba(255,255,255,0.25);
+      border-top: 1px solid var(--border); padding: 28px 10vw;
+      display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 16px;
+      font-size: 13px; color: rgba(13,13,15,0.35); font-family: "Inter Tight", system-ui, sans-serif;
     }
-    .footer__links { display: flex; gap: 24px; flex-wrap: wrap; }
-    .footer__links a { color: rgba(255,255,255,0.35); font-weight: 500; }
-    .footer__links a:hover { color: rgba(255,255,255,0.7); text-decoration: none; }
+    .footer__links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .footer__links a { color: var(--text-2); font-weight: 500; font-size: 13px; }
+    .footer__links a:hover { color: var(--text); text-decoration: none; }
   </style>
 </head>
 <body>
   <header class="nav">
-    <a class="nav__brand" href="index.html"><span class="nav__logo" aria-hidden="true"><svg class="brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" width="28" height="28" aria-hidden="true"><circle cx="10" cy="10" r="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M15.2 15.2L20.5 20.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span> Found It!</a>
+    <a class="nav__brand" href="index.html">
+      <img src="assets/logo-mark.svg" width="20" height="20" alt="" aria-hidden="true" />
+      Found It
+    </a>
     <nav class="nav__links" aria-label="Primary">
       <a href="index.html#features">Features</a>
-      <a href="index.html#how-it-works">How it works</a>
+      <a href="index.html#how">How it works</a>
       <a href="index.html#pricing">Pricing</a>
-      <a href="index.html#founder">Founder</a>
-      <a href="index.html#download">Download</a>
     </nav>
-    <a class="nav__cta" href="index.html#download">Download</a>
+    <a class="nav__cta" href="index.html#waitlist">Get early access</a>
   </header>
+
   <main>
+    <p class="page-label">§ Legal</p>
     <h1>Cookie Policy</h1>
     <p class="meta">Last updated: May 2026</p>
-    <p>This page explains how our website may use cookies and similar technologies. The Found It! macOS app itself does not rely on browser cookies.</p>
+
+    <p>This page explains how our website may use cookies and similar technologies. The Found It! macOS app itself does not use browser cookies.</p>
+
     <h2>1. What cookies are</h2>
-    <p>Cookies are small text files stored by your browser. They can keep you signed in, remember preferences, or help us understand aggregate traffic.</p>
+    <p>Cookies are small text files stored by your browser. They can keep you signed in, remember preferences, or help us understand aggregate traffic patterns.</p>
+
     <h2>2. Essential / functional</h2>
-    <p>If we offer web sign-in or account pages, our authentication provider may set first-party session cookies so you stay logged in. We treat these as necessary for that functionality.</p>
-    <h2>3. Analytics (if enabled)</h2>
-    <p>We may use privacy-conscious analytics to see which pages are visited. You can block third-party cookies in your browser; core site functionality should still work.</p>
+    <p>If you sign in to manage your account or subscription on our website, our authentication provider (Supabase) may set a first-party session cookie to keep you logged in. These are necessary for that functionality to work and cannot be opted out of while using the feature.</p>
+
+    <h2>3. Analytics</h2>
+    <p>We currently use no third-party analytics on this site. If we add analytics in the future, we will list the provider here and use a privacy-respecting tool that does not fingerprint individual users.</p>
+
     <h2>4. Marketing</h2>
-    <p>We do not use invasive ad trackers on this site today. If we add advertising or retargeting pixels in the future, we will list them here and provide opt-out information where required.</p>
-    <h2>5. Contact</h2>
-    <p><a href="mailto:privacy@founditapp.com">privacy@founditapp.com</a></p>
+    <p>We do not use advertising trackers or retargeting pixels on this site. If that changes, we will update this policy and provide opt-out information as required by applicable law.</p>
+
+    <h2>5. Managing cookies</h2>
+    <p>You can block or delete cookies via your browser settings. Blocking session cookies will prevent account sign-in on the website but does not affect the macOS app.</p>
+
+    <h2>6. Contact</h2>
+    <p>Questions: <a href="mailto:naterjlevy@icloud.com">naterjlevy@icloud.com</a></p>
   </main>
+
   <footer>
     <span>© 2026 Found It!</span>
     <div class="footer__links">
