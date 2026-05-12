@@ -15,7 +15,7 @@ export function SocialProofBar() {
       initial={{ opacity: 0, y: 12 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="w-full border-y border-white/5 bg-white/[0.015] py-4"
+      className="w-full border-y border-white/5 bg-[#2563EB]/[0.025] py-4"
     >
       <div className="max-w-5xl mx-auto px-6 flex items-center justify-center gap-5 flex-wrap">
         {/* Avatar cluster */}

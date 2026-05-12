@@ -40,6 +40,9 @@ export function HeroSection() {
     <section id="hero" className="relative min-h-screen bg-black overflow-hidden flex flex-col items-center justify-center">
       <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" />
       <BackgroundBeams className="opacity-40" />
+      {/* Ambient depth orbs */}
+      <div className="absolute left-1/4 top-1/3 w-96 h-96 rounded-full bg-[#2563EB]/5 blur-[120px] pointer-events-none" />
+      <div className="absolute right-1/4 top-1/2 w-72 h-72 rounded-full bg-[#2563EB]/4 blur-[100px] pointer-events-none" />
 
       <LampContainer className="min-h-screen">
         {/* Badge */}

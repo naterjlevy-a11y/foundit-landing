@@ -46,7 +46,10 @@ export function StatsBar() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <section ref={ref} className="bg-black border-t border-white/5 py-20">
+    <section ref={ref} className="relative bg-[#020208] border-t border-white/5 py-20 overflow-hidden">
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full bg-[#2563EB]/5 blur-[100px]" />
+      </div>
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
