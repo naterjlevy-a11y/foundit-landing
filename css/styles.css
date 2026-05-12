@@ -128,14 +128,11 @@ button:focus-visible {
   flex-shrink: 0;
 }
 .nav__brand-mark {
-  display: none;
+  display: block;
+  flex-shrink: 0;
 }
 .nav__brand-dot {
-  width: 10px;
-  height: 10px;
-  background: var(--blue);
-  border-radius: 2px;
-  flex-shrink: 0;
+  display: none;
 }
 .nav__links {
   display: flex;
@@ -1424,12 +1421,9 @@ button:focus-visible {
   letter-spacing: -0.025em;
   margin-bottom: 8px;
 }
-.footer-brand img { display: none; }
+.footer-brand img { display: block; flex-shrink: 0; }
 .footer-brand-dot {
-  width: 8px; height: 8px;
-  background: var(--blue);
-  border-radius: 2px;
-  display: inline-block;
+  display: none;
 }
 .footer-tagline {
   font-size: 13px;
@@ -1588,7 +1582,45 @@ button:focus-visible {
 .about-sec { padding: 80px 0; border-bottom: 1px solid var(--border); }
 
 .about-inner {
-  max-width: 520px;
+  max-width: 800px;
+  display: flex;
+  align-items: flex-start;
+  gap: 56px;
+}
+
+.about-photo-col {
+  flex-shrink: 0;
+}
+
+.about-photo {
+  width: 180px;
+  height: 180px;
+  border-radius: 14px;
+  object-fit: cover;
+  object-position: center top;
+  border: 1px solid var(--border-strong);
+  display: block;
+}
+
+.about-text-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.about-role {
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--blue);
+  margin-bottom: 16px;
+  margin-top: -8px;
+}
+
+@media (max-width: 640px) {
+  .about-inner { flex-direction: column; gap: 32px; }
+  .about-photo { width: 120px; height: 120px; }
 }
 
 .about-name {
