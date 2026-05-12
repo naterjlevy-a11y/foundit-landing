@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Privacy Policy — Found It!</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #000;
+      color: rgba(255,255,255,0.75);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.7;
+      padding: 64px 24px 96px;
+      max-width: 680px;
+      margin: 0 auto;
+    }
+    header { margin-bottom: 48px; }
+    header a { color: #2563EB; text-decoration: none; font-size: 13px; font-family: monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+    header a:hover { color: #60a5fa; }
+    h1 { font-size: 32px; font-weight: 800; color: #fff; letter-spacing: -0.03em; margin-top: 24px; margin-bottom: 8px; }
+    .meta { color: rgba(255,255,255,0.3); font-size: 12px; font-family: monospace; letter-spacing: 0.06em; text-transform: uppercase; }
+    section { margin-top: 40px; }
+    h2 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    p { margin-bottom: 16px; }
+    ul { padding-left: 24px; margin-bottom: 16px; }
+    li { margin-bottom: 6px; }
+    a { color: #2563EB; }
+    a:hover { color: #60a5fa; }
+    .highlight { background: rgba(37,99,235,0.08); border: 1px solid rgba(37,99,235,0.2); border-radius: 8px; padding: 16px 20px; margin: 20px 0; color: rgba(255,255,255,0.65); }
+    footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06); color: rgba(255,255,255,0.2); font-size: 12px; font-family: monospace; display: flex; justify-content: space-between; flex-wrap: gap; gap: 12px; }
+    footer a { color: rgba(255,255,255,0.35); text-decoration: none; }
+    footer a:hover { color: rgba(255,255,255,0.7); }
+    hr { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 32px 0; }
+  </style>
+</head>
+<body>
+  <header>
+    <a href="/">← Back to Found It!</a>
+    <h1>Privacy Policy</h1>
+    <p class="meta">Effective May 12, 2026 &nbsp;·&nbsp; Found It! by Nate Levy</p>
+  </header>
+
+  <div class="highlight">
+    <strong style="color:#fff;">The short version:</strong> Your files never leave your Mac. Found It! searches everything locally. We only collect your email to create your account and your payment info is handled entirely by Stripe — we never see it.
+  </div>
+
+  <section>
+    <h2>What we collect</h2>
+    <p>We collect the minimum necessary to run the service:</p>
+    <ul>
+      <li><strong style="color:rgba(255,255,255,0.85)">Email address</strong> — to create and manage your Found It! account (via Supabase Auth).</li>
+      <li><strong style="color:rgba(255,255,255,0.85)">Payment information</strong> — processed and stored entirely by <a href="https://stripe.com/privacy" target="_blank">Stripe</a>. We never see or store your card details.</li>
+      <li><strong style="color:rgba(255,255,255,0.85)">Subscription status</strong> — whether you're on the Free or Pro plan, so we can unlock the right features.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>What we do NOT collect</h2>
+    <ul>
+      <li>Your file names, file contents, or file metadata</li>
+      <li>Your search queries</li>
+      <li>Any data from your local file index — it lives entirely on your Mac in a local SQLite database</li>
+      <li>Usage analytics or telemetry</li>
+      <li>Your IP address or location</li>
+    </ul>
+    <p>Found It! processes everything on-device. Nothing from your file system is ever transmitted to our servers or any third party.</p>
+  </section>
+
+  <hr />
+
+  <section>
+    <h2>How we use what we collect</h2>
+    <ul>
+      <li>Your email is used to authenticate you and send transactional emails (e.g., receipts, billing issues). We do not send marketing emails unless you opt in.</li>
+      <li>Your subscription status is checked on launch to determine feature access.</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Third-party services</h2>
+    <ul>
+      <li><strong style="color:rgba(255,255,255,0.85)">Supabase</strong> — authentication and account storage. <a href="https://supabase.com/privacy" target="_blank">Supabase Privacy Policy</a>.</li>
+      <li><strong style="color:rgba(255,255,255,0.85)">Stripe</strong> — payment processing. <a href="https://stripe.com/privacy" target="_blank">Stripe Privacy Policy</a>.</li>
+    </ul>
+    <p>No other third parties have access to your account data.</p>
+  </section>
+
+  <section>
+    <h2>Data retention and deletion</h2>
+    <p>Your account data is retained as long as your account is active. To delete your account and all associated data, email <a href="mailto:hello@founditapp.com">hello@founditapp.com</a> with subject "Delete my account" and we'll process it within 5 business days.</p>
+  </section>
+
+  <section>
+    <h2>Security</h2>
+    <p>Account data is stored in Supabase with row-level security. All data is transmitted over HTTPS. Your local file index is stored in a sandboxed SQLite database on your Mac and is never transmitted anywhere.</p>
+  </section>
+
+  <section>
+    <h2>Children</h2>
+    <p>Found It! is not directed at children under 13. We do not knowingly collect data from anyone under 13.</p>
+  </section>
+
+  <section>
+    <h2>Changes to this policy</h2>
+    <p>If we make material changes, we'll update the effective date above and, where appropriate, notify you via email.</p>
+  </section>
+
+  <section>
+    <h2>Contact</h2>
+    <p>Questions? Email <a href="mailto:hello@founditapp.com">hello@founditapp.com</a>.</p>
+  </section>
+
+  <footer>
+    <span>© 2026 Found It! by Nate Levy</span>
+    <span>
+      <a href="/">Home</a> &nbsp;·&nbsp;
+      <a href="/terms.html">Terms</a> &nbsp;·&nbsp;
+      <a href="/refunds.html">Refunds</a>
+    </span>
+  </footer>
+</body>
+</html>

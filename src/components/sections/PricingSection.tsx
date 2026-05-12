@@ -137,7 +137,7 @@ export function PricingSection() {
         </div>
 
         <p className="text-center text-white/20 text-xs font-mono tracking-wider mt-10">
-          Billing through Stripe &nbsp;·&nbsp; Cancel any time &nbsp;·&nbsp; macOS 12+
+          Billing through Stripe &nbsp;·&nbsp; Cancel any time &nbsp;·&nbsp; macOS 13+
         </p>
       </div>
     </section>
