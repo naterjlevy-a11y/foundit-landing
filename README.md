@@ -1,115 +1,36 @@
-<div align="center">
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-<img src="https://img.shields.io/badge/live-found--it.me-0A84FF?style=flat-square" />
-<img src="https://img.shields.io/badge/HTML-5-E34F26?style=flat-square&logo=html5&logoColor=white" />
-<img src="https://img.shields.io/badge/CSS-3-1572B6?style=flat-square&logo=css3&logoColor=white" />
-<img src="https://img.shields.io/badge/vanilla-JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black" />
+## Getting Started
 
-# Found It — Landing Page
-
-Marketing site for **[Found It!](https://found-it.me)** — the menu bar app for natural-language file search on macOS.
-
-**[found-it.me →](https://found-it.me)**
-
-</div>
-
----
-
-## Pages
-
-| Page | Path | Description |
-|---|---|---|
-| Home | `index.html` | Hero, features, how it works, pricing, about |
-| Privacy Policy | `privacy.html` | Full privacy policy |
-| Terms of Service | `terms.html` | Terms and conditions |
-| Refund Policy | `refunds.html` | Refund and cancellation policy |
-| Cookie Policy | `cookies.html` | Cookie usage disclosure |
-| Contact | `contact.html` | Support contact form |
-| About | `about.html` | About the product and team |
-
----
-
-## Stack
-
-- **Zero dependencies** — pure HTML, CSS, and vanilla JavaScript
-- **No build step** — open `index.html` in a browser and it works
-- **Inter Tight + JetBrains Mono** — loaded from Google Fonts
-- **SVG assets** — all icons and illustrations are SVG for sharp rendering at any resolution
-
----
-
-## Project Structure
-
-```
-foundit-landing/
-├── index.html          # Main marketing page
-├── privacy.html
-├── terms.html
-├── refunds.html
-├── cookies.html
-├── contact.html
-├── about.html
-├── css/
-│   └── styles.css      # All styles (custom properties, no framework)
-├── js/
-│   └── main.js         # Scroll progress, nav behavior, animations
-└── assets/
-    ├── favicon.svg
-    ├── logo-mark.svg
-    ├── app-search.png  # OG image / hero screenshot
-    └── ...
-```
-
----
-
-## Design Decisions
-
-- **Dark-first aesthetic** — matches the macOS menu-bar app's dark UI
-- **Scroll progress bar** — thin indicator at the top of the viewport
-- **Sticky nav** with active section highlighting — `data-nav-target` attributes map links to sections
-- **Accessible** — skip-link, `aria-label`s, semantic HTML throughout
-- **Performance** — no JS frameworks, no tracking pixels, no external scripts beyond Google Fonts
-
----
-
-## Running Locally
-
-No build step required:
+First, run the development server:
 
 ```bash
-open index.html
+npm run dev
 # or
-npx serve .
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-For live reload during development:
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-```bash
-npx browser-sync start --server --files "**/*.html, css/*.css, js/*.js"
-```
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
----
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-## Deployment
+## Learn More
 
-The site is deployed as a static site. Any static host works (Netlify, Vercel, Cloudflare Pages, GitHub Pages).
+To learn more about Next.js, take a look at the following resources:
 
-Set the canonical URL and OG metadata in each page's `<head>` to match your domain:
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-```html
-<link rel="canonical" href="https://found-it.me/" />
-<meta property="og:url" content="https://found-it.me/" />
-```
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
----
+## Deploy on Vercel
 
-## Related
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-- **[foundit-macos](../Foundit!)** — the macOS SwiftUI app itself
-- **[found-it.me](https://found-it.me)** — live site
-
----
-
-<div align="center">
-  <sub>Static HTML/CSS/JS · No build step · No tracking</sub>
-</div>
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
