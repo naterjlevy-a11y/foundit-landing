@@ -1,7 +1,33 @@
 "use client";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { CardContainer, CardBody, CardItem } from "@/components/ui/card-3d";
 import { Check } from "lucide-react";
+
+function ProButton() {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <a
+      href="#waitlist"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative block w-full text-center py-3 rounded-lg bg-white text-[#2563EB] text-sm font-bold hover:opacity-90 transition-opacity overflow-hidden h-[46px]"
+    >
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={hovered ? "hover" : "default"}
+          initial={{ opacity: 0, y: hovered ? 8 : -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: hovered ? -8 : 8 }}
+          transition={{ duration: 0.18 }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          {hovered ? "Start 7-day free trial →" : "Join waitlist — $10.99/mo"}
+        </motion.span>
+      </AnimatePresence>
+    </a>
+  );
+}
 
 const free = [
   "Unlimited searches",
@@ -98,12 +124,7 @@ export function PricingSection() {
                         </li>
                       ))}
                     </ul>
-                    <a
-                      href="#waitlist"
-                      className="block w-full text-center py-3 rounded-lg bg-white text-[#2563EB] text-sm font-bold hover:opacity-90 transition-opacity"
-                    >
-                      Join waitlist — $10.99/mo
-                    </a>
+                    <ProButton />
                     <p className="text-center text-white/40 text-xs mt-3">Cancel anytime · Billed via Stripe</p>
                   </div>
                 </div>

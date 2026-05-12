@@ -1,11 +1,39 @@
 "use client";
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { LampContainer } from "@/components/ui/lamp";
 import { Spotlight } from "@/components/ui/spotlight";
 import { FlipWords } from "@/components/ui/flip-words";
 import { BackgroundBeams } from "@/components/ui/background-beams";
+import { AnimatedSearchDemo } from "@/components/sections/AnimatedSearchDemo";
+import { KeyboardShortcut } from "@/components/sections/KeyboardShortcut";
 
 const flipWords = ["files", "docs", "screenshots", "emails"];
+
+function HoverButton() {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <button
+      type="submit"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative px-5 py-2 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] text-white text-sm font-semibold transition-colors flex-shrink-0 overflow-hidden min-w-[130px] h-9"
+    >
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={hovered ? "hover" : "default"}
+          initial={{ opacity: 0, y: hovered ? 8 : -8 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: hovered ? -8 : 8 }}
+          transition={{ duration: 0.18 }}
+          className="absolute inset-0 flex items-center justify-center"
+        >
+          {hovered ? "Get Found It! →" : "Get early access"}
+        </motion.span>
+      </AnimatePresence>
+    </button>
+  );
+}
 
 export function HeroSection() {
   return (
@@ -66,12 +94,7 @@ export function HeroSection() {
               placeholder="your@email.com"
               className="bg-transparent text-white text-sm px-3 py-1.5 outline-none placeholder:text-white/25 w-48"
             />
-            <button
-              type="submit"
-              className="px-5 py-2 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] text-white text-sm font-semibold transition-colors flex-shrink-0"
-            >
-              Get early access
-            </button>
+            <HoverButton />
           </form>
           <a
             href="#how"
@@ -89,6 +112,12 @@ export function HeroSection() {
         >
           macOS &nbsp;&middot;&nbsp; Early access &nbsp;&middot;&nbsp; Free to join
         </motion.p>
+
+        {/* Animated search demo */}
+        <AnimatedSearchDemo />
+
+        {/* Keyboard shortcut */}
+        <KeyboardShortcut />
       </LampContainer>
     </section>
   );
