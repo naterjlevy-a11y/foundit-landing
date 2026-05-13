@@ -84,7 +84,7 @@ export function AnimatedSearchDemo() {
       typeChar();
     };
 
-    timeout = setTimeout(runCycle, 300);
+    timeout = setTimeout(runCycle, 800);
     return () => clearTimeout(timeout);
   }, []);
 

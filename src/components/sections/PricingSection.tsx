@@ -49,10 +49,7 @@ const pro = [
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="relative bg-black border-t border-white/5 py-28 overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute left-1/2 -translate-x-1/2 top-0 w-[800px] h-[400px] rounded-full bg-[#2563EB]/6 blur-[120px]" />
-      </div>
+    <section id="pricing" className="bg-black border-t border-white/5 py-28">
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -137,7 +134,7 @@ export function PricingSection() {
         </div>
 
         <p className="text-center text-white/20 text-xs font-mono tracking-wider mt-10">
-          Billing through Stripe &nbsp;·&nbsp; Cancel any time &nbsp;·&nbsp; macOS 13+
+          Billing through Stripe &nbsp;·&nbsp; Cancel any time &nbsp;·&nbsp; macOS 12+
         </p>
       </div>
     </section>

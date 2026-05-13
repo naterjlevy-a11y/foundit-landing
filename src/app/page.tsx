@@ -1,29 +1,29 @@
-import { CustomCursor } from "@/components/cursor/CustomCursor";
-import { TopNav }       from "@/components/nav/TopNav";
-import { Hero }         from "@/components/sections/Hero";
-import { Problem }      from "@/components/sections/Problem";
-import { HowItWorks }   from "@/components/sections/HowItWorks";
-import { FeaturesGrid } from "@/components/blocks/FeaturesGrid";
-import { AppPreview }   from "@/components/sections/AppPreview";
-import { ClosingCTA }   from "@/components/sections/ClosingCTA";
-import { SiteFooter }   from "@/components/blocks/SiteFooter";
+import { NavBar } from "@/components/sections/NavBar";
+import { HeroSection } from "@/components/sections/HeroSection";
+import { SocialProofBar } from "@/components/sections/SocialProofBar";
+import { AppShowcaseSection } from "@/components/sections/AppShowcaseSection";
+import { StatsBar } from "@/components/sections/StatsBar";
+import { HowItWorksSection } from "@/components/sections/HowItWorksSection";
+import { FeaturesSection } from "@/components/sections/FeaturesSection";
+import { MacOSBadge } from "@/components/sections/MacOSBadge";
+import { PricingSection } from "@/components/sections/PricingSection";
+import { AboutSection } from "@/components/sections/AboutSection";
+import { FooterSection } from "@/components/sections/FooterSection";
 
 export default function Home() {
   return (
-    <div style={{ background: "#050810", minHeight: "100vh" }}>
-      <TopNav />
-      <CustomCursor />
-      <main>
-        <Hero />
-        <Problem />
-        <HowItWorks />
-        <section id="features">
-          <FeaturesGrid />
-        </section>
-        <AppPreview />
-        <ClosingCTA />
-      </main>
-      <SiteFooter />
+    <div className="bg-black min-h-screen">
+      <NavBar />
+      <HeroSection />
+      <SocialProofBar />
+      <AppShowcaseSection />
+      <StatsBar />
+      <HowItWorksSection />
+      <FeaturesSection />
+      <MacOSBadge />
+      <PricingSection />
+      <AboutSection />
+      <FooterSection />
     </div>
   );
 }
