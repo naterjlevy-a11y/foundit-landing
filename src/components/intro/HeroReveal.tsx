@@ -19,7 +19,10 @@ function SubmitButton() {
       type="submit"
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
-      className="relative px-6 py-3 rounded-xl bg-[#2563EB] text-white text-sm font-semibold tracking-wide overflow-hidden flex-shrink-0 h-12 min-w-[160px]"
+      className="relative rounded-xl bg-[#2563EB] text-white text-sm font-bold tracking-wide overflow-hidden flex-shrink-0 h-12 min-w-[160px]"
+      style={{
+        boxShadow: "0 0 40px rgba(37,99,235,0.35), 0 4px 16px rgba(37,99,235,0.25)",
+      }}
     >
       <AnimatePresence mode="wait">
         <motion.span
@@ -28,7 +31,7 @@ function SubmitButton() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: hovered ? -8 : 8 }}
           transition={{ duration: 0.16 }}
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center px-6"
         >
           {hovered ? "Get Found It! →" : "Get early access"}
         </motion.span>
@@ -41,33 +44,69 @@ export function HeroReveal({ opacity, y }: HeroRevealProps) {
   return (
     <motion.div
       style={{ opacity, y }}
-      className="flex flex-col items-center text-center px-6 w-full max-w-4xl mx-auto select-none"
+      className="flex flex-col items-center text-center px-6 w-full max-w-5xl mx-auto select-none"
     >
-      {/* Badge */}
-      <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] px-4 py-1.5 text-[10px] text-white/40 tracking-[0.25em] uppercase font-mono">
-        <span className="text-[#2563EB]">✦</span>
-        Now in beta &middot; macOS 13+
+      {/* Eyebrow */}
+      <div className="mb-10 flex items-center gap-3">
+        <div className="h-px w-12 bg-white/10" />
+        <span className="text-[10px] font-mono tracking-[0.4em] uppercase text-white/30">
+          macOS &nbsp;·&nbsp; Apple Silicon &nbsp;·&nbsp; Now in beta
+        </span>
+        <div className="h-px w-12 bg-white/10" />
       </div>
 
-      {/* Main headline — XXL brutalist */}
-      <h1
-        className="text-[clamp(64px,12vw,140px)] font-black text-white leading-[0.92] tracking-[-0.04em] mb-8"
-        style={{ fontFeatureSettings: '"ss01"' }}
-      >
-        Found It<span className="text-[#2563EB]">!</span>
-      </h1>
+      {/* Main headline */}
+      <div className="relative mb-8">
+        <h1
+          className="text-[clamp(72px,13vw,152px)] font-black text-white leading-[0.88] tracking-[-0.05em]"
+          style={{ fontFeatureSettings: '"ss01"' }}
+        >
+          Found
+        </h1>
+        <div className="flex items-end justify-center gap-[0.06em]">
+          <h1
+            className="text-[clamp(72px,13vw,152px)] font-black leading-[0.88] tracking-[-0.05em]"
+            style={{
+              fontFeatureSettings: '"ss01"',
+              background: "linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.7) 100%)",
+              WebkitBackgroundClip: "text",
+              WebkitTextFillColor: "transparent",
+              backgroundClip: "text",
+            }}
+          >
+            It
+          </h1>
+          <span
+            className="text-[clamp(72px,13vw,152px)] font-black leading-[0.88] tracking-[-0.05em]"
+            style={{
+              color: "#2563EB",
+              textShadow: "0 0 60px rgba(37,99,235,0.6), 0 0 120px rgba(37,99,235,0.25)",
+            }}
+          >
+            !
+          </span>
+        </div>
+      </div>
+
+      {/* Divider */}
+      <div className="flex items-center gap-4 mb-10 w-full max-w-sm">
+        <div className="flex-1 h-px bg-gradient-to-r from-transparent to-white/10" />
+        <span className="text-[#2563EB] text-xs">✦</span>
+        <div className="flex-1 h-px bg-gradient-to-l from-transparent to-white/10" />
+      </div>
 
       {/* Sub-headline */}
-      <p className="text-[clamp(18px,2.5vw,26px)] font-light text-white/45 max-w-xl leading-relaxed mb-12 tracking-tight">
+      <p className="text-[clamp(16px,2vw,22px)] font-light text-white/40 max-w-lg leading-relaxed mb-12 tracking-tight">
         Find any file on your Mac by describing it.<br />
-        Natural language. Under 200ms. 100% local.
+        <span className="text-white/60">Natural language. Under 200ms. 100% local.</span>
       </p>
 
       {/* Waitlist form */}
-      <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md">
+      <div className="flex flex-col sm:flex-row items-center gap-3 w-full max-w-md mb-6">
         <form
-          className="flex items-center gap-2 bg-white/[0.05] border border-white/10 rounded-xl p-1.5 flex-1 w-full"
+          className="flex items-center gap-2 bg-white/[0.04] border border-white/[0.08] rounded-xl p-1.5 flex-1 w-full backdrop-blur-sm"
           onSubmit={(e) => e.preventDefault()}
+          style={{ boxShadow: "inset 0 1px 0 rgba(255,255,255,0.04)" }}
         >
           <input
             type="email"
@@ -78,9 +117,14 @@ export function HeroReveal({ opacity, y }: HeroRevealProps) {
         </form>
       </div>
 
-      <p className="mt-5 text-[10px] text-white/20 tracking-[0.2em] uppercase font-mono">
-        Free to join &nbsp;·&nbsp; macOS 13+ &nbsp;·&nbsp; Apple Silicon
-      </p>
+      <div className="flex items-center gap-6 flex-wrap justify-center">
+        {["Free to start", "Pro at $10.99/mo", "Cancel anytime"].map((t, i) => (
+          <span key={t} className="flex items-center gap-2 text-[10px] font-mono tracking-[0.2em] uppercase text-white/20">
+            {i > 0 && <span className="text-white/10">·</span>}
+            {t}
+          </span>
+        ))}
+      </div>
     </motion.div>
   );
 }
