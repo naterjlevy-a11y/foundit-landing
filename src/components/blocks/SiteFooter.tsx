@@ -2,7 +2,7 @@
 
 export function SiteFooter() {
   return (
-    <footer className="bg-black border-t border-white/[0.04] py-8">
+    <footer className="border-t border-white/[0.04] py-8" style={{ background: "#050810" }}>
       <div className="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-4">
         <span className="text-white/15 text-[11px] font-mono">
           © 2026 Found It! &nbsp;·&nbsp; Made by Nate Levy

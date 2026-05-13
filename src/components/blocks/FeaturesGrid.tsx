@@ -37,9 +37,8 @@ function IconBox({ icon: Icon }: { icon: React.ElementType }) {
 export function FeaturesGrid() {
   return (
     <section
-      id="features"
-      className="bg-black relative overflow-hidden"
-      style={{ paddingTop: "var(--gap-section)", paddingBottom: "var(--gap-section)" }}
+      className="relative overflow-hidden"
+      style={{ background: "#050810", paddingTop: "var(--gap-section)", paddingBottom: "var(--gap-section)" }}
     >
       {/* Section ambient glow */}
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full bg-[#2563EB]/4 blur-[150px] pointer-events-none" />
@@ -53,8 +52,8 @@ export function FeaturesGrid() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="mb-40"
         >
-          <p className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/40 mb-6">
-            § 01 &nbsp;·&nbsp; What you get
+          <p className="text-[10px] font-mono tracking-[0.35em] uppercase text-white/30 mb-5">
+            § 02 &nbsp;·&nbsp; What you get
           </p>
           <h2 className="text-[clamp(48px,7vw,88px)] font-black text-white tracking-[-0.04em] leading-[0.95]">
             Everything.<br />

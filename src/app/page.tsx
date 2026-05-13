@@ -1,18 +1,28 @@
 import { CustomCursor } from "@/components/cursor/CustomCursor";
-import { PortalSequence } from "@/components/intro/PortalSequence";
+import { TopNav }       from "@/components/nav/TopNav";
+import { Hero }         from "@/components/sections/Hero";
+import { Problem }      from "@/components/sections/Problem";
+import { HowItWorks }   from "@/components/sections/HowItWorks";
 import { FeaturesGrid } from "@/components/blocks/FeaturesGrid";
-import { WaitlistCTA } from "@/components/blocks/WaitlistCTA";
-import { SiteFooter } from "@/components/blocks/SiteFooter";
-import { StickyNav } from "@/components/blocks/StickyNav";
+import { AppPreview }   from "@/components/sections/AppPreview";
+import { ClosingCTA }   from "@/components/sections/ClosingCTA";
+import { SiteFooter }   from "@/components/blocks/SiteFooter";
 
 export default function Home() {
   return (
-    <div className="bg-black min-h-screen">
-      <StickyNav />
+    <div style={{ background: "#050810", minHeight: "100vh" }}>
+      <TopNav />
       <CustomCursor />
-      <PortalSequence />
-      <FeaturesGrid />
-      <WaitlistCTA />
+      <main>
+        <Hero />
+        <Problem />
+        <HowItWorks />
+        <section id="features">
+          <FeaturesGrid />
+        </section>
+        <AppPreview />
+        <ClosingCTA />
+      </main>
       <SiteFooter />
     </div>
   );
