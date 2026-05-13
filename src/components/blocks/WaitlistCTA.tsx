@@ -10,7 +10,7 @@ function BigSubmitButton() {
   return (
     <motion.button
       ref={magnetic.ref as React.RefObject<HTMLButtonElement>}
-      style={magnetic.style}
+      style={{ ...magnetic.style, boxShadow: "0 0 50px rgba(37,99,235,0.3), 0 8px 24px rgba(37,99,235,0.2)" }}
       onMouseMove={magnetic.onMouseMove as unknown as React.MouseEventHandler<HTMLButtonElement>}
       onMouseLeave={(e) => {
         (magnetic.onMouseLeave as unknown as React.MouseEventHandler<HTMLButtonElement>)(e);
@@ -19,7 +19,7 @@ function BigSubmitButton() {
       onMouseEnter={() => setHovered(true)}
       data-magnetic
       type="submit"
-      className="relative px-8 py-4 rounded-2xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white text-base font-bold tracking-wide transition-colors overflow-hidden h-14 min-w-[220px]"
+      className="relative px-8 py-5 rounded-2xl bg-[#2563EB] hover:bg-[#1d4ed8] text-white text-lg font-bold tracking-wide transition-colors overflow-hidden h-16 min-w-[240px]"
     >
       <AnimatePresence mode="wait">
         <motion.span
@@ -46,8 +46,34 @@ export function WaitlistCTA() {
     >
       {/* Deep background glow */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full bg-[#2563EB]/6 blur-[120px]" />
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[500px] rounded-full bg-[#2563EB]/6 blur-[130px]" />
       </div>
+
+      {/* Ghost magnifying glass ring — ties back to intro visually */}
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: "500px",
+          height: "500px",
+          borderRadius: "50%",
+          border: "1.5px solid rgba(255,255,255,0.04)",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -68%)",
+        }}
+      />
+      <div
+        className="absolute pointer-events-none"
+        style={{
+          width: "340px",
+          height: "340px",
+          borderRadius: "50%",
+          border: "1px solid rgba(37,99,235,0.06)",
+          left: "50%",
+          top: "50%",
+          transform: "translate(-50%, -72%)",
+        }}
+      />
 
       <div className="max-w-4xl mx-auto px-6 text-center relative">
         <motion.div
@@ -56,7 +82,6 @@ export function WaitlistCTA() {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Giant italic statement */}
           <p className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/20 mb-10">
             § 02 &nbsp;·&nbsp; Join the waitlist
           </p>
@@ -74,18 +99,18 @@ export function WaitlistCTA() {
 
           {/* Form */}
           <form
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-md mx-auto"
+            className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto"
             onSubmit={(e) => e.preventDefault()}
           >
             <input
               type="email"
               placeholder="your@email.com"
-              className="flex-1 w-full bg-white/[0.05] border border-white/10 rounded-2xl px-5 py-4 text-white text-base outline-none placeholder:text-white/20 focus:border-white/20 transition-colors h-14"
+              className="flex-1 w-full bg-white/[0.05] border border-white/10 rounded-2xl px-5 py-5 text-white text-base outline-none placeholder:text-white/20 focus:border-white/20 transition-colors h-16"
             />
             <BigSubmitButton />
           </form>
 
-          <div className="mt-8 flex items-center justify-center gap-4 flex-wrap">
+          <div className="mt-10 flex items-center justify-center gap-4 flex-wrap">
             {["Free tier · 500 files", "Pro · $10.99/mo", "Apple Silicon", "macOS 13+"].map((t) => (
               <span key={t} className="text-[10px] font-mono tracking-[0.18em] uppercase text-white/20">
                 {t}

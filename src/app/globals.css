@@ -63,6 +63,9 @@ html {
   animation: spotlight 2s ease 0.75s 1 forwards;
 }
 
+/* Hide Next.js dev mode error/build indicator button */
+nextjs-portal { display: none !important; }
+
 /* Noise texture overlay — 2.5% opacity grain for premium tactile feel */
 body::after {
   content: '';

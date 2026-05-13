@@ -28,8 +28,8 @@ function FeatureLabel({ children }: { children: React.ReactNode }) {
 
 function IconBox({ icon: Icon }: { icon: React.ElementType }) {
   return (
-    <div className="w-10 h-10 rounded-xl bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center mb-6">
-      <Icon className="w-5 h-5 text-[#2563EB]" strokeWidth={1.5} />
+    <div className="w-12 h-12 rounded-xl bg-[#2563EB]/10 border border-[#2563EB]/20 flex items-center justify-center mb-6">
+      <Icon className="w-6 h-6 text-[#2563EB]" strokeWidth={1.5} />
     </div>
   );
 }
@@ -51,9 +51,9 @@ export function FeaturesGrid() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-24"
+          className="mb-40"
         >
-          <p className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/25 mb-6">
+          <p className="text-[10px] font-mono tracking-[0.3em] uppercase text-white/40 mb-6">
             § 01 &nbsp;·&nbsp; What you get
           </p>
           <h2 className="text-[clamp(48px,7vw,88px)] font-black text-white tracking-[-0.04em] leading-[0.95]">
@@ -68,7 +68,7 @@ export function FeaturesGrid() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"
+          className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5"
         >
           {/* Large card — natural language */}
           <motion.div variants={itemVariant} className="md:col-span-2">
@@ -116,7 +116,7 @@ export function FeaturesGrid() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-3 mb-3"
+          className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5"
         >
           {/* Privacy card — narrow */}
           <motion.div variants={itemVariant}>
@@ -157,7 +157,7 @@ export function FeaturesGrid() {
           initial="hidden"
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
-          className="grid grid-cols-1 md:grid-cols-3 gap-3"
+          className="grid grid-cols-1 md:grid-cols-3 gap-5"
         >
           <motion.div variants={itemVariant}>
             <MagneticCard className="h-full min-h-[220px]">
