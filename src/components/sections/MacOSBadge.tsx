@@ -5,8 +5,7 @@ const CHIPS = ["M1", "M2", "M3", "M4"];
 
 export function MacOSBadge() {
   return (
-    <section className="relative bg-[#020208] border-t border-white/5 py-16 overflow-hidden">
-      <div className="absolute right-0 top-0 w-64 h-64 rounded-full bg-[#2563EB]/4 blur-[80px] pointer-events-none" />
+    <section className="bg-black border-t border-white/5 py-16">
       <div className="max-w-5xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 16 }}

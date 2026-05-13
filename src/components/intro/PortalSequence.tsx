@@ -88,7 +88,7 @@ export function PortalSequence() {
       ScrollTrigger.create({
         trigger: wrapperRef.current,
         start: "top top",
-        end: "+=300%",
+        end: "+=200%",
         scrub: 1.2,
         pin: true,
         anticipatePin: 1,
@@ -111,11 +111,11 @@ export function PortalSequence() {
     [0, 80, 0]
   );
 
-  const clipRadius = useTransform(scrollProgress, [0.48, 0.88], ["0%", "150%"]);
+  const clipRadius = useTransform(scrollProgress, [0.42, 0.80], ["0%", "150%"]);
   const clipPath   = useTransform(clipRadius, (r) => `circle(${r} at 50% 50%)`);
 
-  const heroOpacity = useTransform(scrollProgress, [0.80, 1.0], [0, 1]);
-  const heroY       = useTransform(scrollProgress, [0.80, 1.0], [48, 0]);
+  const heroOpacity = useTransform(scrollProgress, [0.68, 0.92], [0, 1]);
+  const heroY       = useTransform(scrollProgress, [0.68, 0.92], [32, 0]);
 
   const voidOpacity = useTransform(scrollProgress, [0.72, 0.90], [1, 0]);
 
@@ -134,8 +134,15 @@ export function PortalSequence() {
   // Atmosphere intensifies ahead of breakthrough
   const atmosphereGlow = useTransform(scrollProgress, [0.30, 0.54], [0, 1]);
 
+  // Void heartbeat — blue radial pulse during the transition dead zone
+  const voidHeartbeat = useTransform(
+    scrollProgress,
+    [0.42, 0.58, 0.72],
+    [0, 1, 0]
+  );
+
   return (
-    <div ref={wrapperRef} className="relative" style={{ height: "400vh" }}>
+    <div ref={wrapperRef} className="relative" style={{ height: "300vh" }}>
       <div className="w-full h-screen overflow-hidden relative">
 
         {/* Deep space void background */}
@@ -185,6 +192,22 @@ export function PortalSequence() {
               transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
               className="w-px h-6 bg-gradient-to-b from-white/30 to-transparent rounded-full"
             />
+          </motion.div>
+
+          {/* Void heartbeat — blue radial pulse during transition */}
+          <motion.div
+            className="absolute inset-0 pointer-events-none flex items-center justify-center"
+            style={{ opacity: voidHeartbeat }}
+          >
+            <div style={{
+              width: "70vw",
+              height: "70vw",
+              maxWidth: "900px",
+              maxHeight: "900px",
+              borderRadius: "50%",
+              background: "radial-gradient(circle, rgba(37,99,235,0.22) 0%, rgba(20,50,200,0.08) 50%, transparent 75%)",
+              filter: "blur(80px)",
+            }} />
           </motion.div>
 
           <PulseRings />

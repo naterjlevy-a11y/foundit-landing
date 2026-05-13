@@ -18,8 +18,8 @@ export function MagneticCard({ children, className = "", strength = 0.3 }: Magne
       onMouseMove={magnetic.onMouseMove as unknown as React.MouseEventHandler<HTMLDivElement>}
       onMouseLeave={magnetic.onMouseLeave as unknown as React.MouseEventHandler<HTMLDivElement>}
       data-magnetic
-      className={`rounded-2xl border border-white/[0.07] bg-white/[0.025] p-8 relative overflow-hidden group ${className}`}
-      whileHover={{ borderColor: "rgba(255,255,255,0.12)", backgroundColor: "rgba(255,255,255,0.04)" }}
+      className={`rounded-2xl border border-white/[0.10] bg-white/[0.06] p-8 relative overflow-hidden group ${className}`}
+      whileHover={{ borderColor: "rgba(255,255,255,0.18)", backgroundColor: "rgba(255,255,255,0.09)" }}
       transition={{ duration: 0.3 }}
     >
       {/* Hover glow */}

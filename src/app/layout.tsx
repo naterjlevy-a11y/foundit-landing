@@ -15,10 +15,6 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Found It! — Natural-language file search for Mac",
   description: "Find any file on your Mac by describing it. AI-powered file search that lives in your menu bar. Free to start.",
-  icons: {
-    icon: "/assets/favicon.svg",
-    shortcut: "/assets/favicon.svg",
-  },
   openGraph: {
     title: "Found It! — Find any file on your Mac by describing it",
     description: "AI-powered file search for macOS. Lives in your menu bar. Finds everything.",
