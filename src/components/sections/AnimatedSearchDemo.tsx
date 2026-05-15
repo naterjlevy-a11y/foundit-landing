@@ -111,7 +111,7 @@ export function AnimatedSearchDemo() {
               <circle cx="11" cy="11" r="8" /><path d="m21 21-4.35-4.35" />
             </svg>
           </div>
-          <span className="text-white/80 text-sm font-light tracking-tight flex-1 min-h-[1.25rem]">
+          <span className="text-white/80 text-sm font-light tracking-tight flex-1 min-h-[1.25rem] whitespace-nowrap overflow-hidden">
             {typed}
             <motion.span
               animate={{ opacity: [1, 0] }}
@@ -124,8 +124,8 @@ export function AnimatedSearchDemo() {
           </span>
         </div>
 
-        {/* Results */}
-        <div className="px-2 py-1.5 min-h-[140px]">
+        {/* Results — fixed height so results appearing never changes component size */}
+        <div className="px-2 py-1.5 h-[196px] overflow-hidden">
           <AnimatePresence>
             {showResults &&
               RESULTS.map((r, i) => (
