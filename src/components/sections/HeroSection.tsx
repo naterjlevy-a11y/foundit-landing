@@ -37,7 +37,7 @@ function HoverButton() {
 
 export function HeroSection() {
   return (
-    <section id="hero" className="relative min-h-screen bg-black overflow-hidden flex flex-col items-center justify-center">
+    <section id="hero" className="relative min-h-screen bg-black flex flex-col items-center justify-center pt-20 overflow-x-hidden">
       <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" />
       <BackgroundBeams className="opacity-40" />
 
@@ -60,9 +60,9 @@ export function HeroSection() {
           transition={{ duration: 0.6, delay: 0.35 }}
           className="text-center text-4xl font-bold tracking-tight text-white md:text-6xl lg:text-7xl leading-[1.05]"
         >
-          Find any{" "}
-          <FlipWords words={flipWords} className="font-bold" />
-          <br />
+          <span className="block whitespace-nowrap">
+            Find any <FlipWords words={flipWords} className="font-bold" />
+          </span>
           <span className="text-white/90">instantly.</span>
         </motion.h1>
 
