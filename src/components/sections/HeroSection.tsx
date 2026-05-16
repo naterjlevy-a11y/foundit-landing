@@ -7,37 +7,39 @@ import { FlipWords } from "@/components/ui/flip-words";
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { AnimatedSearchDemo } from "@/components/sections/AnimatedSearchDemo";
 import { KeyboardShortcut } from "@/components/sections/KeyboardShortcut";
+import { submitWaitlist } from "@/lib/waitlist";
 
 const flipWords = ["files", "docs", "screenshots", "emails"];
 
-function HoverButton() {
-  const [hovered, setHovered] = useState(false);
-  return (
-    <button
-      type="submit"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="relative px-5 py-2 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] text-white text-sm font-semibold transition-colors flex-shrink-0 overflow-hidden min-w-[130px] h-9"
-    >
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={hovered ? "hover" : "default"}
-          initial={{ opacity: 0, y: hovered ? 8 : -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: hovered ? -8 : 8 }}
-          transition={{ duration: 0.18 }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          {hovered ? "Get Found It! →" : "Get early access"}
-        </motion.span>
-      </AnimatePresence>
-    </button>
-  );
-}
+type FormState = "idle" | "loading" | "success" | "error";
 
 export function HeroSection() {
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState<FormState>("idle");
+  const [message, setMessage] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (state === "loading" || state === "success") return;
+    setState("loading");
+    try {
+      const res = await submitWaitlist(email);
+      if (res.error) {
+        setMessage(res.error);
+        setState("error");
+      } else {
+        setMessage(res.already ? "You're already on the list!" : "You're on the list!");
+        setState("success");
+        setEmail("");
+      }
+    } catch {
+      setMessage("Something went wrong. Please try again.");
+      setState("error");
+    }
+  }
+
   return (
-    <section id="hero" className="relative min-h-screen bg-black flex flex-col items-center justify-center pt-20 overflow-x-hidden">
+    <section id="hero" className="relative min-h-screen bg-black flex flex-col items-center pt-20 overflow-x-hidden">
       <Spotlight className="-top-40 left-0 md:left-60 md:-top-20" />
       <BackgroundBeams className="opacity-40" />
 
@@ -85,17 +87,41 @@ export function HeroSection() {
           className="mt-10 flex flex-col sm:flex-row items-center gap-3"
           id="waitlist"
         >
-          <form
-            className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl p-1.5 w-full sm:w-auto"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <input
-              type="email"
-              placeholder="your@email.com"
-              className="bg-transparent text-white text-sm px-3 py-1.5 outline-none placeholder:text-white/25 w-48"
-            />
-            <HoverButton />
-          </form>
+          <AnimatePresence mode="wait">
+            {state === "success" ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5"
+              >
+                <span className="text-[#2563EB] text-base">✓</span>
+                <span className="text-white/80 text-sm">{message}</span>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                className="flex items-center gap-2 bg-white/5 border border-white/10 rounded-xl p-1.5 w-full sm:w-auto"
+                onSubmit={handleSubmit}
+              >
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); if (state === "error") setState("idle"); }}
+                  required
+                  className="bg-transparent text-white text-sm px-3 py-1.5 outline-none placeholder:text-white/25 w-48"
+                />
+                <button
+                  type="submit"
+                  disabled={state === "loading"}
+                  className="relative px-5 py-2 rounded-lg bg-[#2563EB] hover:bg-[#1d4ed8] disabled:opacity-60 text-white text-sm font-semibold transition-colors flex-shrink-0 min-w-[130px] h-9"
+                >
+                  {state === "loading" ? "Joining…" : "Get early access"}
+                </button>
+              </motion.form>
+            )}
+          </AnimatePresence>
           <a
             href="#how"
             className="px-5 py-2.5 rounded-lg border border-white/10 hover:border-white/20 text-white/60 hover:text-white text-sm font-medium transition-all"
@@ -103,6 +129,16 @@ export function HeroSection() {
             See how it works
           </a>
         </motion.div>
+
+        {state === "error" && (
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="mt-2 text-xs text-red-400"
+          >
+            {message}
+          </motion.p>
+        )}
 
         <motion.p
           initial={{ opacity: 0 }}

@@ -2,49 +2,41 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { GlassLens } from "@/components/intro/GlassLens";
-import { useMagnetic } from "@/components/cursor/CustomCursor";
+import { submitWaitlist } from "@/lib/waitlist";
 
-function CTAButton() {
-  const mag = useMagnetic(0.5);
-  const [hovered, setHovered] = useState(false);
-  return (
-    <motion.button
-      ref={mag.ref as React.RefObject<HTMLButtonElement>}
-      style={{ ...mag.style, boxShadow: "0 0 50px rgba(37,99,235,0.35), 0 8px 24px rgba(37,99,235,0.2)" }}
-      onMouseMove={mag.onMouseMove as unknown as React.MouseEventHandler<HTMLButtonElement>}
-      onMouseLeave={(e) => {
-        (mag.onMouseLeave as unknown as React.MouseEventHandler<HTMLButtonElement>)(e);
-        setHovered(false);
-      }}
-      onMouseEnter={() => setHovered(true)}
-      data-magnetic
-      type="submit"
-      className="relative px-8 py-4 rounded-full bg-[#2563EB] text-white text-base font-bold tracking-wide overflow-hidden h-14 min-w-[200px] flex-shrink-0"
-    >
-      <AnimatePresence mode="wait">
-        <motion.span
-          key={hovered ? "h" : "d"}
-          initial={{ opacity: 0, y: hovered ? 8 : -8 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: hovered ? -8 : 8 }}
-          transition={{ duration: 0.15 }}
-          className="absolute inset-0 flex items-center justify-center"
-        >
-          {hovered ? "Let's go →" : "Get early access"}
-        </motion.span>
-      </AnimatePresence>
-    </motion.button>
-  );
-}
+type FormState = "idle" | "loading" | "success" | "error";
 
 export function ClosingCTA() {
+  const [email, setEmail] = useState("");
+  const [state, setState] = useState<FormState>("idle");
+  const [message, setMessage] = useState("");
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (state === "loading" || state === "success") return;
+    setState("loading");
+    try {
+      const res = await submitWaitlist(email);
+      if (res.error) {
+        setMessage(res.error);
+        setState("error");
+      } else {
+        setMessage(res.already ? "You're already on the list!" : "You're on the list!");
+        setState("success");
+        setEmail("");
+      }
+    } catch {
+      setMessage("Something went wrong. Please try again.");
+      setState("error");
+    }
+  }
+
   return (
     <section
       id="waitlist"
       className="relative overflow-hidden"
       style={{ padding: "120px 0 140px", borderTop: "1px solid rgba(255,255,255,0.04)" }}
     >
-      {/* Background radial glow */}
       <div
         className="absolute pointer-events-none"
         style={{
@@ -56,7 +48,6 @@ export function ClosingCTA() {
       />
 
       <div className="max-w-4xl mx-auto px-6 text-center relative">
-        {/* Small lens */}
         <motion.div
           initial={{ opacity: 0, scale: 0.7 }}
           whileInView={{ opacity: 1, scale: 1 }}
@@ -98,24 +89,48 @@ export function ClosingCTA() {
             Free to start. Pro at $10.99/mo.<br />Cancel anytime.
           </p>
 
-          {/* Email form */}
-          <form
-            className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <input
-              type="email"
-              placeholder="your@email.com"
-              className="flex-1 w-full rounded-full px-6 py-4 text-white text-sm outline-none placeholder:text-white/20 focus:ring-1 focus:ring-white/15 transition-all h-14"
-              style={{
-                background: "rgba(255,255,255,0.05)",
-                border: "1px solid rgba(255,255,255,0.10)",
-              }}
-            />
-            <CTAButton />
-          </form>
+          <AnimatePresence mode="wait">
+            {state === "success" ? (
+              <motion.div
+                key="success"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="flex items-center justify-center gap-3 max-w-lg mx-auto py-4"
+              >
+                <span className="text-[#2563EB] text-2xl">✓</span>
+                <span className="text-white/80 text-lg">{message} We&apos;ll be in touch soon.</span>
+              </motion.div>
+            ) : (
+              <motion.form
+                key="form"
+                className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto"
+                onSubmit={handleSubmit}
+              >
+                <input
+                  type="email"
+                  placeholder="your@email.com"
+                  value={email}
+                  onChange={(e) => { setEmail(e.target.value); if (state === "error") setState("idle"); }}
+                  required
+                  className="flex-1 w-full rounded-full px-6 py-4 text-white text-sm outline-none placeholder:text-white/20 focus:ring-1 focus:ring-white/15 transition-all h-14"
+                  style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}
+                />
+                <button
+                  type="submit"
+                  disabled={state === "loading"}
+                  className="relative px-8 py-4 rounded-full bg-[#2563EB] hover:bg-[#1d4ed8] disabled:opacity-60 text-white text-base font-bold tracking-wide transition-colors h-14 min-w-[200px] flex-shrink-0"
+                  style={{ boxShadow: "0 0 50px rgba(37,99,235,0.35), 0 8px 24px rgba(37,99,235,0.2)" }}
+                >
+                  {state === "loading" ? "Joining…" : "Get early access"}
+                </button>
+              </motion.form>
+            )}
+          </AnimatePresence>
 
-          {/* Trust badges */}
+          {state === "error" && (
+            <p className="mt-3 text-sm text-red-400">{message}</p>
+          )}
+
           <div className="mt-10 flex items-center justify-center gap-6 flex-wrap">
             {["Free tier · 500 files", "Pro · $10.99/mo", "Apple Silicon", "macOS 13+"].map((t) => (
               <span key={t} className="text-[10px] font-mono tracking-[0.18em] uppercase text-white/20">
